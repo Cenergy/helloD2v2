@@ -20,18 +20,16 @@ window.$ = window.jquery = window.jQuery = $;
 
 import { WOW } from "wowjs";
 window.WOW = WOW;
-// import 'owl.carousel/dist/assets/owl.carousel.css';
 
-// import * as owl from 'owl.carousel.es6';
-import "../../../static/js/owl";
+import "common/js/owl";
 import "bootstrap";
 import "stickUp/build/js/stickUp";
 import "classie";
 import "jquery-migrate/dist/jquery-migrate";
-import "imports-loader?this=>window!../../../static/js/modernizr";
+import "imports-loader?this=>window!common/js/modernizr";
 import "magnific-popup";
-import "../../../static/js/uiMorphingButton_inflow.js";
-import "../../../static/js/script.js";
+import "common/js/uiMorphingButton_inflow.js";
+import "common/js/script.js";
 
 export default {
   mounted() {

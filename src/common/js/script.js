@@ -36,9 +36,6 @@ $(document).ready(function() {
   });
   wow.init();
 
-  //MagnificPopup
-  $(".image-link").magnificPopup({ type: "image" });
-
   // OwlCarousel N1
   $("#owl-demo").owlCarousel({
     autoPlay: 3000,
