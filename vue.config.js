@@ -7,7 +7,8 @@ module.exports = {
         common: "@/common",
         assets: "@/assets",
         network: "@/network",
-        views: "@/views"
+        views: "@/views",
+        pages: "@/pages"
       }
     },
     plugins: [

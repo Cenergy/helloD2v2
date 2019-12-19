@@ -1,6 +1,6 @@
 <template>
   <div style="height:100%;width:100%;">
-    <Banner />
+    <Banner :nav="navList" />
     <Content />
     <Source />
     <Contact />
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import Banner from "../../components/Banner/Banner.vue";
-import Content from "../../components/Content/Content.vue";
-import Source from "../../components/Source/Source.vue";
-import Contact from "../../components/Contact/Contact.vue";
-import Footer from "../../components/Footer/Footer.vue";
+import Banner from "./children/Banner";
+import Content from "./children/Content";
+import Source from "./children/Source";
+import Contact from "./children/Contact";
+import Footer from "./children/Footer";
 import $ from "jquery";
 
 window.$ = window.jquery = window.jQuery = $;
@@ -21,15 +21,15 @@ window.$ = window.jquery = window.jQuery = $;
 import { WOW } from "wowjs";
 window.WOW = WOW;
 
-import "common/js/owl";
+import "common/libs/owl";
 import "bootstrap";
 import "stickUp/build/js/stickUp";
 import "classie";
 import "jquery-migrate/dist/jquery-migrate";
-import "imports-loader?this=>window!common/js/modernizr";
+import "imports-loader?this=>window!common/libs/modernizr";
 import "magnific-popup";
-import "common/js/uiMorphingButton_inflow.js";
-import "common/js/script.js";
+import "common/libs/uiMorphingButton_inflow.js";
+import "common/libs/homeInit.js";
 
 export default {
   mounted() {
@@ -39,6 +39,17 @@ export default {
       });
     });
     new WOW().init();
+  },
+  data() {
+    return {
+      navList: [
+        { title: "这是啥", to: "#whatis" },
+        { title: "作品", to: "#useit" },
+        { title: "资源", to: "#credits" },
+        { title: "反馈", to: "#contact" },
+        { title: "关于", to: "/about" }
+      ]
+    };
   },
   methods: {},
   components: {
@@ -51,4 +62,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@import url("~assets/css/bootstrap.min.css");
+@import url("~assets/font-awesome/css/font-awesome.min.css");
+@import url("~assets/css/general.css");
+@import url("~assets/css/custom.css");
+@import url("~assets/css/owl.carousel.css");
+@import url("~assets/css/owl.theme.css");
+@import url("~assets/css/style.css");
+@import url("~assets/css/animate.css");
+@import url("~assets/css/magnific-popup.css");
+</style>

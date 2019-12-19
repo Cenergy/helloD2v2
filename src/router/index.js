@@ -1,34 +1,44 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 Vue.use(Router);
 
-import hello from '../components/hello/hello.vue';
-import world from '../components/world/world.vue';
-import About from '../pages/About/About.vue';
-import Home from '../pages/Home/Home.vue';
+import Home from "../pages/Home/Home.vue";
 
-import test from './test';
-
-export default new Router({
-  mode: 'history',
+const router = new Router({
+  mode: "history",
   routes: [
     {
-      path: '/',
+      path: "/",
+      redirect: "/home"
+    },
+    {
+      path: "/home",
       component: Home,
+      meta: {
+        keepAlive: true,
+        title: "hello world"
+      }
     },
     {
-      path: '/hello',
-      component: hello,
+      path: "/hello",
+      component: import("components/hello/hello")
     },
     {
-      path: '/world',
-      component: world,
+      path: "/world",
+      component: import("components/world/world")
     },
     {
-      path: '/about',
-      component: About,
-    },
-    test,
-  ],
+      path: "/about",
+      component: () => import("pages/About/About")
+    }
+  ]
 });
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+
+  next();
+});
+export default router;
