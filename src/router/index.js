@@ -17,7 +17,7 @@ const router = new Router({
       component: Home,
       meta: {
         keepAlive: true,
-        title: "hello world"
+        title: "首页"
       }
     },
     {
@@ -38,7 +38,6 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title;
   }
-
   next();
 });
 export default router;
