@@ -15,8 +15,7 @@
  * @todo Test Zepto
  * @todo stagePadding calculate wrong active classes
  */
-import * as jQuery from 'jquery';
-console.log(`RD: jQuery`, jQuery);
+import * as jQuery from "jquery";
 (function($, window, document, undefined) {
   /**
    * Creates a carousel.
@@ -140,9 +139,9 @@ console.log(`RD: jQuery`, jQuery);
       pointer: null,
       stage: {
         start: null,
-        current: null,
+        current: null
       },
-      direction: null,
+      direction: null
     };
 
     /**
@@ -153,14 +152,14 @@ console.log(`RD: jQuery`, jQuery);
     this._states = {
       current: {},
       tags: {
-        initializing: ['busy'],
-        animating: ['busy'],
-        dragging: ['interacting'],
-      },
+        initializing: ["busy"],
+        animating: ["busy"],
+        dragging: ["interacting"]
+      }
     };
 
     $.each(
-      ['onResize', 'onThrottledResize'],
+      ["onResize", "onThrottledResize"],
       $.proxy(function(i, handler) {
         this._handlers[handler] = $.proxy(this[handler], this);
       }, this)
@@ -169,7 +168,9 @@ console.log(`RD: jQuery`, jQuery);
     $.each(
       Owl.Plugins,
       $.proxy(function(key, plugin) {
-        this._plugins[key.charAt(0).toLowerCase() + key.slice(1)] = new plugin(this);
+        this._plugins[key.charAt(0).toLowerCase() + key.slice(1)] = new plugin(
+          this
+        );
       }, this)
     );
 
@@ -178,7 +179,7 @@ console.log(`RD: jQuery`, jQuery);
       $.proxy(function(priority, worker) {
         this._pipe.push({
           filter: worker.filter,
-          run: $.proxy(worker.run, this),
+          run: $.proxy(worker.run, this)
         });
       }, this)
     );
@@ -221,25 +222,25 @@ console.log(`RD: jQuery`, jQuery);
     responsiveRefreshRate: 200,
     responsiveBaseElement: window,
 
-    fallbackEasing: 'swing',
-    slideTransition: '',
+    fallbackEasing: "swing",
+    slideTransition: "",
 
     info: false,
 
     nestedItemSelector: false,
-    itemElement: 'div',
-    stageElement: 'div',
+    itemElement: "div",
+    stageElement: "div",
 
-    refreshClass: 'owl-refresh',
-    loadedClass: 'owl-loaded',
-    loadingClass: 'owl-loading',
-    rtlClass: 'owl-rtl',
-    responsiveClass: 'owl-responsive',
-    dragClass: 'owl-drag',
-    itemClass: 'owl-item',
-    stageClass: 'owl-stage',
-    stageOuterClass: 'owl-stage-outer',
-    grabClass: 'owl-grab',
+    refreshClass: "owl-refresh",
+    loadedClass: "owl-loaded",
+    loadingClass: "owl-loading",
+    rtlClass: "owl-rtl",
+    responsiveClass: "owl-responsive",
+    dragClass: "owl-drag",
+    itemClass: "owl-item",
+    stageClass: "owl-stage",
+    stageOuterClass: "owl-stage-outer",
+    grabClass: "owl-grab"
   };
 
   /**
@@ -249,9 +250,9 @@ console.log(`RD: jQuery`, jQuery);
    * @enum {String}
    */
   Owl.Width = {
-    Default: 'default',
-    Inner: 'inner',
-    Outer: 'outer',
+    Default: "default",
+    Inner: "inner",
+    Outer: "outer"
   };
 
   /**
@@ -261,8 +262,8 @@ console.log(`RD: jQuery`, jQuery);
    * @enum {String}
    */
   Owl.Type = {
-    Event: 'event',
-    State: 'state',
+    Event: "event",
+    State: "state"
   };
 
   /**
@@ -276,44 +277,47 @@ console.log(`RD: jQuery`, jQuery);
    */
   Owl.Workers = [
     {
-      filter: ['width', 'settings'],
+      filter: ["width", "settings"],
       run: function() {
         this._width = this.$element.width();
-      },
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function(cache) {
-        cache.current = this._items && this._items[this.relative(this._current)];
-      },
+        cache.current =
+          this._items && this._items[this.relative(this._current)];
+      }
     },
     {
-      filter: ['items', 'settings'],
+      filter: ["items", "settings"],
       run: function() {
-        this.$stage.children('.cloned').remove();
-      },
+        this.$stage.children(".cloned").remove();
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function(cache) {
-        var margin = this.settings.margin || '',
+        var margin = this.settings.margin || "",
           grid = !this.settings.autoWidth,
           rtl = this.settings.rtl,
           css = {
-            width: 'auto',
-            'margin-left': rtl ? margin : '',
-            'margin-right': rtl ? '' : margin,
+            width: "auto",
+            "margin-left": rtl ? margin : "",
+            "margin-right": rtl ? "" : margin
           };
 
         !grid && this.$stage.children().css(css);
 
         cache.css = css;
-      },
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function(cache) {
-        var width = (this.width() / this.settings.items).toFixed(3) - this.settings.margin,
+        var width =
+            (this.width() / this.settings.items).toFixed(3) -
+            this.settings.margin,
           merge = null,
           iterator = this._items.length,
           grid = !this.settings.autoWidth,
@@ -321,23 +325,27 @@ console.log(`RD: jQuery`, jQuery);
 
         cache.items = {
           merge: false,
-          width: width,
+          width: width
         };
 
         while (iterator--) {
           merge = this._mergers[iterator];
-          merge = (this.settings.mergeFit && Math.min(merge, this.settings.items)) || merge;
+          merge =
+            (this.settings.mergeFit && Math.min(merge, this.settings.items)) ||
+            merge;
 
           cache.items.merge = merge > 1 || cache.items.merge;
 
-          widths[iterator] = !grid ? this._items[iterator].width() : width * merge;
+          widths[iterator] = !grid
+            ? this._items[iterator].width()
+            : width * merge;
         }
 
         this._widths = widths;
-      },
+      }
     },
     {
-      filter: ['items', 'settings'],
+      filter: ["items", "settings"],
       run: function() {
         var clones = [],
           items = this._items,
@@ -346,9 +354,13 @@ console.log(`RD: jQuery`, jQuery);
           view = Math.max(settings.items * 2, 4),
           size = Math.ceil(items.length / 2) * 2,
           repeat =
-            settings.loop && items.length ? (settings.rewind ? view : Math.max(view, size)) : 0,
-          append = '',
-          prepend = '';
+            settings.loop && items.length
+              ? settings.rewind
+                ? view
+                : Math.max(view, size)
+              : 0,
+          append = "",
+          prepend = "";
 
         repeat /= 2;
 
@@ -357,20 +369,22 @@ console.log(`RD: jQuery`, jQuery);
           clones.push(this.normalize(clones.length / 2, true));
           $(items[clones[clones.length - 1]][0])
             .clone(true)
-            .addClass('cloned')
+            .addClass("cloned")
             .appendTo(this.$stage);
-          clones.push(this.normalize(items.length - 1 - (clones.length - 1) / 2, true));
+          clones.push(
+            this.normalize(items.length - 1 - (clones.length - 1) / 2, true)
+          );
           $(items[clones[clones.length - 1]][0])
             .clone(true)
-            .addClass('cloned')
+            .addClass("cloned")
             .prependTo(this.$stage);
           repeat -= 1;
         }
         this._clones = clones;
-      },
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function() {
         var rtl = this.settings.rtl ? 1 : -1,
           size = this._clones.length + this._items.length,
@@ -381,29 +395,32 @@ console.log(`RD: jQuery`, jQuery);
 
         while (++iterator < size) {
           previous = coordinates[iterator - 1] || 0;
-          current = this._widths[this.relative(iterator)] + this.settings.margin;
+          current =
+            this._widths[this.relative(iterator)] + this.settings.margin;
           coordinates.push(previous + current * rtl);
         }
 
         this._coordinates = coordinates;
-      },
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function() {
         var padding = this.settings.stagePadding,
           coordinates = this._coordinates,
           css = {
-            width: Math.ceil(Math.abs(coordinates[coordinates.length - 1])) + padding * 2,
-            'padding-left': padding || '',
-            'padding-right': padding || '',
+            width:
+              Math.ceil(Math.abs(coordinates[coordinates.length - 1])) +
+              padding * 2,
+            "padding-left": padding || "",
+            "padding-right": padding || ""
           };
 
         this.$stage.css(css);
-      },
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function(cache) {
         var iterator = this._coordinates.length,
           grid = !this.settings.autoWidth,
@@ -418,30 +435,35 @@ console.log(`RD: jQuery`, jQuery);
           cache.css.width = cache.items.width;
           items.css(cache.css);
         }
-      },
+      }
     },
     {
-      filter: ['items'],
+      filter: ["items"],
       run: function() {
-        this._coordinates.length < 1 && this.$stage.removeAttr('style');
-      },
+        this._coordinates.length < 1 && this.$stage.removeAttr("style");
+      }
     },
     {
-      filter: ['width', 'items', 'settings'],
+      filter: ["width", "items", "settings"],
       run: function(cache) {
-        cache.current = cache.current ? this.$stage.children().index(cache.current) : 0;
-        cache.current = Math.max(this.minimum(), Math.min(this.maximum(), cache.current));
+        cache.current = cache.current
+          ? this.$stage.children().index(cache.current)
+          : 0;
+        cache.current = Math.max(
+          this.minimum(),
+          Math.min(this.maximum(), cache.current)
+        );
         this.reset(cache.current);
-      },
+      }
     },
     {
-      filter: ['position'],
+      filter: ["position"],
       run: function() {
         this.animate(this.coordinates(this._current));
-      },
+      }
     },
     {
-      filter: ['width', 'position', 'items', 'settings'],
+      filter: ["width", "position", "items", "settings"],
       run: function() {
         var rtl = this.settings.rtl ? 1 : -1,
           padding = this.settings.stagePadding * 2,
@@ -458,32 +480,34 @@ console.log(`RD: jQuery`, jQuery);
           outer = Math.abs(this._coordinates[i]) + padding * rtl;
 
           if (
-            (this.op(inner, '<=', begin) && this.op(inner, '>', end)) ||
-            (this.op(outer, '<', begin) && this.op(outer, '>', end))
+            (this.op(inner, "<=", begin) && this.op(inner, ">", end)) ||
+            (this.op(outer, "<", begin) && this.op(outer, ">", end))
           ) {
             matches.push(i);
           }
         }
 
-        this.$stage.children('.active').removeClass('active');
-        this.$stage.children(':eq(' + matches.join('), :eq(') + ')').addClass('active');
+        this.$stage.children(".active").removeClass("active");
+        this.$stage
+          .children(":eq(" + matches.join("), :eq(") + ")")
+          .addClass("active");
 
-        this.$stage.children('.center').removeClass('center');
+        this.$stage.children(".center").removeClass("center");
         if (this.settings.center) {
           this.$stage
             .children()
             .eq(this.current())
-            .addClass('center');
+            .addClass("center");
         }
-      },
-    },
+      }
+    }
   ];
 
   /**
    * Create the stage DOM element
    */
   Owl.prototype.initializeStage = function() {
-    this.$stage = this.$element.find('.' + this.settings.stageClass);
+    this.$stage = this.$element.find("." + this.settings.stageClass);
 
     // if the stage is already in the DOM, grab it and skip stage initialization
     if (this.$stage.length) {
@@ -493,11 +517,11 @@ console.log(`RD: jQuery`, jQuery);
     this.$element.addClass(this.options.loadingClass);
 
     // create stage
-    this.$stage = $('<' + this.settings.stageElement + '>', {
-      class: this.settings.stageClass,
+    this.$stage = $("<" + this.settings.stageElement + ">", {
+      class: this.settings.stageClass
     }).wrap(
-      $('<div/>', {
-        class: this.settings.stageOuterClass,
+      $("<div/>", {
+        class: this.settings.stageOuterClass
       })
     );
 
@@ -509,7 +533,7 @@ console.log(`RD: jQuery`, jQuery);
    * Create item DOM elements
    */
   Owl.prototype.initializeItems = function() {
-    var $items = this.$element.find('.owl-item');
+    var $items = this.$element.find(".owl-item");
 
     // if the items are already in the DOM, grab them and skip item initialization
     if ($items.length) {
@@ -535,10 +559,12 @@ console.log(`RD: jQuery`, jQuery);
       this.refresh();
     } else {
       // invalidate width
-      this.invalidate('width');
+      this.invalidate("width");
     }
 
-    this.$element.removeClass(this.options.loadingClass).addClass(this.options.loadedClass);
+    this.$element
+      .removeClass(this.options.loadingClass)
+      .addClass(this.options.loadedClass);
   };
 
   /**
@@ -546,16 +572,16 @@ console.log(`RD: jQuery`, jQuery);
    * @protected
    */
   Owl.prototype.initialize = function() {
-    this.enter('initializing');
-    this.trigger('initialize');
+    this.enter("initializing");
+    this.trigger("initialize");
 
     this.$element.toggleClass(this.settings.rtlClass, this.settings.rtl);
 
-    if (this.settings.autoWidth && !this.is('pre-loading')) {
+    if (this.settings.autoWidth && !this.is("pre-loading")) {
       var imgs, nestedSelector, width;
-      imgs = this.$element.find('img');
+      imgs = this.$element.find("img");
       nestedSelector = this.settings.nestedItemSelector
-        ? '.' + this.settings.nestedItemSelector
+        ? "." + this.settings.nestedItemSelector
         : undefined;
       width = this.$element.children(nestedSelector).width();
 
@@ -570,8 +596,8 @@ console.log(`RD: jQuery`, jQuery);
     // register event handlers
     this.registerEventHandlers();
 
-    this.leave('initializing');
-    this.trigger('initialized');
+    this.leave("initializing");
+    this.trigger("initialized");
   };
 
   /**
@@ -580,7 +606,7 @@ console.log(`RD: jQuery`, jQuery);
    *                    prevent the expensive browser layout forced reflow the $element.is(':visible') does
    */
   Owl.prototype.isVisible = function() {
-    return this.settings.checkVisibility ? this.$element.is(':visible') : true;
+    return this.settings.checkVisibility ? this.$element.is(":visible") : true;
   };
 
   /**
@@ -605,7 +631,7 @@ console.log(`RD: jQuery`, jQuery);
       });
 
       settings = $.extend({}, this.options, overwrites[match]);
-      if (typeof settings.stagePadding === 'function') {
+      if (typeof settings.stagePadding === "function") {
         settings.stagePadding = settings.stagePadding();
       }
       delete settings.responsive;
@@ -613,22 +639,24 @@ console.log(`RD: jQuery`, jQuery);
       // responsive class
       if (settings.responsiveClass) {
         this.$element.attr(
-          'class',
+          "class",
           this.$element
-            .attr('class')
+            .attr("class")
             .replace(
-              new RegExp('(' + this.options.responsiveClass + '-)\\S+\\s', 'g'),
-              '$1' + match
+              new RegExp("(" + this.options.responsiveClass + "-)\\S+\\s", "g"),
+              "$1" + match
             )
         );
       }
     }
 
-    this.trigger('change', { property: { name: 'settings', value: settings } });
+    this.trigger("change", { property: { name: "settings", value: settings } });
     this._breakpoint = match;
     this.settings = settings;
-    this.invalidate('settings');
-    this.trigger('changed', { property: { name: 'settings', value: this.settings } });
+    this.invalidate("settings");
+    this.trigger("changed", {
+      property: { name: "settings", value: this.settings }
+    });
   };
 
   /**
@@ -649,15 +677,15 @@ console.log(`RD: jQuery`, jQuery);
    * @returns {jQuery|HTMLElement} - The item container.
    */
   Owl.prototype.prepare = function(item) {
-    var event = this.trigger('prepare', { content: item });
+    var event = this.trigger("prepare", { content: item });
 
     if (!event.data) {
-      event.data = $('<' + this.settings.itemElement + '/>')
+      event.data = $("<" + this.settings.itemElement + "/>")
         .addClass(this.options.itemClass)
         .append(item);
     }
 
-    this.trigger('prepared', { content: event.data });
+    this.trigger("prepared", { content: event.data });
 
     return event.data;
   };
@@ -675,7 +703,10 @@ console.log(`RD: jQuery`, jQuery);
       cache = {};
 
     while (i < n) {
-      if (this._invalidated.all || $.grep(this._pipe[i].filter, filter).length > 0) {
+      if (
+        this._invalidated.all ||
+        $.grep(this._pipe[i].filter, filter).length > 0
+      ) {
         this._pipe[i].run(cache);
       }
       i++;
@@ -683,7 +714,7 @@ console.log(`RD: jQuery`, jQuery);
 
     this._invalidated = {};
 
-    !this.is('valid') && this.enter('valid');
+    !this.is("valid") && this.enter("valid");
   };
 
   /**
@@ -699,7 +730,9 @@ console.log(`RD: jQuery`, jQuery);
       case Owl.Width.Outer:
         return this._width;
       default:
-        return this._width - this.settings.stagePadding * 2 + this.settings.margin;
+        return (
+          this._width - this.settings.stagePadding * 2 + this.settings.margin
+        );
     }
   };
 
@@ -710,8 +743,8 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.refresh = function(resizing) {
     resizing = resizing || false;
 
-    this.enter('refreshing');
-    this.trigger('refresh');
+    this.enter("refreshing");
+    this.trigger("refresh");
 
     this.setup();
 
@@ -727,8 +760,8 @@ console.log(`RD: jQuery`, jQuery);
 
     this.$element.removeClass(this.options.refreshClass);
 
-    this.leave('refreshing');
-    this.trigger('refreshed');
+    this.leave("refreshing");
+    this.trigger("refreshed");
   };
 
   /**
@@ -762,19 +795,19 @@ console.log(`RD: jQuery`, jQuery);
       return false;
     }
 
-    this.enter('resizing');
+    this.enter("resizing");
 
-    if (this.trigger('resize').isDefaultPrevented()) {
-      this.leave('resizing');
+    if (this.trigger("resize").isDefaultPrevented()) {
+      this.leave("resizing");
       return false;
     }
 
-    this.invalidate('width');
+    this.invalidate("width");
 
     this.refresh(resizing);
 
-    this.leave('resizing');
-    this.trigger('resized');
+    this.leave("resizing");
+    this.trigger("resized");
   };
 
   /**
@@ -785,24 +818,27 @@ console.log(`RD: jQuery`, jQuery);
    */
   Owl.prototype.registerEventHandlers = function() {
     if ($.support.transition) {
-      this.$stage.on($.support.transition.end + '.owl.core', $.proxy(this.onTransitionEnd, this));
+      this.$stage.on(
+        $.support.transition.end + ".owl.core",
+        $.proxy(this.onTransitionEnd, this)
+      );
     }
 
     if (this.settings.responsive !== false) {
-      this.on(window, 'resize', this._handlers.onThrottledResize);
+      this.on(window, "resize", this._handlers.onThrottledResize);
     }
 
     if (this.settings.mouseDrag) {
       this.$element.addClass(this.options.dragClass);
-      this.$stage.on('mousedown.owl.core', $.proxy(this.onDragStart, this));
-      this.$stage.on('dragstart.owl.core selectstart.owl.core', function() {
+      this.$stage.on("mousedown.owl.core", $.proxy(this.onDragStart, this));
+      this.$stage.on("dragstart.owl.core selectstart.owl.core", function() {
         return false;
       });
     }
 
     if (this.settings.touchDrag) {
-      this.$stage.on('touchstart.owl.core', $.proxy(this.onDragStart, this));
-      this.$stage.on('touchcancel.owl.core', $.proxy(this.onDragEnd, this));
+      this.$stage.on("touchstart.owl.core", $.proxy(this.onDragStart, this));
+      this.$stage.on("touchcancel.owl.core", $.proxy(this.onDragEnd, this));
     }
   };
 
@@ -822,29 +858,35 @@ console.log(`RD: jQuery`, jQuery);
 
     if ($.support.transform) {
       stage = this.$stage
-        .css('transform')
-        .replace(/.*\(|\)| /g, '')
-        .split(',');
+        .css("transform")
+        .replace(/.*\(|\)| /g, "")
+        .split(",");
       stage = {
         x: stage[stage.length === 16 ? 12 : 4],
-        y: stage[stage.length === 16 ? 13 : 5],
+        y: stage[stage.length === 16 ? 13 : 5]
       };
     } else {
       stage = this.$stage.position();
       stage = {
         x: this.settings.rtl
-          ? stage.left + this.$stage.width() - this.width() + this.settings.margin
+          ? stage.left +
+            this.$stage.width() -
+            this.width() +
+            this.settings.margin
           : stage.left,
-        y: stage.top,
+        y: stage.top
       };
     }
 
-    if (this.is('animating')) {
+    if (this.is("animating")) {
       $.support.transform ? this.animate(stage.x) : this.$stage.stop();
-      this.invalidate('position');
+      this.invalidate("position");
     }
 
-    this.$element.toggleClass(this.options.grabClass, event.type === 'mousedown');
+    this.$element.toggleClass(
+      this.options.grabClass,
+      event.type === "mousedown"
+    );
 
     this.speed(0);
 
@@ -854,23 +896,29 @@ console.log(`RD: jQuery`, jQuery);
     this._drag.stage.current = stage;
     this._drag.pointer = this.pointer(event);
 
-    $(document).on('mouseup.owl.core touchend.owl.core', $.proxy(this.onDragEnd, this));
+    $(document).on(
+      "mouseup.owl.core touchend.owl.core",
+      $.proxy(this.onDragEnd, this)
+    );
 
     $(document).one(
-      'mousemove.owl.core touchmove.owl.core',
+      "mousemove.owl.core touchmove.owl.core",
       $.proxy(function(event) {
         var delta = this.difference(this._drag.pointer, this.pointer(event));
 
-        $(document).on('mousemove.owl.core touchmove.owl.core', $.proxy(this.onDragMove, this));
+        $(document).on(
+          "mousemove.owl.core touchmove.owl.core",
+          $.proxy(this.onDragMove, this)
+        );
 
-        if (Math.abs(delta.x) < Math.abs(delta.y) && this.is('valid')) {
+        if (Math.abs(delta.x) < Math.abs(delta.y) && this.is("valid")) {
           return;
         }
 
         event.preventDefault();
 
-        this.enter('dragging');
-        this.trigger('drag');
+        this.enter("dragging");
+        this.trigger("drag");
       }, this)
     );
   };
@@ -888,7 +936,7 @@ console.log(`RD: jQuery`, jQuery);
       delta = this.difference(this._drag.pointer, this.pointer(event)),
       stage = this.difference(this._drag.stage.start, delta);
 
-    if (!this.is('dragging')) {
+    if (!this.is("dragging")) {
       return;
     }
 
@@ -897,7 +945,8 @@ console.log(`RD: jQuery`, jQuery);
     if (this.settings.loop) {
       minimum = this.coordinates(this.minimum());
       maximum = this.coordinates(this.maximum() + 1) - minimum;
-      stage.x = ((((stage.x - minimum) % maximum) + maximum) % maximum) + minimum;
+      stage.x =
+        ((((stage.x - minimum) % maximum) + maximum) % maximum) + minimum;
     } else {
       minimum = this.settings.rtl
         ? this.coordinates(this.maximum())
@@ -924,33 +973,38 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.onDragEnd = function(event) {
     var delta = this.difference(this._drag.pointer, this.pointer(event)),
       stage = this._drag.stage.current,
-      direction = (delta.x > 0) ^ this.settings.rtl ? 'left' : 'right';
+      direction = (delta.x > 0) ^ this.settings.rtl ? "left" : "right";
 
-    $(document).off('.owl.core');
+    $(document).off(".owl.core");
 
     this.$element.removeClass(this.options.grabClass);
 
-    if ((delta.x !== 0 && this.is('dragging')) || !this.is('valid')) {
+    if ((delta.x !== 0 && this.is("dragging")) || !this.is("valid")) {
       this.speed(this.settings.dragEndSpeed || this.settings.smartSpeed);
-      this.current(this.closest(stage.x, delta.x !== 0 ? direction : this._drag.direction));
-      this.invalidate('position');
+      this.current(
+        this.closest(stage.x, delta.x !== 0 ? direction : this._drag.direction)
+      );
+      this.invalidate("position");
       this.update();
 
       this._drag.direction = direction;
 
-      if (Math.abs(delta.x) > 3 || new Date().getTime() - this._drag.time > 300) {
-        this._drag.target.one('click.owl.core', function() {
+      if (
+        Math.abs(delta.x) > 3 ||
+        new Date().getTime() - this._drag.time > 300
+      ) {
+        this._drag.target.one("click.owl.core", function() {
           return false;
         });
       }
     }
 
-    if (!this.is('dragging')) {
+    if (!this.is("dragging")) {
       return;
     }
 
-    this.leave('dragging');
-    this.trigger('dragged');
+    this.leave("dragging");
+    this.trigger("dragged");
   };
 
   /**
@@ -975,25 +1029,31 @@ console.log(`RD: jQuery`, jQuery);
         coordinates,
         $.proxy(function(index, value) {
           // on a left pull, check on current index
-          if (direction === 'left' && coordinate > value - pull && coordinate < value + pull) {
+          if (
+            direction === "left" &&
+            coordinate > value - pull &&
+            coordinate < value + pull
+          ) {
             position = index;
             // on a right pull, check on previous index
             // to do so, subtract width from value and set position = index + 1
           } else if (
-            direction === 'right' &&
+            direction === "right" &&
             coordinate > value - itemWidth - pull &&
             coordinate < value - itemWidth + pull
           ) {
             position = index + 1;
           } else if (
-            this.op(coordinate, '<', value) &&
+            this.op(coordinate, "<", value) &&
             this.op(
               coordinate,
-              '>',
-              coordinates[index + 1] !== undefined ? coordinates[index + 1] : value - width
+              ">",
+              coordinates[index + 1] !== undefined
+                ? coordinates[index + 1]
+                : value - width
             )
           ) {
-            position = direction === 'left' ? index + 1 : index;
+            position = direction === "left" ? index + 1 : index;
           }
           return position === -1;
         }, this)
@@ -1002,9 +1062,9 @@ console.log(`RD: jQuery`, jQuery);
 
     if (!this.settings.loop) {
       // non loop boundries
-      if (this.op(coordinate, '>', coordinates[this.minimum()])) {
+      if (this.op(coordinate, ">", coordinates[this.minimum()])) {
         position = coordinate = this.minimum();
-      } else if (this.op(coordinate, '<', coordinates[this.maximum()])) {
+      } else if (this.op(coordinate, "<", coordinates[this.maximum()])) {
         position = coordinate = this.maximum();
       }
     }
@@ -1021,25 +1081,27 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.animate = function(coordinate) {
     var animate = this.speed() > 0;
 
-    this.is('animating') && this.onTransitionEnd();
+    this.is("animating") && this.onTransitionEnd();
 
     if (animate) {
-      this.enter('animating');
-      this.trigger('translate');
+      this.enter("animating");
+      this.trigger("translate");
     }
 
     if ($.support.transform3d && $.support.transition) {
       this.$stage.css({
-        transform: 'translate3d(' + coordinate + 'px,0px,0px)',
+        transform: "translate3d(" + coordinate + "px,0px,0px)",
         transition:
           this.speed() / 1000 +
-          's' +
-          (this.settings.slideTransition ? ' ' + this.settings.slideTransition : ''),
+          "s" +
+          (this.settings.slideTransition
+            ? " " + this.settings.slideTransition
+            : "")
       });
     } else if (animate) {
       this.$stage.animate(
         {
-          left: coordinate + 'px',
+          left: coordinate + "px"
         },
         this.speed(),
         this.settings.fallbackEasing,
@@ -1047,7 +1109,7 @@ console.log(`RD: jQuery`, jQuery);
       );
     } else {
       this.$stage.css({
-        left: coordinate + 'px',
+        left: coordinate + "px"
       });
     }
   };
@@ -1079,7 +1141,9 @@ console.log(`RD: jQuery`, jQuery);
     position = this.normalize(position);
 
     if (this._current !== position) {
-      var event = this.trigger('change', { property: { name: 'position', value: position } });
+      var event = this.trigger("change", {
+        property: { name: "position", value: position }
+      });
 
       if (event.data !== undefined) {
         position = this.normalize(event.data);
@@ -1087,9 +1151,11 @@ console.log(`RD: jQuery`, jQuery);
 
       this._current = position;
 
-      this.invalidate('position');
+      this.invalidate("position");
 
-      this.trigger('changed', { property: { name: 'position', value: this._current } });
+      this.trigger("changed", {
+        property: { name: "position", value: this._current }
+      });
     }
 
     return this._current;
@@ -1101,9 +1167,9 @@ console.log(`RD: jQuery`, jQuery);
    * @returns {Array.<String>} - The invalidated parts.
    */
   Owl.prototype.invalidate = function(part) {
-    if ($.type(part) === 'string') {
+    if ($.type(part) === "string") {
       this._invalidated[part] = true;
-      this.is('valid') && this.leave('valid');
+      this.is("valid") && this.leave("valid");
     }
     return $.map(this._invalidated, function(v, i) {
       return i;
@@ -1125,11 +1191,11 @@ console.log(`RD: jQuery`, jQuery);
     this._speed = 0;
     this._current = position;
 
-    this.suppress(['translate', 'translated']);
+    this.suppress(["translate", "translated"]);
 
     this.animate(this.coordinates(position));
 
-    this.release(['translate', 'translated']);
+    this.release(["translate", "translated"]);
   };
 
   /**
@@ -1184,7 +1250,8 @@ console.log(`RD: jQuery`, jQuery);
         reciprocalItemsWidth = this._items[--iterator].width();
         elementWidth = this.$element.width();
         while (iterator--) {
-          reciprocalItemsWidth += this._items[iterator].width() + this.settings.margin;
+          reciprocalItemsWidth +=
+            this._items[iterator].width() + this.settings.margin;
           if (reciprocalItemsWidth > elementWidth) {
             break;
           }
@@ -1311,7 +1378,9 @@ console.log(`RD: jQuery`, jQuery);
 
       coordinate = this._coordinates[position];
       coordinate +=
-        ((this.width() - coordinate + (this._coordinates[newPosition] || 0)) / 2) * multiplier;
+        ((this.width() - coordinate + (this._coordinates[newPosition] || 0)) /
+          2) *
+        multiplier;
     } else {
       coordinate = this._coordinates[newPosition] || 0;
     }
@@ -1335,7 +1404,8 @@ console.log(`RD: jQuery`, jQuery);
     }
 
     return (
-      Math.min(Math.max(Math.abs(to - from), 1), 6) * Math.abs(factor || this.settings.smartSpeed)
+      Math.min(Math.max(Math.abs(to - from), 1), 6) *
+      Math.abs(factor || this.settings.smartSpeed)
     );
   };
 
@@ -1362,7 +1432,11 @@ console.log(`RD: jQuery`, jQuery);
       position = current + distance;
       revert = ((((position - minimum) % items) + items) % items) + minimum;
 
-      if (revert !== position && revert - distance <= maximum && revert - distance > 0) {
+      if (
+        revert !== position &&
+        revert - distance <= maximum &&
+        revert - distance > 0
+      ) {
         current = revert - distance;
         position = revert;
         this.reset(current);
@@ -1413,13 +1487,16 @@ console.log(`RD: jQuery`, jQuery);
       event.stopPropagation();
 
       // Catch only owl-stage transitionEnd event
-      if ((event.target || event.srcElement || event.originalTarget) !== this.$stage.get(0)) {
+      if (
+        (event.target || event.srcElement || event.originalTarget) !==
+        this.$stage.get(0)
+      ) {
         return false;
       }
     }
 
-    this.leave('animating');
-    this.trigger('translated');
+    this.leave("animating");
+    this.trigger("translated");
   };
 
   /**
@@ -1433,10 +1510,13 @@ console.log(`RD: jQuery`, jQuery);
       width = $(this.options.responsiveBaseElement).width();
     } else if (window.innerWidth) {
       width = window.innerWidth;
-    } else if (document.documentElement && document.documentElement.clientWidth) {
+    } else if (
+      document.documentElement &&
+      document.documentElement.clientWidth
+    ) {
       width = document.documentElement.clientWidth;
     } else {
-      console.warn('Can not detect viewport width.');
+      console.warn("Can not detect viewport width.");
     }
     return width;
   };
@@ -1455,7 +1535,7 @@ console.log(`RD: jQuery`, jQuery);
     }
 
     if (this.settings.nestedItemSelector) {
-      content = content.find('.' + this.settings.nestedItemSelector);
+      content = content.find("." + this.settings.nestedItemSelector);
     }
 
     content
@@ -1469,16 +1549,20 @@ console.log(`RD: jQuery`, jQuery);
           this._items.push(item);
           this._mergers.push(
             item
-              .find('[data-merge]')
-              .addBack('[data-merge]')
-              .attr('data-merge') * 1 || 1
+              .find("[data-merge]")
+              .addBack("[data-merge]")
+              .attr("data-merge") * 1 || 1
           );
         }, this)
       );
 
-    this.reset(this.isNumeric(this.settings.startPosition) ? this.settings.startPosition : 0);
+    this.reset(
+      this.isNumeric(this.settings.startPosition)
+        ? this.settings.startPosition
+        : 0
+    );
 
-    this.invalidate('items');
+    this.invalidate("items");
   };
 
   /**
@@ -1491,10 +1575,13 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.add = function(content, position) {
     var current = this.relative(this._current);
 
-    position = position === undefined ? this._items.length : this.normalize(position, true);
+    position =
+      position === undefined
+        ? this._items.length
+        : this.normalize(position, true);
     content = content instanceof jQuery ? content : $(content);
 
-    this.trigger('add', { content: content, position: position });
+    this.trigger("add", { content: content, position: position });
 
     content = this.prepare(content);
 
@@ -1504,9 +1591,9 @@ console.log(`RD: jQuery`, jQuery);
       this._items.push(content);
       this._mergers.push(
         content
-          .find('[data-merge]')
-          .addBack('[data-merge]')
-          .attr('data-merge') * 1 || 1
+          .find("[data-merge]")
+          .addBack("[data-merge]")
+          .attr("data-merge") * 1 || 1
       );
     } else {
       this._items[position].before(content);
@@ -1515,17 +1602,17 @@ console.log(`RD: jQuery`, jQuery);
         position,
         0,
         content
-          .find('[data-merge]')
-          .addBack('[data-merge]')
-          .attr('data-merge') * 1 || 1
+          .find("[data-merge]")
+          .addBack("[data-merge]")
+          .attr("data-merge") * 1 || 1
       );
     }
 
     this._items[current] && this.reset(this._items[current].index());
 
-    this.invalidate('items');
+    this.invalidate("items");
 
-    this.trigger('added', { content: content, position: position });
+    this.trigger("added", { content: content, position: position });
   };
 
   /**
@@ -1541,15 +1628,18 @@ console.log(`RD: jQuery`, jQuery);
       return;
     }
 
-    this.trigger('remove', { content: this._items[position], position: position });
+    this.trigger("remove", {
+      content: this._items[position],
+      position: position
+    });
 
     this._items[position].remove();
     this._items.splice(position, 1);
     this._mergers.splice(position, 1);
 
-    this.invalidate('items');
+    this.invalidate("items");
 
-    this.trigger('removed', { content: null, position: position });
+    this.trigger("removed", { content: null, position: position });
   };
 
   /**
@@ -1560,23 +1650,25 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.preloadAutoWidthImages = function(images) {
     images.each(
       $.proxy(function(i, element) {
-        this.enter('pre-loading');
+        this.enter("pre-loading");
         element = $(element);
         $(new Image())
           .one(
-            'load',
+            "load",
             $.proxy(function(e) {
-              element.attr('src', e.target.src);
-              element.css('opacity', 1);
-              this.leave('pre-loading');
-              !this.is('pre-loading') && !this.is('initializing') && this.refresh();
+              element.attr("src", e.target.src);
+              element.css("opacity", 1);
+              this.leave("pre-loading");
+              !this.is("pre-loading") &&
+                !this.is("initializing") &&
+                this.refresh();
             }, this)
           )
           .attr(
-            'src',
+            "src",
             window.devicePixelRatio > 1
-              ? element.attr('data-src-retina')
-              : element.attr('data-src') || element.attr('src')
+              ? element.attr("data-src-retina")
+              : element.attr("data-src") || element.attr("src")
           );
       }, this)
     );
@@ -1587,20 +1679,20 @@ console.log(`RD: jQuery`, jQuery);
    * @public
    */
   Owl.prototype.destroy = function() {
-    this.$element.off('.owl.core');
-    this.$stage.off('.owl.core');
-    $(document).off('.owl.core');
+    this.$element.off(".owl.core");
+    this.$stage.off(".owl.core");
+    $(document).off(".owl.core");
 
     if (this.settings.responsive !== false) {
       window.clearTimeout(this.resizeTimer);
-      this.off(window, 'resize', this._handlers.onThrottledResize);
+      this.off(window, "resize", this._handlers.onThrottledResize);
     }
 
     for (var i in this._plugins) {
       this._plugins[i].destroy();
     }
 
-    this.$stage.children('.cloned').remove();
+    this.$stage.children(".cloned").remove();
 
     this.$stage.unwrap();
     this.$stage
@@ -1617,12 +1709,15 @@ console.log(`RD: jQuery`, jQuery);
       .removeClass(this.options.dragClass)
       .removeClass(this.options.grabClass)
       .attr(
-        'class',
+        "class",
         this.$element
-          .attr('class')
-          .replace(new RegExp(this.options.responsiveClass + '-\\S+\\s', 'g'), '')
+          .attr("class")
+          .replace(
+            new RegExp(this.options.responsiveClass + "-\\S+\\s", "g"),
+            ""
+          )
       )
-      .removeData('owl.carousel');
+      .removeData("owl.carousel");
   };
 
   /**
@@ -1635,13 +1730,13 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.op = function(a, o, b) {
     var rtl = this.settings.rtl;
     switch (o) {
-      case '<':
+      case "<":
         return rtl ? a > b : a < b;
-      case '>':
+      case ">":
         return rtl ? a < b : a > b;
-      case '>=':
+      case ">=":
         return rtl ? a <= b : a >= b;
-      case '<=':
+      case "<=":
         return rtl ? a >= b : a <= b;
       default:
         break;
@@ -1660,7 +1755,7 @@ console.log(`RD: jQuery`, jQuery);
     if (element.addEventListener) {
       element.addEventListener(event, listener, capture);
     } else if (element.attachEvent) {
-      element.attachEvent('on' + event, listener);
+      element.attachEvent("on" + event, listener);
     }
   };
 
@@ -1676,7 +1771,7 @@ console.log(`RD: jQuery`, jQuery);
     if (element.removeEventListener) {
       element.removeEventListener(event, listener, capture);
     } else if (element.detachEvent) {
-      element.detachEvent('on' + event, listener);
+      element.detachEvent("on" + event, listener);
     }
   };
 
@@ -1693,17 +1788,17 @@ console.log(`RD: jQuery`, jQuery);
    */
   Owl.prototype.trigger = function(name, data, namespace, state, enter) {
     var status = {
-        item: { count: this._items.length, index: this.current() },
+        item: { count: this._items.length, index: this.current() }
       },
       handler = $.camelCase(
-        $.grep(['on', name, namespace], function(v) {
+        $.grep(["on", name, namespace], function(v) {
           return v;
         })
-          .join('-')
+          .join("-")
           .toLowerCase()
       ),
       event = $.Event(
-        [name, 'owl', namespace || 'carousel'].join('.').toLowerCase(),
+        [name, "owl", namespace || "carousel"].join(".").toLowerCase(),
         $.extend({ relatedTarget: this }, status, data)
       );
 
@@ -1717,7 +1812,7 @@ console.log(`RD: jQuery`, jQuery);
       this.register({ type: Owl.Type.Event, name: name });
       this.$element.trigger(event);
 
-      if (this.settings && typeof this.settings[handler] === 'function') {
+      if (this.settings && typeof this.settings[handler] === "function") {
         this.settings[handler].call(this, event);
       }
     }
@@ -1769,10 +1864,14 @@ console.log(`RD: jQuery`, jQuery);
       if (!$.event.special[object.name].owl) {
         var _default = $.event.special[object.name]._default;
         $.event.special[object.name]._default = function(e) {
-          if (_default && _default.apply && (!e.namespace || e.namespace.indexOf('owl') === -1)) {
+          if (
+            _default &&
+            _default.apply &&
+            (!e.namespace || e.namespace.indexOf("owl") === -1)
+          ) {
             return _default.apply(this, arguments);
           }
-          return e.namespace && e.namespace.indexOf('owl') > -1;
+          return e.namespace && e.namespace.indexOf("owl") > -1;
         };
         $.event.special[object.name].owl = true;
       }
@@ -1780,7 +1879,9 @@ console.log(`RD: jQuery`, jQuery);
       if (!this._states.tags[object.name]) {
         this._states.tags[object.name] = object.tags;
       } else {
-        this._states.tags[object.name] = this._states.tags[object.name].concat(object.tags);
+        this._states.tags[object.name] = this._states.tags[object.name].concat(
+          object.tags
+        );
       }
 
       this._states.tags[object.name] = $.grep(
@@ -1871,7 +1972,7 @@ console.log(`RD: jQuery`, jQuery);
   Owl.prototype.difference = function(first, second) {
     return {
       x: first.x - second.x,
-      y: first.y - second.y,
+      y: first.y - second.y
     };
   };
 
@@ -1885,31 +1986,40 @@ console.log(`RD: jQuery`, jQuery);
 
     return this.each(function() {
       var $this = $(this),
-        data = $this.data('owl.carousel');
+        data = $this.data("owl.carousel");
 
       if (!data) {
-        data = new Owl(this, typeof option == 'object' && option);
-        $this.data('owl.carousel', data);
+        data = new Owl(this, typeof option == "object" && option);
+        $this.data("owl.carousel", data);
 
-        $.each(['next', 'prev', 'to', 'destroy', 'refresh', 'replace', 'add', 'remove'], function(
-          i,
-          event
-        ) {
-          data.register({ type: Owl.Type.Event, name: event });
-          data.$element.on(
-            event + '.owl.carousel.core',
-            $.proxy(function(e) {
-              if (e.namespace && e.relatedTarget !== this) {
-                this.suppress([event]);
-                data[event].apply(this, [].slice.call(arguments, 1));
-                this.release([event]);
-              }
-            }, data)
-          );
-        });
+        $.each(
+          [
+            "next",
+            "prev",
+            "to",
+            "destroy",
+            "refresh",
+            "replace",
+            "add",
+            "remove"
+          ],
+          function(i, event) {
+            data.register({ type: Owl.Type.Event, name: event });
+            data.$element.on(
+              event + ".owl.carousel.core",
+              $.proxy(function(e) {
+                if (e.namespace && e.relatedTarget !== this) {
+                  this.suppress([event]);
+                  data[event].apply(this, [].slice.call(arguments, 1));
+                  this.release([event]);
+                }
+              }, data)
+            );
+          }
+        );
       }
 
-      if (typeof option == 'string' && option.charAt(0) !== '_') {
+      if (typeof option == "string" && option.charAt(0) !== "_") {
         data[option].apply(data, args);
       }
     });
@@ -1963,11 +2073,11 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'initialized.owl.carousel': $.proxy(function(e) {
+      "initialized.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.autoRefresh) {
           this.watch();
         }
-      }, this),
+      }, this)
     };
 
     // set default options
@@ -1983,7 +2093,7 @@ console.log(`RD: jQuery`, jQuery);
    */
   AutoRefresh.Defaults = {
     autoRefresh: true,
-    autoRefreshInterval: 500,
+    autoRefreshInterval: 500
   };
 
   /**
@@ -2011,9 +2121,9 @@ console.log(`RD: jQuery`, jQuery);
 
     this._visible = !this._visible;
 
-    this._core.$element.toggleClass('owl-hidden', !this._visible);
+    this._core.$element.toggleClass("owl-hidden", !this._visible);
 
-    this._visible && (this._core.invalidate('width') && this._core.refresh());
+    this._visible && this._core.invalidate("width") && this._core.refresh();
   };
 
   /**
@@ -2028,7 +2138,7 @@ console.log(`RD: jQuery`, jQuery);
       this._core.$element.off(handler, this._handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -2069,53 +2179,59 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'initialized.owl.carousel change.owl.carousel resized.owl.carousel': $.proxy(function(e) {
-        if (!e.namespace) {
-          return;
-        }
+      "initialized.owl.carousel change.owl.carousel resized.owl.carousel": $.proxy(
+        function(e) {
+          if (!e.namespace) {
+            return;
+          }
 
-        if (!this._core.settings || !this._core.settings.lazyLoad) {
-          return;
-        }
+          if (!this._core.settings || !this._core.settings.lazyLoad) {
+            return;
+          }
 
-        if (
-          (e.property && e.property.name === 'position') ||
-          e.type === 'initialized' ||
-          e.type === 'resized'
-        ) {
-          var settings = this._core.settings,
-            n = (settings.center && Math.ceil(settings.items / 2)) || settings.items,
-            i = (settings.center && n * -1) || 0,
-            position =
-              (e.property && e.property.value !== undefined
-                ? e.property.value
-                : this._core.current()) + i,
-            clones = this._core.clones().length,
-            load = $.proxy(function(i, v) {
-              this.load(v);
-            }, this);
+          if (
+            (e.property && e.property.name === "position") ||
+            e.type === "initialized" ||
+            e.type === "resized"
+          ) {
+            var settings = this._core.settings,
+              n =
+                (settings.center && Math.ceil(settings.items / 2)) ||
+                settings.items,
+              i = (settings.center && n * -1) || 0,
+              position =
+                (e.property && e.property.value !== undefined
+                  ? e.property.value
+                  : this._core.current()) + i,
+              clones = this._core.clones().length,
+              load = $.proxy(function(i, v) {
+                this.load(v);
+              }, this);
 
-          if (settings.lazyLoadEager > 0) {
-            n += settings.lazyLoadEager;
-            // If the carousel is looping also preload images that are to the "left"
-            if (settings.loop) {
-              position -= settings.lazyLoadEager;
-              n++;
+            if (settings.lazyLoadEager > 0) {
+              n += settings.lazyLoadEager;
+              // If the carousel is looping also preload images that are to the "left"
+              if (settings.loop) {
+                position -= settings.lazyLoadEager;
+                n++;
+              }
+            }
+
+            if (!settings.center && settings.stagePadding) {
+              position--;
+              n += 2;
+            }
+
+            while (i++ < n) {
+              this.load(clones / 2 + this._core.relative(position));
+              clones &&
+                $.each(this._core.clones(this._core.relative(position)), load);
+              position++;
             }
           }
-
-          if (!settings.center && settings.stagePadding) {
-            position--;
-            n += 2;
-          }
-
-          while (i++ < n) {
-            this.load(clones / 2 + this._core.relative(position));
-            clones && $.each(this._core.clones(this._core.relative(position)), load);
-            position++;
-          }
-        }
-      }, this),
+        },
+        this
+      )
     };
 
     // set the default options
@@ -2131,7 +2247,7 @@ console.log(`RD: jQuery`, jQuery);
    */
   Lazy.Defaults = {
     lazyLoad: false,
-    lazyLoadEager: 0,
+    lazyLoadEager: 0
   };
 
   /**
@@ -2141,7 +2257,7 @@ console.log(`RD: jQuery`, jQuery);
    */
   Lazy.prototype.load = function(position) {
     var $item = this._core.$stage.children().eq(position),
-      $elements = $item && $item.find('.owl-lazy');
+      $elements = $item && $item.find(".owl-lazy");
 
     if (!$elements || $.inArray($item.get(0), this._loaded) > -1) {
       return;
@@ -2152,39 +2268,51 @@ console.log(`RD: jQuery`, jQuery);
         var $element = $(element),
           image,
           url =
-            (window.devicePixelRatio > 1 && $element.attr('data-src-retina')) ||
-            $element.attr('data-src') ||
-            $element.attr('data-srcset');
+            (window.devicePixelRatio > 1 && $element.attr("data-src-retina")) ||
+            $element.attr("data-src") ||
+            $element.attr("data-srcset");
 
-        this._core.trigger('load', { element: $element, url: url }, 'lazy');
+        this._core.trigger("load", { element: $element, url: url }, "lazy");
 
-        if ($element.is('img')) {
+        if ($element.is("img")) {
           $element
             .one(
-              'load.owl.lazy',
+              "load.owl.lazy",
               $.proxy(function() {
-                $element.css('opacity', 1);
-                this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
+                $element.css("opacity", 1);
+                this._core.trigger(
+                  "loaded",
+                  { element: $element, url: url },
+                  "lazy"
+                );
               }, this)
             )
-            .attr('src', url);
-        } else if ($element.is('source')) {
+            .attr("src", url);
+        } else if ($element.is("source")) {
           $element
             .one(
-              'load.owl.lazy',
+              "load.owl.lazy",
               $.proxy(function() {
-                this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
+                this._core.trigger(
+                  "loaded",
+                  { element: $element, url: url },
+                  "lazy"
+                );
               }, this)
             )
-            .attr('srcset', url);
+            .attr("srcset", url);
         } else {
           image = new Image();
           image.onload = $.proxy(function() {
             $element.css({
-              'background-image': 'url("' + url + '")',
-              opacity: '1',
+              "background-image": 'url("' + url + '")',
+              opacity: "1"
             });
-            this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
+            this._core.trigger(
+              "loaded",
+              { element: $element, url: url },
+              "lazy"
+            );
           }, this);
           image.src = url;
         }
@@ -2205,7 +2333,7 @@ console.log(`RD: jQuery`, jQuery);
       this._core.$element.off(handler, this.handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -2241,25 +2369,30 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'initialized.owl.carousel refreshed.owl.carousel': $.proxy(function(e) {
+      "initialized.owl.carousel refreshed.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.autoHeight) {
           this.update();
         }
       }, this),
-      'changed.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && this._core.settings.autoHeight && e.property.name === 'position') {
-          this.update();
-        }
-      }, this),
-      'loaded.owl.lazy': $.proxy(function(e) {
+      "changed.owl.carousel": $.proxy(function(e) {
         if (
           e.namespace &&
           this._core.settings.autoHeight &&
-          e.element.closest('.' + this._core.settings.itemClass).index() === this._core.current()
+          e.property.name === "position"
         ) {
           this.update();
         }
       }, this),
+      "loaded.owl.lazy": $.proxy(function(e) {
+        if (
+          e.namespace &&
+          this._core.settings.autoHeight &&
+          e.element.closest("." + this._core.settings.itemClass).index() ===
+            this._core.current()
+        ) {
+          this.update();
+        }
+      }, this)
     };
 
     // set default options
@@ -2272,7 +2405,7 @@ console.log(`RD: jQuery`, jQuery);
 
     // These changes have been taken from a PR by gavrochelegnou proposed in #1575
     // and have been made compatible with the latest jQuery version
-    $(window).on('load', function() {
+    $(window).on("load", function() {
       if (refThis._core.settings.autoHeight) {
         refThis.update();
       }
@@ -2300,7 +2433,7 @@ console.log(`RD: jQuery`, jQuery);
    */
   AutoHeight.Defaults = {
     autoHeight: false,
-    autoHeightClass: 'owl-height',
+    autoHeightClass: "owl-height"
   };
 
   /**
@@ -2342,7 +2475,7 @@ console.log(`RD: jQuery`, jQuery);
       this._core.$element.off(handler, this._handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] !== 'function' && (this[property] = null);
+      typeof this[property] !== "function" && (this[property] = null);
     }
   };
 
@@ -2391,38 +2524,42 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'initialized.owl.carousel': $.proxy(function(e) {
+      "initialized.owl.carousel": $.proxy(function(e) {
         if (e.namespace) {
-          this._core.register({ type: 'state', name: 'playing', tags: ['interacting'] });
+          this._core.register({
+            type: "state",
+            name: "playing",
+            tags: ["interacting"]
+          });
         }
       }, this),
-      'resize.owl.carousel': $.proxy(function(e) {
+      "resize.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.video && this.isInFullScreen()) {
           e.preventDefault();
         }
       }, this),
-      'refreshed.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && this._core.is('resizing')) {
-          this._core.$stage.find('.cloned .owl-video-frame').remove();
+      "refreshed.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && this._core.is("resizing")) {
+          this._core.$stage.find(".cloned .owl-video-frame").remove();
         }
       }, this),
-      'changed.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && e.property.name === 'position' && this._playing) {
+      "changed.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && e.property.name === "position" && this._playing) {
           this.stop();
         }
       }, this),
-      'prepared.owl.carousel': $.proxy(function(e) {
+      "prepared.owl.carousel": $.proxy(function(e) {
         if (!e.namespace) {
           return;
         }
 
-        var $element = $(e.content).find('.owl-video');
+        var $element = $(e.content).find(".owl-video");
 
         if ($element.length) {
-          $element.css('display', 'none');
+          $element.css("display", "none");
           this.fetch($element, $(e.content));
         }
-      }, this),
+      }, this)
     };
 
     // set default options
@@ -2432,8 +2569,8 @@ console.log(`RD: jQuery`, jQuery);
     this._core.$element.on(this._handlers);
 
     this._core.$element.on(
-      'click.owl.video',
-      '.owl-video-play-icon',
+      "click.owl.video",
+      ".owl-video-play-icon",
       $.proxy(function(e) {
         this.play(e);
       }, this)
@@ -2447,7 +2584,7 @@ console.log(`RD: jQuery`, jQuery);
   Video.Defaults = {
     video: false,
     videoHeight: false,
-    videoWidth: false,
+    videoWidth: false
   };
 
   /**
@@ -2458,21 +2595,21 @@ console.log(`RD: jQuery`, jQuery);
    */
   Video.prototype.fetch = function(target, item) {
     var type = (function() {
-        if (target.attr('data-vimeo-id')) {
-          return 'vimeo';
-        } else if (target.attr('data-vzaar-id')) {
-          return 'vzaar';
+        if (target.attr("data-vimeo-id")) {
+          return "vimeo";
+        } else if (target.attr("data-vzaar-id")) {
+          return "vzaar";
         } else {
-          return 'youtube';
+          return "youtube";
         }
       })(),
       id =
-        target.attr('data-vimeo-id') ||
-        target.attr('data-youtube-id') ||
-        target.attr('data-vzaar-id'),
-      width = target.attr('data-width') || this._core.settings.videoWidth,
-      height = target.attr('data-height') || this._core.settings.videoHeight,
-      url = target.attr('href');
+        target.attr("data-vimeo-id") ||
+        target.attr("data-youtube-id") ||
+        target.attr("data-vzaar-id"),
+      width = target.attr("data-width") || this._core.settings.videoWidth,
+      height = target.attr("data-height") || this._core.settings.videoHeight,
+      url = target.attr("href");
 
     if (url) {
       /*
@@ -2491,28 +2628,28 @@ console.log(`RD: jQuery`, jQuery);
         /(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com|be\-nocookie\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/
       );
 
-      if (id[3].indexOf('youtu') > -1) {
-        type = 'youtube';
-      } else if (id[3].indexOf('vimeo') > -1) {
-        type = 'vimeo';
-      } else if (id[3].indexOf('vzaar') > -1) {
-        type = 'vzaar';
+      if (id[3].indexOf("youtu") > -1) {
+        type = "youtube";
+      } else if (id[3].indexOf("vimeo") > -1) {
+        type = "vimeo";
+      } else if (id[3].indexOf("vzaar") > -1) {
+        type = "vzaar";
       } else {
-        throw new Error('Video URL not supported.');
+        throw new Error("Video URL not supported.");
       }
       id = id[6];
     } else {
-      throw new Error('Missing video URL.');
+      throw new Error("Missing video URL.");
     }
 
     this._videos[url] = {
       type: type,
       id: id,
       width: width,
-      height: height,
+      height: height
     };
 
-    item.attr('data-video', url);
+    item.attr("data-video", url);
 
     this.thumbnail(target, this._videos[url]);
   };
@@ -2530,24 +2667,24 @@ console.log(`RD: jQuery`, jQuery);
       path,
       dimensions =
         video.width && video.height
-          ? 'width:' + video.width + 'px;height:' + video.height + 'px;'
-          : '',
-      customTn = target.find('img'),
-      srcType = 'src',
-      lazyClass = '',
+          ? "width:" + video.width + "px;height:" + video.height + "px;"
+          : "",
+      customTn = target.find("img"),
+      srcType = "src",
+      lazyClass = "",
       settings = this._core.settings,
       create = function(path) {
         icon = '<div class="owl-video-play-icon"></div>';
 
         if (settings.lazyLoad) {
-          tnLink = $('<div/>', {
-            class: 'owl-video-tn ' + lazyClass,
-            srcType: path,
+          tnLink = $("<div/>", {
+            class: "owl-video-tn " + lazyClass,
+            srcType: path
           });
         } else {
-          tnLink = $('<div/>', {
-            class: 'owl-video-tn',
-            style: 'opacity:1;background-image:url(' + path + ')',
+          tnLink = $("<div/>", {
+            class: "owl-video-tn",
+            style: "opacity:1;background-image:url(" + path + ")"
           });
         }
         target.after(tnLink);
@@ -2556,15 +2693,15 @@ console.log(`RD: jQuery`, jQuery);
 
     // wrap video content into owl-video-wrapper div
     target.wrap(
-      $('<div/>', {
-        class: 'owl-video-wrapper',
-        style: dimensions,
+      $("<div/>", {
+        class: "owl-video-wrapper",
+        style: dimensions
       })
     );
 
     if (this._core.settings.lazyLoad) {
-      srcType = 'data-src';
-      lazyClass = 'owl-lazy';
+      srcType = "data-src";
+      lazyClass = "owl-lazy";
     }
 
     // custom thumbnail
@@ -2574,30 +2711,30 @@ console.log(`RD: jQuery`, jQuery);
       return false;
     }
 
-    if (video.type === 'youtube') {
-      path = '//img.youtube.com/vi/' + video.id + '/hqdefault.jpg';
+    if (video.type === "youtube") {
+      path = "//img.youtube.com/vi/" + video.id + "/hqdefault.jpg";
       create(path);
-    } else if (video.type === 'vimeo') {
+    } else if (video.type === "vimeo") {
       $.ajax({
-        type: 'GET',
-        url: '//vimeo.com/api/v2/video/' + video.id + '.json',
-        jsonp: 'callback',
-        dataType: 'jsonp',
+        type: "GET",
+        url: "//vimeo.com/api/v2/video/" + video.id + ".json",
+        jsonp: "callback",
+        dataType: "jsonp",
         success: function(data) {
           path = data[0].thumbnail_large;
           create(path);
-        },
+        }
       });
-    } else if (video.type === 'vzaar') {
+    } else if (video.type === "vzaar") {
       $.ajax({
-        type: 'GET',
-        url: '//vzaar.com/api/videos/' + video.id + '.json',
-        jsonp: 'callback',
-        dataType: 'jsonp',
+        type: "GET",
+        url: "//vzaar.com/api/videos/" + video.id + ".json",
+        jsonp: "callback",
+        dataType: "jsonp",
         success: function(data) {
           path = data.framegrab_url;
           create(path);
-        },
+        }
       });
     }
   };
@@ -2607,12 +2744,12 @@ console.log(`RD: jQuery`, jQuery);
    * @public
    */
   Video.prototype.stop = function() {
-    this._core.trigger('stop', null, 'video');
-    this._playing.find('.owl-video-frame').remove();
-    this._playing.removeClass('owl-video-playing');
+    this._core.trigger("stop", null, "video");
+    this._playing.find(".owl-video-frame").remove();
+    this._playing.removeClass("owl-video-playing");
     this._playing = null;
-    this._core.leave('playing');
-    this._core.trigger('stopped', null, 'video');
+    this._core.leave("playing");
+    this._core.trigger("stopped", null, "video");
   };
 
   /**
@@ -2622,9 +2759,9 @@ console.log(`RD: jQuery`, jQuery);
    */
   Video.prototype.play = function(event) {
     var target = $(event.target),
-      item = target.closest('.' + this._core.settings.itemClass),
-      video = this._videos[item.attr('data-video')],
-      width = video.width || '100%',
+      item = target.closest("." + this._core.settings.itemClass),
+      video = this._videos[item.attr("data-video")],
+      width = video.width || "100%",
       height = video.height || this._core.$stage.height(),
       html,
       iframe;
@@ -2633,8 +2770,8 @@ console.log(`RD: jQuery`, jQuery);
       return;
     }
 
-    this._core.enter('playing');
-    this._core.trigger('play', null, 'video');
+    this._core.enter("playing");
+    this._core.trigger("play", null, "video");
 
     item = this._core.items(this._core.relative(item.index()));
 
@@ -2643,21 +2780,30 @@ console.log(`RD: jQuery`, jQuery);
     html = $(
       '<iframe frameborder="0" allowfullscreen mozallowfullscreen webkitAllowFullScreen ></iframe>'
     );
-    html.attr('height', height);
-    html.attr('width', width);
-    if (video.type === 'youtube') {
-      html.attr('src', '//www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&v=' + video.id);
-    } else if (video.type === 'vimeo') {
-      html.attr('src', '//player.vimeo.com/video/' + video.id + '?autoplay=1');
-    } else if (video.type === 'vzaar') {
-      html.attr('src', '//view.vzaar.com/' + video.id + '/player?autoplay=true');
+    html.attr("height", height);
+    html.attr("width", width);
+    if (video.type === "youtube") {
+      html.attr(
+        "src",
+        "//www.youtube.com/embed/" +
+          video.id +
+          "?autoplay=1&rel=0&v=" +
+          video.id
+      );
+    } else if (video.type === "vimeo") {
+      html.attr("src", "//player.vimeo.com/video/" + video.id + "?autoplay=1");
+    } else if (video.type === "vzaar") {
+      html.attr(
+        "src",
+        "//view.vzaar.com/" + video.id + "/player?autoplay=true"
+      );
     }
 
     iframe = $(html)
       .wrap('<div class="owl-video-frame" />')
-      .insertAfter(item.find('.owl-video'));
+      .insertAfter(item.find(".owl-video"));
 
-    this._playing = item.addClass('owl-video-playing');
+    this._playing = item.addClass("owl-video-playing");
   };
 
   /**
@@ -2676,7 +2822,7 @@ console.log(`RD: jQuery`, jQuery);
       element &&
       $(element)
         .parent()
-        .hasClass('owl-video-frame')
+        .hasClass("owl-video-frame")
     );
   };
 
@@ -2686,13 +2832,13 @@ console.log(`RD: jQuery`, jQuery);
   Video.prototype.destroy = function() {
     var handler, property;
 
-    this._core.$element.off('click.owl.video');
+    this._core.$element.off("click.owl.video");
 
     for (handler in this._handlers) {
       this._core.$element.off(handler, this._handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -2720,18 +2866,21 @@ console.log(`RD: jQuery`, jQuery);
     this.next = undefined;
 
     this.handlers = {
-      'change.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && e.property.name == 'position') {
+      "change.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && e.property.name == "position") {
           this.previous = this.core.current();
           this.next = e.property.value;
         }
       }, this),
-      'drag.owl.carousel dragged.owl.carousel translated.owl.carousel': $.proxy(function(e) {
-        if (e.namespace) {
-          this.swapping = e.type == 'translated';
-        }
-      }, this),
-      'translate.owl.carousel': $.proxy(function(e) {
+      "drag.owl.carousel dragged.owl.carousel translated.owl.carousel": $.proxy(
+        function(e) {
+          if (e.namespace) {
+            this.swapping = e.type == "translated";
+          }
+        },
+        this
+      ),
+      "translate.owl.carousel": $.proxy(function(e) {
         if (
           e.namespace &&
           this.swapping &&
@@ -2739,7 +2888,7 @@ console.log(`RD: jQuery`, jQuery);
         ) {
           this.swap();
         }
-      }, this),
+      }, this)
     };
 
     this.core.$element.on(this.handlers);
@@ -2751,7 +2900,7 @@ console.log(`RD: jQuery`, jQuery);
    */
   Animate.Defaults = {
     animateOut: false,
-    animateIn: false,
+    animateIn: false
   };
 
   /**
@@ -2782,26 +2931,27 @@ console.log(`RD: jQuery`, jQuery);
     }
 
     if (outgoing) {
-      left = this.core.coordinates(this.previous) - this.core.coordinates(this.next);
+      left =
+        this.core.coordinates(this.previous) - this.core.coordinates(this.next);
       previous
         .one($.support.animation.end, clear)
-        .css({ left: left + 'px' })
-        .addClass('animated owl-animated-out')
+        .css({ left: left + "px" })
+        .addClass("animated owl-animated-out")
         .addClass(outgoing);
     }
 
     if (incoming) {
       next
         .one($.support.animation.end, clear)
-        .addClass('animated owl-animated-in')
+        .addClass("animated owl-animated-in")
         .addClass(incoming);
     }
   };
 
   Animate.prototype.clear = function(e) {
     $(e.target)
-      .css({ left: '' })
-      .removeClass('animated owl-animated-out owl-animated-in')
+      .css({ left: "" })
+      .removeClass("animated owl-animated-out owl-animated-in")
       .removeClass(this.core.settings.animateIn)
       .removeClass(this.core.settings.animateOut);
     this.core.onTransitionEnd();
@@ -2818,7 +2968,7 @@ console.log(`RD: jQuery`, jQuery);
       this.core.$element.off(handler, this.handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -2881,54 +3031,67 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'changed.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && e.property.name === 'settings') {
+      "changed.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && e.property.name === "settings") {
           if (this._core.settings.autoplay) {
             this.play();
           } else {
             this.stop();
           }
-        } else if (e.namespace && e.property.name === 'position' && this._paused) {
+        } else if (
+          e.namespace &&
+          e.property.name === "position" &&
+          this._paused
+        ) {
           // Reset the timer. This code is triggered when the position
           // of the carousel was changed through user interaction.
           this._time = 0;
         }
       }, this),
-      'initialized.owl.carousel': $.proxy(function(e) {
+      "initialized.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.autoplay) {
           this.play();
         }
       }, this),
-      'play.owl.autoplay': $.proxy(function(e, t, s) {
+      "play.owl.autoplay": $.proxy(function(e, t, s) {
         if (e.namespace) {
           this.play(t, s);
         }
       }, this),
-      'stop.owl.autoplay': $.proxy(function(e) {
+      "stop.owl.autoplay": $.proxy(function(e) {
         if (e.namespace) {
           this.stop();
         }
       }, this),
-      'mouseover.owl.autoplay': $.proxy(function() {
-        if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+      "mouseover.owl.autoplay": $.proxy(function() {
+        if (
+          this._core.settings.autoplayHoverPause &&
+          this._core.is("rotating")
+        ) {
           this.pause();
         }
       }, this),
-      'mouseleave.owl.autoplay': $.proxy(function() {
-        if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+      "mouseleave.owl.autoplay": $.proxy(function() {
+        if (
+          this._core.settings.autoplayHoverPause &&
+          this._core.is("rotating")
+        ) {
           this.play();
         }
       }, this),
-      'touchstart.owl.core': $.proxy(function() {
-        if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+      "touchstart.owl.core": $.proxy(function() {
+        if (
+          this._core.settings.autoplayHoverPause &&
+          this._core.is("rotating")
+        ) {
           this.pause();
         }
       }, this),
-      'touchend.owl.core': $.proxy(function() {
+      "touchend.owl.core": $.proxy(function() {
         if (this._core.settings.autoplayHoverPause) {
           this.play();
         }
-      }, this),
+      }, this)
     };
 
     // register event handlers
@@ -2946,7 +3109,7 @@ console.log(`RD: jQuery`, jQuery);
     autoplay: false,
     autoplayTimeout: 5000,
     autoplayHoverPause: false,
-    autoplaySpeed: false,
+    autoplaySpeed: false
   };
 
   /**
@@ -2957,10 +3120,11 @@ console.log(`RD: jQuery`, jQuery);
   Autoplay.prototype._next = function(speed) {
     this._call = window.setTimeout(
       $.proxy(this._next, this, speed),
-      this._timeout * (Math.round(this.read() / this._timeout) + 1) - this.read()
+      this._timeout * (Math.round(this.read() / this._timeout) + 1) -
+        this.read()
     );
 
-    if (this._core.is('interacting') || document.hidden) {
+    if (this._core.is("interacting") || document.hidden) {
       return;
     }
     this._core.next(speed || this._core.settings.autoplaySpeed);
@@ -2983,8 +3147,8 @@ console.log(`RD: jQuery`, jQuery);
   Autoplay.prototype.play = function(timeout, speed) {
     var elapsed;
 
-    if (!this._core.is('rotating')) {
-      this._core.enter('rotating');
+    if (!this._core.is("rotating")) {
+      this._core.enter("rotating");
     }
 
     timeout = timeout || this._core.settings.autoplayTimeout;
@@ -3006,7 +3170,10 @@ console.log(`RD: jQuery`, jQuery);
     this._time += (this.read() % timeout) - elapsed;
 
     this._timeout = timeout;
-    this._call = window.setTimeout($.proxy(this._next, this, speed), timeout - elapsed);
+    this._call = window.setTimeout(
+      $.proxy(this._next, this, speed),
+      timeout - elapsed
+    );
   };
 
   /**
@@ -3014,13 +3181,13 @@ console.log(`RD: jQuery`, jQuery);
    * @public
    */
   Autoplay.prototype.stop = function() {
-    if (this._core.is('rotating')) {
+    if (this._core.is("rotating")) {
       // Reset the clock.
       this._time = 0;
       this._paused = true;
 
       window.clearTimeout(this._call);
-      this._core.leave('rotating');
+      this._core.leave("rotating");
     }
   };
 
@@ -3029,7 +3196,7 @@ console.log(`RD: jQuery`, jQuery);
    * @public
    */
   Autoplay.prototype.pause = function() {
-    if (this._core.is('rotating') && !this._paused) {
+    if (this._core.is("rotating") && !this._paused) {
       // Pause the clock.
       this._time = this.read();
       this._paused = true;
@@ -3050,7 +3217,7 @@ console.log(`RD: jQuery`, jQuery);
       this._core.$element.off(handler, this._handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -3065,7 +3232,7 @@ console.log(`RD: jQuery`, jQuery);
  * @license The MIT License (MIT)
  */
 (function($, window, document, undefined) {
-  'use strict';
+  "use strict";
 
   /**
    * Creates the navigation plugin.
@@ -3122,7 +3289,7 @@ console.log(`RD: jQuery`, jQuery);
     this._overrides = {
       next: this._core.next,
       prev: this._core.prev,
-      to: this._core.to,
+      to: this._core.to
     };
 
     /**
@@ -3131,53 +3298,53 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'prepared.owl.carousel': $.proxy(function(e) {
+      "prepared.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.dotsData) {
           this._templates.push(
             '<div class="' +
               this._core.settings.dotClass +
               '">' +
               $(e.content)
-                .find('[data-dot]')
-                .addBack('[data-dot]')
-                .attr('data-dot') +
-              '</div>'
+                .find("[data-dot]")
+                .addBack("[data-dot]")
+                .attr("data-dot") +
+              "</div>"
           );
         }
       }, this),
-      'added.owl.carousel': $.proxy(function(e) {
+      "added.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.dotsData) {
           this._templates.splice(e.position, 0, this._templates.pop());
         }
       }, this),
-      'remove.owl.carousel': $.proxy(function(e) {
+      "remove.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._core.settings.dotsData) {
           this._templates.splice(e.position, 1);
         }
       }, this),
-      'changed.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && e.property.name == 'position') {
+      "changed.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && e.property.name == "position") {
           this.draw();
         }
       }, this),
-      'initialized.owl.carousel': $.proxy(function(e) {
+      "initialized.owl.carousel": $.proxy(function(e) {
         if (e.namespace && !this._initialized) {
-          this._core.trigger('initialize', null, 'navigation');
+          this._core.trigger("initialize", null, "navigation");
           this.initialize();
           this.update();
           this.draw();
           this._initialized = true;
-          this._core.trigger('initialized', null, 'navigation');
+          this._core.trigger("initialized", null, "navigation");
         }
       }, this),
-      'refreshed.owl.carousel': $.proxy(function(e) {
+      "refreshed.owl.carousel": $.proxy(function(e) {
         if (e.namespace && this._initialized) {
-          this._core.trigger('refresh', null, 'navigation');
+          this._core.trigger("refresh", null, "navigation");
           this.update();
           this.draw();
-          this._core.trigger('refreshed', null, 'navigation');
+          this._core.trigger("refreshed", null, "navigation");
         }
-      }, this),
+      }, this)
     };
 
     // set default options
@@ -3195,22 +3362,22 @@ console.log(`RD: jQuery`, jQuery);
   Navigation.Defaults = {
     nav: false,
     navText: [
-      '<span aria-label="' + 'Previous' + '">&#x2039;</span>',
-      '<span aria-label="' + 'Next' + '">&#x203a;</span>',
+      '<span aria-label="' + "Previous" + '">&#x2039;</span>',
+      '<span aria-label="' + "Next" + '">&#x203a;</span>'
     ],
     navSpeed: false,
     navElement: 'button type="button" role="presentation"',
     navContainer: false,
-    navContainerClass: 'owl-nav',
-    navClass: ['owl-prev', 'owl-next'],
+    navContainerClass: "owl-nav",
+    navClass: ["owl-prev", "owl-next"],
     slideBy: 1,
-    dotClass: 'owl-dot',
-    dotsClass: 'owl-dots',
+    dotClass: "owl-dot",
+    dotsClass: "owl-dots",
     dots: true,
     dotsEach: false,
     dotsData: false,
     dotsSpeed: false,
-    dotsContainer: false,
+    dotsContainer: false
   };
 
   /**
@@ -3224,27 +3391,27 @@ console.log(`RD: jQuery`, jQuery);
     // create DOM structure for relative navigation
     this._controls.$relative = (settings.navContainer
       ? $(settings.navContainer)
-      : $('<div>')
+      : $("<div>")
           .addClass(settings.navContainerClass)
           .appendTo(this.$element)
-    ).addClass('disabled');
+    ).addClass("disabled");
 
-    this._controls.$previous = $('<' + settings.navElement + '>')
+    this._controls.$previous = $("<" + settings.navElement + ">")
       .addClass(settings.navClass[0])
       .html(settings.navText[0])
       .prependTo(this._controls.$relative)
       .on(
-        'click',
+        "click",
         $.proxy(function(e) {
           this.prev(settings.navSpeed);
         }, this)
       );
-    this._controls.$next = $('<' + settings.navElement + '>')
+    this._controls.$next = $("<" + settings.navElement + ">")
       .addClass(settings.navClass[1])
       .html(settings.navText[1])
       .appendTo(this._controls.$relative)
       .on(
-        'click',
+        "click",
         $.proxy(function(e) {
           this.next(settings.navSpeed);
         }, this)
@@ -3255,21 +3422,21 @@ console.log(`RD: jQuery`, jQuery);
       this._templates = [
         $('<button role="button">')
           .addClass(settings.dotClass)
-          .append($('<span>'))
-          .prop('outerHTML'),
+          .append($("<span>"))
+          .prop("outerHTML")
       ];
     }
 
     this._controls.$absolute = (settings.dotsContainer
       ? $(settings.dotsContainer)
-      : $('<div>')
+      : $("<div>")
           .addClass(settings.dotsClass)
           .appendTo(this.$element)
-    ).addClass('disabled');
+    ).addClass("disabled");
 
     this._controls.$absolute.on(
-      'click',
-      'button',
+      "click",
+      "button",
       $.proxy(function(e) {
         var index = $(e.target)
           .parent()
@@ -3316,8 +3483,8 @@ console.log(`RD: jQuery`, jQuery);
       this.$element.off(handler, this._handlers[handler]);
     }
     for (control in this._controls) {
-      if (control === '$relative' && settings.navContainer) {
-        this._controls[control].html('');
+      if (control === "$relative" && settings.navContainer) {
+        this._controls[control].html("");
       } else {
         this._controls[control].remove();
       }
@@ -3326,7 +3493,7 @@ console.log(`RD: jQuery`, jQuery);
       this._core[override] = this._overrides[override];
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -3347,18 +3514,18 @@ console.log(`RD: jQuery`, jQuery);
           ? 1
           : settings.dotsEach || settings.items;
 
-    if (settings.slideBy !== 'page') {
+    if (settings.slideBy !== "page") {
       settings.slideBy = Math.min(settings.slideBy, settings.items);
     }
 
-    if (settings.dots || settings.slideBy == 'page') {
+    if (settings.dots || settings.slideBy == "page") {
       this._pages = [];
 
       for (i = lower, j = 0, k = 0; i < upper; i++) {
         if (j >= size || j === 0) {
           this._pages.push({
             start: Math.min(maximum, i - lower),
-            end: i - lower + size - 1,
+            end: i - lower + size - 1
           });
           if (Math.min(maximum, i - lower) === maximum) {
             break;
@@ -3382,25 +3549,34 @@ console.log(`RD: jQuery`, jQuery);
       index = this._core.relative(this._core.current()),
       loop = settings.loop || settings.rewind;
 
-    this._controls.$relative.toggleClass('disabled', !settings.nav || disabled);
+    this._controls.$relative.toggleClass("disabled", !settings.nav || disabled);
 
     if (settings.nav) {
       this._controls.$previous.toggleClass(
-        'disabled',
+        "disabled",
         !loop && index <= this._core.minimum(true)
       );
-      this._controls.$next.toggleClass('disabled', !loop && index >= this._core.maximum(true));
+      this._controls.$next.toggleClass(
+        "disabled",
+        !loop && index >= this._core.maximum(true)
+      );
     }
 
-    this._controls.$absolute.toggleClass('disabled', !settings.dots || disabled);
+    this._controls.$absolute.toggleClass(
+      "disabled",
+      !settings.dots || disabled
+    );
 
     if (settings.dots) {
-      difference = this._pages.length - this._controls.$absolute.children().length;
+      difference =
+        this._pages.length - this._controls.$absolute.children().length;
 
       if (settings.dotsData && difference !== 0) {
-        this._controls.$absolute.html(this._templates.join(''));
+        this._controls.$absolute.html(this._templates.join(""));
       } else if (difference > 0) {
-        this._controls.$absolute.append(new Array(difference + 1).join(this._templates[0]));
+        this._controls.$absolute.append(
+          new Array(difference + 1).join(this._templates[0])
+        );
       } else if (difference < 0) {
         this._controls.$absolute
           .children()
@@ -3408,11 +3584,11 @@ console.log(`RD: jQuery`, jQuery);
           .remove();
       }
 
-      this._controls.$absolute.find('.active').removeClass('active');
+      this._controls.$absolute.find(".active").removeClass("active");
       this._controls.$absolute
         .children()
         .eq($.inArray(this.current(), this._pages))
-        .addClass('active');
+        .addClass("active");
     }
   };
 
@@ -3431,7 +3607,7 @@ console.log(`RD: jQuery`, jQuery);
         settings &&
         (settings.center || settings.autoWidth || settings.dotsData
           ? 1
-          : settings.dotsEach || settings.items),
+          : settings.dotsEach || settings.items)
     };
   };
 
@@ -3460,7 +3636,7 @@ console.log(`RD: jQuery`, jQuery);
       length,
       settings = this._core.settings;
 
-    if (settings.slideBy == 'page') {
+    if (settings.slideBy == "page") {
       position = $.inArray(this.current(), this._pages);
       length = this._pages.length;
       successor ? ++position : --position;
@@ -3468,7 +3644,9 @@ console.log(`RD: jQuery`, jQuery);
     } else {
       position = this._core.relative(this._core.current());
       length = this._core.items().length;
-      successor ? (position += settings.slideBy) : (position -= settings.slideBy);
+      successor
+        ? (position += settings.slideBy)
+        : (position -= settings.slideBy);
     }
 
     return position;
@@ -3524,7 +3702,7 @@ console.log(`RD: jQuery`, jQuery);
  * @license The MIT License (MIT)
  */
 (function($, window, document, undefined) {
-  'use strict';
+  "use strict";
 
   /**
    * Creates the hash plugin.
@@ -3558,17 +3736,17 @@ console.log(`RD: jQuery`, jQuery);
      * @type {Object}
      */
     this._handlers = {
-      'initialized.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && this._core.settings.startPosition === 'URLHash') {
-          $(window).trigger('hashchange.owl.navigation');
+      "initialized.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && this._core.settings.startPosition === "URLHash") {
+          $(window).trigger("hashchange.owl.navigation");
         }
       }, this),
-      'prepared.owl.carousel': $.proxy(function(e) {
+      "prepared.owl.carousel": $.proxy(function(e) {
         if (e.namespace) {
           var hash = $(e.content)
-            .find('[data-hash]')
-            .addBack('[data-hash]')
-            .attr('data-hash');
+            .find("[data-hash]")
+            .addBack("[data-hash]")
+            .attr("data-hash");
 
           if (!hash) {
             return;
@@ -3577,9 +3755,11 @@ console.log(`RD: jQuery`, jQuery);
           this._hashes[hash] = e.content;
         }
       }, this),
-      'changed.owl.carousel': $.proxy(function(e) {
-        if (e.namespace && e.property.name === 'position') {
-          var current = this._core.items(this._core.relative(this._core.current())),
+      "changed.owl.carousel": $.proxy(function(e) {
+        if (e.namespace && e.property.name === "position") {
+          var current = this._core.items(
+              this._core.relative(this._core.current())
+            ),
             hash = $.map(this._hashes, function(item, hash) {
               return item === current ? hash : null;
             }).join();
@@ -3590,7 +3770,7 @@ console.log(`RD: jQuery`, jQuery);
 
           window.location.hash = hash;
         }
-      }, this),
+      }, this)
     };
 
     // set default options
@@ -3601,7 +3781,7 @@ console.log(`RD: jQuery`, jQuery);
 
     // register event listener for hash navigation
     $(window).on(
-      'hashchange.owl.navigation',
+      "hashchange.owl.navigation",
       $.proxy(function(e) {
         var hash = window.location.hash.substring(1),
           items = this._core.$stage.children(),
@@ -3621,7 +3801,7 @@ console.log(`RD: jQuery`, jQuery);
    * @public
    */
   Hash.Defaults = {
-    URLhashListener: false,
+    URLhashListener: false
   };
 
   /**
@@ -3631,13 +3811,13 @@ console.log(`RD: jQuery`, jQuery);
   Hash.prototype.destroy = function() {
     var handler, property;
 
-    $(window).off('hashchange.owl.navigation');
+    $(window).off("hashchange.owl.navigation");
 
     for (handler in this._handlers) {
       this._core.$element.off(handler, this._handlers[handler]);
     }
     for (property in Object.getOwnPropertyNames(this)) {
-      typeof this[property] != 'function' && (this[property] = null);
+      typeof this[property] != "function" && (this[property] = null);
     }
   };
 
@@ -3654,54 +3834,54 @@ console.log(`RD: jQuery`, jQuery);
  * @license The MIT License (MIT)
  */
 (function($, window, document, undefined) {
-  var style = $('<support>').get(0).style,
-    prefixes = 'Webkit Moz O ms'.split(' '),
+  var style = $("<support>").get(0).style,
+    prefixes = "Webkit Moz O ms".split(" "),
     events = {
       transition: {
         end: {
-          WebkitTransition: 'webkitTransitionEnd',
-          MozTransition: 'transitionend',
-          OTransition: 'oTransitionEnd',
-          transition: 'transitionend',
-        },
+          WebkitTransition: "webkitTransitionEnd",
+          MozTransition: "transitionend",
+          OTransition: "oTransitionEnd",
+          transition: "transitionend"
+        }
       },
       animation: {
         end: {
-          WebkitAnimation: 'webkitAnimationEnd',
-          MozAnimation: 'animationend',
-          OAnimation: 'oAnimationEnd',
-          animation: 'animationend',
-        },
-      },
+          WebkitAnimation: "webkitAnimationEnd",
+          MozAnimation: "animationend",
+          OAnimation: "oAnimationEnd",
+          animation: "animationend"
+        }
+      }
     },
     tests = {
       csstransforms: function() {
-        return !!test('transform');
+        return !!test("transform");
       },
       csstransforms3d: function() {
-        return !!test('perspective');
+        return !!test("perspective");
       },
       csstransitions: function() {
-        return !!test('transition');
+        return !!test("transition");
       },
       cssanimations: function() {
-        return !!test('animation');
-      },
+        return !!test("animation");
+      }
     };
 
   function test(property, prefixed) {
     var result = false,
       upper = property.charAt(0).toUpperCase() + property.slice(1);
 
-    $.each((property + ' ' + prefixes.join(upper + ' ') + upper).split(' '), function(
-      i,
-      property
-    ) {
-      if (style[property] !== undefined) {
-        result = prefixed ? property : true;
-        return false;
+    $.each(
+      (property + " " + prefixes.join(upper + " ") + upper).split(" "),
+      function(i, property) {
+        if (style[property] !== undefined) {
+          result = prefixed ? property : true;
+          return false;
+        }
       }
-    });
+    );
 
     return result;
   }
@@ -3712,19 +3892,19 @@ console.log(`RD: jQuery`, jQuery);
 
   if (tests.csstransitions()) {
     /* jshint -W053 */
-    $.support.transition = new String(prefixed('transition'));
+    $.support.transition = new String(prefixed("transition"));
     $.support.transition.end = events.transition.end[$.support.transition];
   }
 
   if (tests.cssanimations()) {
     /* jshint -W053 */
-    $.support.animation = new String(prefixed('animation'));
+    $.support.animation = new String(prefixed("animation"));
     $.support.animation.end = events.animation.end[$.support.animation];
   }
 
   if (tests.csstransforms()) {
     /* jshint -W053 */
-    $.support.transform = new String(prefixed('transform'));
+    $.support.transform = new String(prefixed("transform"));
     $.support.transform3d = tests.csstransforms3d();
   }
 })(jQuery, window, document);

@@ -24,7 +24,6 @@ window.WOW = WOW;
 import "common/libs/owl";
 import "bootstrap";
 import "stickUp/build/js/stickUp";
-import "classie";
 import "jquery-migrate/dist/jquery-migrate";
 import "imports-loader?this=>window!common/libs/modernizr";
 import "magnific-popup";
@@ -44,7 +43,7 @@ export default {
     return {
       navList: [
         { title: "这是啥", to: "#whatis" },
-        { title: "作品", to: "#useit" },
+        { title: "博客", to: "#blog" },
         { title: "资源", to: "#credits" },
         { title: "反馈", to: "#contact" },
         { title: "关于", to: "/about" }

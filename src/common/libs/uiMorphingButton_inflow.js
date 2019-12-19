@@ -4,130 +4,141 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2014, Codrops
  * http://www.codrops.com
  */
-;( function( window ) {
-	
-	'use strict';
 
-	var transEndEventNames = {
-			'WebkitTransition': 'webkitTransitionEnd',
-			'MozTransition': 'transitionend',
-			'OTransition': 'oTransitionEnd',
-			'msTransition': 'MSTransitionEnd',
-			'transition': 'transitionend'
-		},
-		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-		support = { transitions : Modernizr.csstransitions };
+import classie from "classie";
 
-	function extend( a, b ) {
-		for( var key in b ) { 
-			if( b.hasOwnProperty( key ) ) {
-				a[key] = b[key];
-			}
-		}
-		return a;
-	}
+(function(window) {
+  "use strict";
 
-	function UIMorphingButton( el, options ) {
-		this.el = el;
-		this.options = extend( {}, this.options );
-		extend( this.options, options );
-		this._init();
-	}
+  var transEndEventNames = {
+      WebkitTransition: "webkitTransitionEnd",
+      MozTransition: "transitionend",
+      OTransition: "oTransitionEnd",
+      msTransition: "MSTransitionEnd",
+      transition: "transitionend"
+    },
+    transEndEventName = transEndEventNames[Modernizr.prefixed("transition")],
+    support = { transitions: Modernizr.csstransitions };
 
-	UIMorphingButton.prototype.options = {
-		closeEl : '',
-		onBeforeOpen : function() { return false; },
-		onAfterOpen : function() { return false; },
-		onBeforeClose : function() { return false; },
-		onAfterClose : function() { return false; }
-	}
+  function extend(a, b) {
+    for (var key in b) {
+      if (b.hasOwnProperty(key)) {
+        a[key] = b[key];
+      }
+    }
+    return a;
+  }
 
-	UIMorphingButton.prototype._init = function() {
-		// save element height
-		this.elH = this.el.offsetHeight;
-		// the button
-		this.button = this.el.querySelector( 'button' );
-		// state
-		this.expanded = false;
-		// content el
-		this.contentEl = this.el.querySelector( '.morph-content' );
-		// init events
-		this._initEvents();
-	}
+  function UIMorphingButton(el, options) {
+    this.el = el;
+    this.options = extend({}, this.options);
+    extend(this.options, options);
+    this._init();
+  }
 
-	UIMorphingButton.prototype._initEvents = function() {
-		var self = this;
-		// open
-		this.button.addEventListener( 'click', function() { self.toggle(); } );
-		// close
-		if( this.options.closeEl !== '' ) {
-			var closeEl = this.el.querySelector( this.options.closeEl );
-			if( closeEl ) {
-				closeEl.addEventListener( 'click', function() { self.toggle(); } );
-			}
-		}
-	}
+  UIMorphingButton.prototype.options = {
+    closeEl: "",
+    onBeforeOpen: function() {
+      return false;
+    },
+    onAfterOpen: function() {
+      return false;
+    },
+    onBeforeClose: function() {
+      return false;
+    },
+    onAfterClose: function() {
+      return false;
+    }
+  };
 
-	UIMorphingButton.prototype.toggle = function() {
-		if( this.isAnimating ) return false;
+  UIMorphingButton.prototype._init = function() {
+    // save element height
+    this.elH = this.el.offsetHeight;
+    // the button
+    this.button = this.el.querySelector("button");
+    // state
+    this.expanded = false;
+    // content el
+    this.contentEl = this.el.querySelector(".morph-content");
+    // init events
+    this._initEvents();
+  };
 
-		// callback
-		if( this.expanded ) {
-			this.options.onBeforeClose();
-		}
-		else {
-			// add class active (solves z-index problem when more than one button is in the page)
-			classie.addClass( this.el, 'active' );
-			this.options.onBeforeOpen();
-		}
+  UIMorphingButton.prototype._initEvents = function() {
+    var self = this;
+    // open
+    this.button.addEventListener("click", function() {
+      self.toggle();
+    });
+    // close
+    if (this.options.closeEl !== "") {
+      var closeEl = this.el.querySelector(this.options.closeEl);
+      if (closeEl) {
+        closeEl.addEventListener("click", function() {
+          self.toggle();
+        });
+      }
+    }
+  };
 
-		this.isAnimating = true;
+  UIMorphingButton.prototype.toggle = function() {
+    if (this.isAnimating) return false;
 
-		var self = this,
-			onEndTransitionFn = function( ev ) {
-				if( ev.target !== this ) return false;
+    // callback
+    if (this.expanded) {
+      this.options.onBeforeClose();
+    } else {
+      // add class active (solves z-index problem when more than one button is in the page)
+      classie.addClass(this.el, "active");
+      this.options.onBeforeOpen();
+    }
 
-				if( support.transitions ) {
-					this.removeEventListener( transEndEventName, onEndTransitionFn );
-				}
-				self.isAnimating = false;
-				
-				// callback
-				if( self.expanded ) {
-					// remove class active (after closing)
-					classie.removeClass( self.el, 'active' );
-					self.options.onAfterClose();
-				}
-				else {
-					self.options.onAfterOpen();
-				}
+    this.isAnimating = true;
 
-				self.expanded = !self.expanded;
-			};
+    var self = this,
+      onEndTransitionFn = function(ev) {
+        if (ev.target !== this) return false;
 
-		if( support.transitions ) {
-			this.el.addEventListener( transEndEventName, onEndTransitionFn );
-		}
-		else {
-			onEndTransitionFn();
-		}
-		
-		// add/remove class "open" to the button wraper
-		this.el.style.height = this.expanded ? this.elH + 'px' : this.contentEl.offsetHeight + 'px';
-		
-		if( this.expanded ) {
-			classie.removeClass( this.el, 'open' );
-		}
-		else {
-			classie.addClass( this.el, 'open' );
-		}
-	}
+        if (support.transitions) {
+          this.removeEventListener(transEndEventName, onEndTransitionFn);
+        }
+        self.isAnimating = false;
 
-	// add to global namespace
-	window.UIMorphingButton = UIMorphingButton;
+        // callback
+        if (self.expanded) {
+          // remove class active (after closing)
+          classie.removeClass(self.el, "active");
+          self.options.onAfterClose();
+        } else {
+          self.options.onAfterOpen();
+        }
 
-})( window );
+        self.expanded = !self.expanded;
+      };
+
+    if (support.transitions) {
+      this.el.addEventListener(transEndEventName, onEndTransitionFn);
+    } else {
+      onEndTransitionFn();
+    }
+
+    // add/remove class "open" to the button wraper
+    this.el.style.height = this.expanded
+      ? this.elH + "px"
+      : this.contentEl.offsetHeight + "px";
+
+    if (this.expanded) {
+      classie.removeClass(this.el, "open");
+    } else {
+      classie.addClass(this.el, "open");
+    }
+  };
+
+  // add to global namespace
+  window.UIMorphingButton = UIMorphingButton;
+})(window);
