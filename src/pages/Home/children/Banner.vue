@@ -43,7 +43,7 @@
         <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
           <ul class="nav navbar-nav">
             <li class="menuItem" :key="index" v-for="(item, index) in nav">
-              <router-link :to="item.to">{{item.title}}</router-link>
+              <a @click.prevent="flyTo(item.to)">{{item.title}}</a>
             </li>
           </ul>
         </div>
@@ -59,6 +59,18 @@ export default {
       type: Array,
       default() {
         return [{ title: "这是啥", to: "#whatis" }];
+      }
+    }
+  },
+  methods: {
+    flyTo(path) {
+      if (path.includes("#")) {
+        document.querySelector(path).scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+      if (path.includes("/")) {
+        this.$router.push(path);
       }
     }
   }

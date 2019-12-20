@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 module.exports = {
+  assetsDir: "static",
   lintOnSave: true,
   chainWebpack: config => {
     // Loader

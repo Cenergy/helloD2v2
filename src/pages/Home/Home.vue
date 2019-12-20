@@ -18,8 +18,8 @@ import $ from "jquery";
 
 window.$ = window.jquery = window.jQuery = $;
 
-import { WOW } from "wowjs";
-window.WOW = WOW;
+// import { WOW } from "wowjs";
+// window.WOW = WOW;
 
 import "common/libs/owl";
 import "bootstrap";
@@ -28,16 +28,11 @@ import "jquery-migrate/dist/jquery-migrate";
 import "imports-loader?this=>window!common/libs/modernizr";
 import "magnific-popup";
 import "common/libs/uiMorphingButton_inflow.js";
-import "common/libs/homeInit.js";
+import homeInit from "common/libs/homeInit.js";
 
 export default {
   mounted() {
-    jQuery(function($) {
-      $(document).ready(function() {
-        $(".navbar-default").stickUp();
-      });
-    });
-    new WOW().init();
+    homeInit();
   },
   data() {
     return {
