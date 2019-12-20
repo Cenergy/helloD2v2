@@ -28,9 +28,10 @@
             <h3>图像识别</h3>
             <el-upload
               class="upload-img-recognition"
+              :accept="'image/*'"
               drag
               action="https://jsonplaceholder.typicode.com/posts/"
-              multiple
+              :on-error="handleError"
             >
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">
@@ -170,6 +171,19 @@ export default {
   methods: {
     enterBlog() {
       window.location = "http://blog.aigisss.com";
+    },
+    handleError() {
+      console.error("上传失败");
+
+      this.$alert("这是一段内容", "标题名称", {
+        confirmButtonText: "确定",
+        callback: action => {
+          this.$message({
+            type: "info",
+            message: `action: ${action}`
+          });
+        }
+      });
     }
   }
 };
