@@ -30,8 +30,12 @@
               class="upload-img-recognition"
               :accept="'image/*'"
               drag
-              action="https://jsonplaceholder.typicode.com/posts/"
+              :action="uploadImgURL"
+              :multiple="false"
+              :file-list="fileList"
               :on-error="handleError"
+              :on-success="imgHandleSuccess"
+              :on-change="changeUpload"
             >
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">
@@ -159,31 +163,81 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      title="文字识别"
+      :visible.sync="centerDialogVisible"
+      width="80%"
+      @close="closeD"
+      :show-close="false"
+    >
+      <span slot="title" class="dialog-header">hello</span>
+      <div>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <h4 class="demonstration">识别的图片</h4>
+            <el-image :src="src">
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <h4 class="demonstration">识别的结果</h4>
+              <el-divider></el-divider>
+              <div v-html="recognition_result" class="bg-purple-light"></div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
+import { uploadImgURL, BLOG_URL, BASE_URL } from "common/constants";
+import { getImgConvertWord, deleteOriginImg } from "network/home";
 export default {
   data() {
     return {
-      input3: ""
+      input3: "",
+      centerDialogVisible: false,
+      uploadImgURL,
+      fileList: [],
+      src: "",
+      recognition_result: "",
+      handleImgId: ""
     };
   },
   methods: {
     enterBlog() {
-      window.location = "http://blog.aigisss.com";
+      window.location = BLOG_URL;
     },
     handleError() {
       console.error("上传失败");
-
-      this.$alert("这是一段内容", "标题名称", {
-        confirmButtonText: "确定",
-        callback: action => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`
-          });
-        }
-      });
+      this.centerDialogVisible = true;
+    },
+    async imgHandleSuccess(res) {
+      const { data } = res;
+      const { id: imgUuid } = data;
+      this.centerDialogVisible = true;
+      this.handleImgId = imgUuid;
+      const result = await getImgConvertWord(imgUuid);
+      this.src = `${BASE_URL}${result.data.img_path}`;
+      this.recognition_result = result.data.vector_words;
+    },
+    closeD() {
+      this.src = "";
+      this.recognition_result = "";
+      deleteOriginImg(this.handleImgId);
+      console.error("close!!!");
+    },
+    changeUpload(files, fileList) {
+      console.log("Go: changeUpload -> files, fileList", files, fileList);
+      this.fileList = fileList.slice(-1);
     }
   }
 };
@@ -193,5 +247,18 @@ export default {
 .enter-blog {
   color: #34495e;
   font-size: bold;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
 }
 </style>
