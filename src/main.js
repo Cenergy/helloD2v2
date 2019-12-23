@@ -10,9 +10,8 @@ import "element-ui/lib/theme-chalk/index.css";
 
 Vue.use(ElementUI);
 
-import iView from "iview";
-import "iview/dist/styles/iview.css";
-Vue.use(iView);
+import VueClipboard from "vue-clipboard2";
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 // 引入echarts

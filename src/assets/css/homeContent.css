@@ -1,6 +1,12 @@
 .upload-img-recognition .el-upload-dragger {
-    width: 100% !important;
-    height: 100% !important;
-    padding: 15px;
-  }
-  
+  width: 100% !important;
+  height: 100% !important;
+  padding: 15px;
+  margin-top: 10px;
+}
+.el-upload-dragger .el-icon-upload {
+  font-size: 67px;
+  color: #c0c4cc;
+  margin: 15px 0 16px !important;
+  line-height: 28px !important;
+}

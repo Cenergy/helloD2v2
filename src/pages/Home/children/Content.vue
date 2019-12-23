@@ -9,13 +9,21 @@
 
         <div class="row">
           <div class="col-sm-4 wow fadeInDown text-center">
-            <img class="rotate" src="~assets/img/icon/tweet.svg" alt="Generic placeholder image" />
+            <img
+              class="rotate"
+              src="~assets/img/icon/tweet.svg"
+              alt="Generic placeholder image"
+            />
             <h3>语音识别</h3>
             <p class="lead">
               点击开始录音识别，
               <br />再次点击即可停止录音！
             </p>
-            <el-input placeholder="点击话筒开始录音" v-model="input3" class="input-with-select">
+            <el-input
+              placeholder="点击话筒开始录音"
+              v-model="input3"
+              class="input-with-select"
+            >
               <el-button slot="append" icon="el-icon-mic"></el-button>
             </el-input>
 
@@ -24,7 +32,11 @@
           <!-- /.col-lg-4 -->
 
           <div class="col-sm-4 wow fadeInDown text-center">
-            <img class="rotate" src="~assets/img/icon/picture.svg" alt="Generic placeholder image" />
+            <img
+              class="rotate"
+              src="~assets/img/icon/picture.svg"
+              alt="Generic placeholder image"
+            />
             <h3>图像识别</h3>
             <el-upload
               class="upload-img-recognition"
@@ -39,9 +51,7 @@
             >
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">
-                <p>
-                  <em>点击上传</em>图片或将图片拖到此处
-                </p>
+                <p><em>点击上传</em>图片或将图片拖到此处</p>
                 <p>
                   或者截图复制后直接
                   <em>control+v</em>
@@ -53,13 +63,19 @@
           <!-- /.col-lg-4 -->
 
           <div class="col-sm-4 wow fadeInDown text-center">
-            <img class="rotate" src="~assets/img/icon/retina.svg" alt="Generic placeholder image" />
+            <img
+              class="rotate"
+              src="~assets/img/icon/retina.svg"
+              alt="Generic placeholder image"
+            />
             <h3>人脸识别</h3>
             <p>
               本功能针对那些账号与人脸绑定的用户，
               <br />再次访问本站可以快速登录
             </p>
-            <el-button type="primary" icon="el-icon-s-custom" size="medium">快速登录</el-button>
+            <el-button type="primary" icon="el-icon-s-custom" size="medium"
+              >快速登录</el-button
+            >
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
           <!-- /.col-lg-4 -->
@@ -68,7 +84,11 @@
 
         <div class="row tworow">
           <div class="col-sm-4 wow fadeInDown text-center">
-            <img class="rotate" src="~assets/img/icon/laptop.svg" alt="Generic placeholder image" />
+            <img
+              class="rotate"
+              src="~assets/img/icon/laptop.svg"
+              alt="Generic placeholder image"
+            />
             <h3>机器学习</h3>
             <p class="lead">
               Epsum factorial non deposit quid pro quo hic escorol. Olypian
@@ -79,7 +99,11 @@
           <!-- /.col-lg-4 -->
 
           <div class="col-sm-4 wow fadeInDown text-center">
-            <img class="rotate" src="~assets/img/icon/map.svg" alt="Generic placeholder image" />
+            <img
+              class="rotate"
+              src="~assets/img/icon/map.svg"
+              alt="Generic placeholder image"
+            />
             <h3>地图</h3>
             <p class="lead">
               Epsum factorial non deposit quid pro quo hic escorol. Olypian
@@ -90,11 +114,18 @@
           <!-- /.col-lg-4 -->
 
           <div class="col-sm-4 wow fadeInDown text-center">
-            <img class="rotate" src="~assets/img/icon/browser.svg" alt="Generic placeholder image" />
-            <h3>图表转换</h3>点击上传含有表格的图片
+            <img
+              class="rotate"
+              src="~assets/img/icon/browser.svg"
+              alt="Generic placeholder image"
+            />
+            <h3>图表转换</h3>
+            点击上传含有表格的图片
             <p class="lead">
               <el-badge :value="1" class="item" type="primary">
-                <el-button size="small" icon="el-icon-upload">上传图片</el-button>
+                <el-button size="small" icon="el-icon-upload"
+                  >上传图片</el-button
+                >
               </el-badge>
             </p>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
@@ -110,10 +141,14 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3 text-center wrap_title white">
             <h2>博客</h2>
-            <p class="lead" style="margin-top:0">源于“Web Log(网络日志)”，后来缩写为Blog</p>
+            <p class="lead" style="margin-top:0">
+              源于“Web Log(网络日志)”，后来缩写为Blog
+            </p>
           </div>
           <div class="mockup-content" @click="enterBlog">
-            <div class="morph-button wow pulse morph-button-inflow morph-button-inflow-1">
+            <div
+              class="morph-button wow pulse morph-button-inflow morph-button-inflow-1"
+            >
               <button type="button ">
                 <span>Subscribe to our Newsletter</span>
               </button>
@@ -122,7 +157,8 @@
                   <div class="content-style-form content-style-form-4">
                     <h2 class="morph-clone">
                       <span class="enter-blog">去我的博客瞧瞧！！！</span>
-                    </h2>>
+                    </h2>
+                    >
                   </div>
                 </div>
               </div>
@@ -156,7 +192,16 @@
         </el-row>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+        <el-button
+          type="primary"
+          v-clipboard:copy="recognition_result"
+          v-clipboard:success="onCopy"
+          v-clipboard:error="onError"
+          >复制</el-button
+        >
+        <el-button type="primary" @click="centerDialogVisible = false"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -164,11 +209,7 @@
 <script>
 import { uploadImgURL, BLOG_URL, BASE_URL } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
-import hello from "./hello";
 export default {
-  components: {
-    hello
-  },
   data() {
     return {
       input3: "",
@@ -206,6 +247,53 @@ export default {
     changeUpload(files, fileList) {
       console.log("Go: changeUpload -> files, fileList", files, fileList);
       this.fileList = fileList.slice(-1);
+    },
+    onCopy(e) {
+      console.log("Go: onCopy -> e", e);
+      // 复制成功
+
+      this.centerDialogVisible = false;
+      this.$copyText($(e.text).text());
+      this.$notify({
+        title: "成功",
+        message: "复制成功！",
+        type: "success",
+        duration: 3000
+      });
+    },
+    onError(e) {
+      // 复制失败
+      this.$message({
+        message: "复制失败！",
+        type: "error"
+      });
+    },
+
+    toText(node) {
+      var result = "";
+
+      if (node.nodeType == document.TEXT_NODE) {
+        // Replace repeated spaces, newlines, and tabs with a single space.
+        result = node.nodeValue.replace(/\s+/g, " ");
+      } else {
+        for (var i = 0, j = node.childNodes.length; i < j; i++) {
+          result += _this.toText(node.childNodes[i]);
+        }
+
+        var d = _this.getStyle(node, "display");
+
+        if (
+          d.match(/^block/) ||
+          d.match(/list/) ||
+          d.match(/row/) ||
+          node.tagName == "BR" ||
+          node.tagName == "HR"
+        ) {
+          result += "\n";
+        }
+      }
+
+      return result;
     }
   }
 };
