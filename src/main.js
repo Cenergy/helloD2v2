@@ -10,6 +10,10 @@ import "element-ui/lib/theme-chalk/index.css";
 
 Vue.use(ElementUI);
 
+import iView from "iview";
+import "iview/dist/styles/iview.css";
+Vue.use(iView);
+
 Vue.config.productionTip = false;
 // 引入echarts
 import echarts from "echarts";

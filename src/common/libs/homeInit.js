@@ -79,11 +79,11 @@ export default function homeInit() {
         });
       });
 
-    jQuery(function($) {
-      $(document).ready(function() {
-        $(".navbar-default").stickUp();
-      });
-    });
+    // jQuery(function($) {
+    //   $(document).ready(function() {
+    //     $(".navbar-default").stickUp();
+    //   });
+    // });
 
     const wow = new WOW();
     wow.init();
