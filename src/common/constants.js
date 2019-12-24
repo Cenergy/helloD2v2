@@ -6,5 +6,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export const BASE_URL = baseURL;
-export const uploadImgURL = `${BASE_URL}/sources/upload/`;
+export const uploadImgURL = `${BASE_URL}/ais/upload/`;
 export const BLOG_URL = "http://blog.aigisss.com";

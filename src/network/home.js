@@ -21,13 +21,13 @@ export function getHomeData(type, page) {
 
 export function getImgConvertWord(id) {
   return request({
-    url: "/sources/img2words/",
+    url: "/ais/img2words/",
     params: { id }
   });
 }
 export function deleteOriginImg(id) {
   return request({
-    url: "/sources/img2words/",
+    url: "/ais/img2words/",
     method: "delete",
     params: { id }
   });
