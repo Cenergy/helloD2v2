@@ -31,6 +31,10 @@ const router = new Router({
     {
       path: "/about",
       component: () => import("pages/About/About")
+    },
+    {
+      path: "/map",
+      component: () => import("pages/map/Map")
     }
   ]
 });
