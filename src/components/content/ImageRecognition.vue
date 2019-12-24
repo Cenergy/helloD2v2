@@ -11,7 +11,6 @@
       :on-error="handleError"
       :on-success="imgHandleSuccess"
       :on-change="changeUpload"
-      list-type="picture"
     >
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">
