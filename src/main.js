@@ -10,6 +10,9 @@ import "element-ui/lib/theme-chalk/index.css";
 
 Vue.use(ElementUI);
 
+import VueClipboard from "vue-clipboard2";
+Vue.use(VueClipboard);
+
 Vue.config.productionTip = false;
 // 引入echarts
 import echarts from "echarts";

@@ -158,7 +158,6 @@
                     <h2 class="morph-clone">
                       <span class="enter-blog">去我的博客瞧瞧！！！</span>
                     </h2>
-                    >
                   </div>
                 </div>
               </div>
@@ -174,6 +173,7 @@
       width="80%"
       @close="closeD"
       :show-close="false"
+      custom-class="abow_dialog"
     >
       <span slot="title" class="dialog-header">hello</span>
       <div>
@@ -185,13 +185,19 @@
           <el-col :span="12">
             <div class="grid-content">
               <h4 class="demonstration">识别的结果</h4>
-              <el-divider></el-divider>
               <div v-html="recognition_result" class="bg-purple-light"></div>
             </div>
           </el-col>
         </el-row>
       </div>
       <span slot="footer" class="dialog-footer">
+        <el-button
+          type="primary"
+          v-clipboard:copy="recognition_result"
+          v-clipboard:success="onCopy"
+          v-clipboard:error="onError"
+          >复制</el-button
+        >
         <el-button type="primary" @click="centerDialogVisible = false"
           >确 定</el-button
         >
@@ -240,6 +246,26 @@ export default {
     changeUpload(files, fileList) {
       console.log("Go: changeUpload -> files, fileList", files, fileList);
       this.fileList = fileList.slice(-1);
+    },
+    onCopy(e) {
+      console.log("Go: onCopy -> e", e);
+      // 复制成功
+
+      this.centerDialogVisible = false;
+      this.$copyText($(e.text).text());
+      this.$notify({
+        title: "成功",
+        message: "复制成功！",
+        type: "success",
+        duration: 3000
+      });
+    },
+    onError(e) {
+      // 复制失败
+      this.$message({
+        message: "复制失败！",
+        type: "error"
+      });
     }
   }
 };
