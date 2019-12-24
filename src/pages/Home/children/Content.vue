@@ -103,11 +103,21 @@
             <h3>图表转换</h3>
             点击上传含有表格的图片
             <p class="lead">
-              <el-badge :value="1" class="item" type="primary">
-                <el-button size="small" icon="el-icon-upload"
-                  >上传图片</el-button
-                >
-              </el-badge>
+              <el-upload
+                class="upload-demo"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :file-list="fileList2"
+                list-type="picture"
+              >
+                <el-badge :value="50" class="item" type="primary">
+                  <el-button size="small" type="primary">点击上传</el-button>
+                </el-badge>
+                <div slot="tip" class="el-upload__tip">
+                  只能上传图片
+                </div>
+              </el-upload>
             </p>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
@@ -159,12 +169,19 @@ export default {
   },
   data() {
     return {
-      input3: ""
+      input3: "",
+      fileList2: []
     };
   },
   methods: {
     enterBlog() {
       window.location = BLOG_URL;
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
     }
   }
 };
@@ -173,5 +190,8 @@ export default {
 .enter-blog {
   color: #34495e;
   font-size: bold;
+}
+.el-upload__tip {
+  color: #f56c6c;
 }
 </style>
