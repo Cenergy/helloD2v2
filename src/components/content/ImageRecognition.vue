@@ -84,8 +84,12 @@ export default {
       window.location = BLOG_URL;
     },
     handleError() {
-      console.error("上传失败");
-      this.centerDialogVisible = true;
+      this.$notify.error({
+        title: "错误",
+        message: "上传失败！！",
+        type: "success",
+        duration: 3000
+      });
     },
     async imgHandleSuccess(res) {
       const { data } = res;
