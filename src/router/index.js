@@ -3,7 +3,7 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-import Home from "../pages/Home/Home.vue";
+// import Home from "../pages/Home/Home.vue";
 
 const router = new Router({
   // mode: "history",
@@ -14,7 +14,7 @@ const router = new Router({
     },
     {
       path: "/home",
-      component: Home,
+      component: () => import("pages/Home/Home"),
       meta: {
         keepAlive: true,
         title: "首页"
@@ -22,7 +22,7 @@ const router = new Router({
     },
     {
       path: "/hello",
-      component: import("components/hello/hello")
+      component: () => import("components/hello/hello")
     },
     {
       path: "/world",

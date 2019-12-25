@@ -1,7 +1,10 @@
 const webpack = require("webpack");
+const path = require("path");
+const CompressionPlugin = require("compression-webpack-plugin"); //引入gzip压缩插件
 module.exports = {
   assetsDir: "static",
   lintOnSave: true,
+  productionSourceMap: false,
   chainWebpack: config => {
     // Loader
     config.module
@@ -10,7 +13,12 @@ module.exports = {
       .use("file-loader")
       .loader("file-loader")
       .end();
+    config.module
+      .rule("images")
+      .use("image-webpack-loader")
+      .loader("image-webpack-loader");
   },
+
   configureWebpack: {
     resolve: {
       alias: {
@@ -27,6 +35,12 @@ module.exports = {
         $: "jquery",
         jQuery: "jquery",
         "windows.jQuery": "jquery"
+      }),
+      new CompressionPlugin({
+        //gzip压缩配置
+        test: /\.js$|\.html$|\.css/, //匹配文件名
+        threshold: 10240, //对超过10kb的数据进行压缩
+        deleteOriginalAssets: false //是否删除原文件
       })
     ]
   }
