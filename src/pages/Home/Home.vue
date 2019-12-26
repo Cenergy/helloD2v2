@@ -22,11 +22,11 @@ window.$ = window.jquery = window.jQuery = $;
 // window.WOW = WOW;
 
 import "common/libs/owl";
-import "bootstrap";
+// import "bootstrap";
 import "stickUp/build/js/stickUp";
 import "jquery-migrate/dist/jquery-migrate";
 import "imports-loader?this=>window!common/libs/modernizr";
-import "magnific-popup";
+// import "magnific-popup";
 import "common/libs/uiMorphingButton_inflow.js";
 import homeInit from "common/libs/homeInit.js";
 
@@ -65,5 +65,5 @@ export default {
 @import url("~assets/css/owl.theme.css");
 @import url("~assets/css/style.css");
 @import url("~assets/css/animate.css");
-@import url("~assets/css/magnific-popup.css");
+/* @import url("~assets/css/magnific-popup.css"); */
 </style>

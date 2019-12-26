@@ -15,10 +15,10 @@ Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 // 引入echarts
-import echarts from "echarts";
+
 window.$ = $;
 
-Vue.prototype.$echarts = echarts;
+// Vue.prototype.$echarts = echarts;
 
 /* eslint-disable no-new */
 new Vue({
