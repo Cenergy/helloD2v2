@@ -1,0 +1,9 @@
+# vue deployer
+public_dir: dist
+
+deploy:
+  type: git
+  repo:
+    github: https://github.com/Cenergy/cenergy.github.io.git
+    coding: https://git.dev.tencent.com/AIGIS/aigis.git
+  branch: master
