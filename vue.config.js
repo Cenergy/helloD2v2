@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const path = require("path");
 const CompressionPlugin = require("compression-webpack-plugin"); //引入gzip压缩插件
 
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
   assetsDir: "static",
@@ -56,7 +58,13 @@ module.exports = {
         },
         sourceMap: false,
         parallel: true
-      })
+      }),
+      new CopyWebpackPlugin([
+        {
+          from: "CNAME",
+          to: "../dist/"
+        }
+      ])
     ],
     optimization: {
       runtimeChunk: "single",
