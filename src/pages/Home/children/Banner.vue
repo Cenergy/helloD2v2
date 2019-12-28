@@ -68,9 +68,10 @@ export default {
         document.querySelector(path).scrollIntoView({
           behavior: "smooth"
         });
-      }
-      if (path.includes("/")) {
+      } else if (path.includes("/")) {
         this.$router.push(path);
+      } else {
+        window.location = "/" + path;
       }
     }
   }
