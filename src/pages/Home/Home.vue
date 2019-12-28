@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       news: {
-        show: `重要公告：目前网站以进行全新的升级，欢迎使用！！<a href="https://api.aigisss.com/">去旧版瞧瞧</a>`,
+        show: `重要公告：目前网站正在全面升级，欢迎浏览！！<a href="https://api.aigisss.com/">去旧版瞧瞧</a>`,
         type: "warning"
       },
       navList: [
