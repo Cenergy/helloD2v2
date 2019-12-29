@@ -1,8 +1,15 @@
 <template>
-  <div>aboutme</div>
+  <div>
+    <SourcesList></SourcesList>
+  </div>
 </template>
 <script>
-export default {};
+import SourcesList from "components/content/SourcesList";
+export default {
+  components: {
+    SourcesList
+  }
+};
 </script>
 <style>
 </style>

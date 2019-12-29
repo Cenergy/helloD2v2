@@ -22,7 +22,7 @@ window.$ = window.jquery = window.jQuery = $;
 // window.WOW = WOW;
 
 import "common/libs/owl";
-// import "bootstrap";
+import "bootstrap";
 import "stickUp/build/js/stickUp";
 import "jquery-migrate/dist/jquery-migrate";
 import "imports-loader?this=>window!common/libs/modernizr";
@@ -36,7 +36,7 @@ export default {
     this.$message({
       dangerouslyUseHTMLString: true,
       message: `<strong>${this.news.show}</strong>`,
-      duration: 0,
+      duration: this.news.duration,
       showClose: true,
       type: this.news.type
     });
@@ -45,7 +45,8 @@ export default {
     return {
       news: {
         show: `重要公告：目前网站正在全面升级，欢迎浏览！！<a href="https://api.aigisss.com/">去旧版瞧瞧</a>`,
-        type: "warning"
+        type: "warning",
+        duration: 10000
       },
       navList: [
         { title: "这是啥", to: "#whatis" },

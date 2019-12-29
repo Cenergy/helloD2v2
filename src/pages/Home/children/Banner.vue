@@ -79,4 +79,7 @@ export default {
 </script>
 
 <style scoped>
+.menuItem a {
+  cursor: pointer;
+}
 </style>

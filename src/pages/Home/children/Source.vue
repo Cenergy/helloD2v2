@@ -9,7 +9,7 @@
           </div>
 
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row">
+            <div class="row" @click="selectSourceType(0)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-desktop fa-4x"></i>
               </div>
@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row">
+            <div class="row" @click="selectSourceType(1)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-picture-o fa-4x"></i>
               </div>
@@ -37,7 +37,7 @@
 
         <div class="row tworow">
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row">
+            <div class="row" @click="selectSourceType(2)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-magic fa-4x"></i>
               </div>
@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row">
+            <div class="row" @click="selectSourceType(3)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-heart fa-4x"></i>
               </div>
@@ -77,10 +77,35 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      title="资源列表"
+      :visible.sync="sourceDialogVisible"
+      :fullscreen="true"
+      :lock-scroll="true"
+      custom-class="'sourceList'"
+    >
+      <SourcesList></SourcesList>
+    </el-dialog>
   </div>
 </template>
 <script>
-export default {};
+import SourcesList from "components/content/SourcesList";
+export default {
+  data() {
+    return {
+      sourceDialogVisible: false
+    };
+  },
+  methods: {
+    selectSourceType(type) {
+      this.sourceDialogVisible = true;
+    }
+  },
+  components: {
+    SourcesList
+  }
+};
 </script>
 <style scoped>
 </style>
