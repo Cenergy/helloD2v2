@@ -84,22 +84,34 @@
       :fullscreen="true"
       :lock-scroll="true"
       custom-class="'sourceList'"
+      @close="closeSourcesPage"
     >
-      <SourcesList></SourcesList>
+      <SourcesList :sourcesList="sourcesData"></SourcesList>
     </el-dialog>
   </div>
 </template>
 <script>
 import SourcesList from "components/content/SourcesList";
+import { getSources } from "network/home";
 export default {
   data() {
     return {
-      sourceDialogVisible: false
+      sourceDialogVisible: false,
+      sourcesData: []
     };
   },
   methods: {
-    selectSourceType(type) {
+    async selectSourceType(type) {
+      console.log("Go: selectSourceType -> type", type);
+      const { data } = await getSources(String(type));
+      console.log("Go: selectSourceType -> data", data);
+      if (!data.length) return;
+      this.sourcesData = data;
       this.sourceDialogVisible = true;
+    },
+    closeSourcesPage() {
+      console.log("Go: closeSourcesPage -> closeSourcesPage");
+      this.sourcesData = [];
     }
   },
   components: {

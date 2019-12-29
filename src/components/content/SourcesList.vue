@@ -34,6 +34,7 @@
 
 <script>
 export default {
+  name: "SourcesList",
   //import引入的组件需要注入到对象中才能使用
   components: {},
   data() {
@@ -42,37 +43,44 @@ export default {
       key_word: ""
     };
   },
+  props: {
+    sourcesList: {
+      type: Array,
+      default: []
+    }
+  },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
   methods: {
-    append_html(emt, obj) {
-      let res = obj;
-      for (var i = 0; i < res.data.length; i++) {
+    append_html(emt, data) {
+      console.log("Go: append_html -> data", data);
+      if (!data.length) return;
+      for (var i = 0; i < data.length; i++) {
         var card_html =
           '<div class="col-sm-6 col-md-4 col-lg-3 ">' +
           '<div class="thumbnail">' +
           '<a href="' +
-          res.data[i].sourceurl +
+          data[i].sourceurl +
           '" title="' +
-          res.data[i].sourcename +
+          data[i].sourcename +
           '" target="_blank">' +
           '<div style="background:green; width:100%;height:150px;"><img class="lazy" src="' +
-          res.data[i].source_img +
+          data[i].source_img +
           '"   alt="AIGIS资源补给" style="overflow: hidden;width:100%;height:100%;"></div>' +
           '</a><div class="caption"><h3 style="color:blue">' +
           "" +
-          res.data[i].sourcename +
+          data[i].sourcename +
           "</h3>" +
           '<br><b><a target="_blank" class="layui-btn layui-btn-sm" href="' +
-          res.data[i].sourceurl +
+          data[i].sourceurl +
           '"><i class="layui-icon layui-icon-download-circle"></i>下载地址</a></b><br><br>' +
           "<p>资源" +
-          res.data[i].sourcename +
+          data[i].sourcename +
           "的提取码或密码是：" +
-          res.data[i].code +
+          data[i].code +
           "</p>" +
           "</div></div></div>";
         $(emt).append(card_html);
@@ -91,55 +99,20 @@ export default {
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    const res = {
-      data: [
-        {
-          sourceurl: "123",
-          sourcename: "234",
-          source_img: "123",
-          code: "ggg"
-        },
-        {
-          sourceurl: "123",
-          sourcename: "234",
-          source_img: "123",
-          code: "ggg"
-        },
-        {
-          sourceurl: "123",
-          sourcename: "234",
-          source_img: "123",
-          code: "ggg"
-        },
-        {
-          sourceurl: "123",
-          sourcename: "234",
-          source_img: "123",
-          code: "ggg"
-        },
-        {
-          sourceurl: "123",
-          sourcename: "234",
-          source_img: "123",
-          code: "ggg"
-        },
-        {
-          sourceurl: "123",
-          sourcename: "234",
-          source_img: "123",
-          code: "ggg"
-        }
-      ]
-    };
-    this.append_html("#sourcesList", res);
+    console.log("Go: mounted -> this.sourcesList", this.sourcesList);
+    this.append_html("#sourcesList", this.sourcesList);
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
-  destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  destroyed() {
+    console.log("Go: destroyed -> destroyed", "destroyed");
+  }, //生命周期 - 销毁完成
+  activated() {
+    console.log("Go: destroyed -> destroyed", "activated");
+  } //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style  scoped>
