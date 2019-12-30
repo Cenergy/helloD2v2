@@ -35,11 +35,11 @@
       <span slot="title" class="dialog-header">hello</span>
       <div>
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <h4 class="demonstration textCenter">识别的图片</h4>
             <img :src="src" alt style="max-width:100%" />
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <div class="grid-content">
               <h4 class="demonstration textCenter">识别的结果</h4>
               <div v-html="recognition_result" class="bg-purple-light textLeft"></div>
@@ -90,10 +90,15 @@ export default {
     async imgHandleSuccess(res) {
       const { data } = res;
       const { id: imgUuid } = data;
-      this.centerDialogVisible = true;
       this.handleImgId = imgUuid;
+      const messageBox = this.$message({
+        message: "正在解析中，请稍后！",
+        duration: 0
+      });
+
       const result = await getImgConvertWord(imgUuid);
-      console.log("Go: imgHandleSuccess -> result", result);
+      messageBox.close();
+      this.centerDialogVisible = true;
       this.src = `${BASE_URL}${result.data.img_path}`;
       this.recognition_result = result.data.vector_words;
     },

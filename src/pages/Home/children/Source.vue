@@ -9,26 +9,29 @@
           </div>
 
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row" @click="selectSourceType(0)">
+            <div class="row" @click="selectSourceType(1)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-desktop fa-4x"></i>
               </div>
               <div class="col-md-8 box-ct">
                 <h3>视频资源</h3>
-                <p>Lorem ipsum dolor sit ametconsectetur adipiscing elit. Suspendisse orci quam.</p>
+                <p>
+                  看过比较好的学习视频或者娱乐视频。
+                  <br />若侵权，邮件告知，删之。
+                </p>
               </div>
             </div>
           </div>
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row" @click="selectSourceType(1)">
+            <div class="row" @click="selectSourceType(2)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-picture-o fa-4x"></i>
               </div>
               <div class="col-md-8 box-ct">
                 <h3>专业资源</h3>
                 <p>
-                  Nullam mo arcu ac molestie scelerisqu vulputate, molestie ligula gravida, tempus
-                  ipsum.
+                  关于GIS的一些资源。
+                  <br />若失效，邮件告知，加之。
                 </p>
               </div>
             </div>
@@ -37,27 +40,24 @@
 
         <div class="row tworow">
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row" @click="selectSourceType(2)">
+            <div class="row" @click="selectSourceType(3)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-magic fa-4x"></i>
               </div>
               <div class="col-md-8 box-ct">
                 <h3>办公资源</h3>
-                <p>Lorem ipsum dolor sit ametconsectetur adipiscing elit. Suspendisse orci quam.</p>
+                <p>各种软件资源</p>
               </div>
             </div>
           </div>
           <div class="col-sm-6 block wow bounceIn">
-            <div class="row" @click="selectSourceType(3)">
+            <div class="row" @click="selectSourceType(0)">
               <div class="col-md-4 box-icon rotate">
                 <i class="fa fa-heart fa-4x"></i>
               </div>
               <div class="col-md-8 box-ct">
                 <h3>编程资源</h3>
-                <p>
-                  Nullam mo arcu ac molestie scelerisqu vulputate, molestie ligula gravida, tempus
-                  ipsum.
-                </p>
+                <p>其他资源，但是无论在哪，搜索框都可以搜到！！</p>
               </div>
             </div>
           </div>
@@ -83,21 +83,32 @@
       :visible.sync="sourceDialogVisible"
       :fullscreen="true"
       :lock-scroll="true"
-      custom-class="'sourceList'"
+      custom-class="sourceList"
       @close="closeSourcesPage"
+      :show-close="false"
     >
-      <SourcesList :sourcesList="sourcesData"></SourcesList>
+      <div slot="title" class="sourceTitleHead">
+        <div class="sourceTitle">
+          <div class="sourceTitleLeft">资源列表</div>
+          <div class="sourceTitleRight">
+            <i class="el-icon-close" @click="sourceDialogVisible = false"></i>
+          </div>
+        </div>
+      </div>
+      <SourcesList :sourcesList="sourcesData" :sourcesBaseURL="sources_url"></SourcesList>
     </el-dialog>
   </div>
 </template>
 <script>
 import SourcesList from "components/content/SourcesList";
+import { BASE_URL } from "common/constants";
 import { getSources } from "network/home";
 export default {
   data() {
     return {
       sourceDialogVisible: false,
-      sourcesData: []
+      sourcesData: [],
+      sources_url: BASE_URL
     };
   },
   methods: {
@@ -119,5 +130,25 @@ export default {
   }
 };
 </script>
+<style >
+.el-dialog__header {
+  padding: 10px !important;
+  background: #f8f8f8;
+}
+</style>
 <style scoped>
+.sourceTitle {
+  display: flex;
+  color: #333;
+}
+.sourceTitleLeft {
+  flex: 5;
+}
+.sourceTitleRight {
+  flex: 5;
+  text-align: right;
+}
+.sourceTitleRight i {
+  cursor: pointer;
+}
 </style>
