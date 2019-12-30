@@ -40,3 +40,15 @@ export function getSources(type) {
     }
   });
 }
+export function setSuggest(options) {
+  const { suggest_email, suggest_user, suggest_message } = options;
+  return request({
+    url: "/api/v1/suggestions/",
+    method: "post",
+    data: {
+      suggest_email,
+      suggest_user,
+      suggest_message
+    }
+  });
+}
