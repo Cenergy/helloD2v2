@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class>123</div>
+  <div class>Map Show</div>
 </template>
 
 <script>

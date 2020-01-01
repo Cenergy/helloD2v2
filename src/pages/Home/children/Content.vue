@@ -67,10 +67,12 @@
 
           <div class="col-sm-4 wow fadeInDown text-center">
             <img class="rotate" src="~assets/img/icon/map.svg" alt="Generic placeholder image" />
-            <h3>地图</h3>
+            <h3>地图</h3>Map Show
             <p class="lead">
-              Epsum factorial non deposit quid pro quo hic escorol. Olypian
-              quarrels et gorilla congolium sic ad nauseum.
+              <el-button type="primary" @click="enterMap">
+                点 开
+                <i class="el-icon-map-location el-icon--right"></i>
+              </el-button>
             </p>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
@@ -132,6 +134,9 @@ export default {
   methods: {
     enterBlog() {
       window.location = BLOG_URL;
+    },
+    enterMap() {
+      this.$router.push("/map");
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
