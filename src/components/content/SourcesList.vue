@@ -26,12 +26,13 @@
           <div class="thumbnail">
             <a :href="item.sourceurl" :title="item.sourcename" target="_blank">
               <div style="background:green; width:100%;height:150px;">
-                <img
-                  class="lazy"
+                <el-image
+                  :fit="'cover'"
                   :src="sourcesBaseURL+item.source_img"
+                  lazy
                   alt="AIGIS资源补给"
-                  style="overflow: hidden;width:100%;height:100%;"
-                />
+                  style="width: 100%; height: 100%"
+                ></el-image>
               </div>
             </a>
             <div class="caption">

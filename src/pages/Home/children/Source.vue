@@ -68,10 +68,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-md-offset-3 text-center wrap_title">
-            <h2>免费下载</h2>
-            <p class="lead" style="margin-top:0">开源的思想</p>
+            <h2>关注一下</h2>
+            <p class="lead" style="margin-top:0">我的公众号</p>
             <p>
-              <a class="btn btn-embossed btn-primary view" role="button">免费下载</a>
+              <img src="~assets/img/qrcode_for_weixin.jpg" alt style />
             </p>
           </div>
         </div>

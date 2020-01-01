@@ -51,11 +51,11 @@
                   牛顿第三定律告诉我们，
                   <br />您的意见是我的动力。
                 </a>
-                <br />您的建议是我的方向！
+                <!-- <br />您的建议是我的方向！ -->
               </p>
             </address>
 
-            <h3>Social</h3>
+            <!-- <h3>Social</h3>
             <li class="social">
               <a href="#">
                 <i class="fa fa-facebook-square fa-size"></i>
@@ -69,7 +69,7 @@
               <a href="#">
                 <i class="fa fa-flickr fa-size"></i>
               </a>
-            </li>
+            </li>-->
           </div>
         </div>
       </div>

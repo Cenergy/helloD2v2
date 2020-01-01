@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-7">
             <h3 class="footer-title">我是有底线的</h3>
-            <p>
+            <!-- <p>
               <br />Visita Andrea Galanti.it e vedrai tutte le news riguardanti nuovi Theme!
               <br />Go to:
               <a href="http://andreagalanti.it" target="_blank">andreagalanti.it</a>
@@ -21,7 +21,7 @@
                 title="网页模板"
                 target="_blank"
               >网页模板</a>
-            </p>
+            </p>-->
 
             <!-- LICENSE -->
             <span>©2019 爱即是诗版权所有</span>
