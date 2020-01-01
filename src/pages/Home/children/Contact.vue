@@ -8,67 +8,39 @@
             <p class="lead" style="margin-top:0">提提您的建议或者意见！</p>
           </div>
 
-          <form role="form" action method="post">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="InputName">名称</label>
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="InputName"
-                    id="InputName"
-                    placeholder="请输入用户名"
-                    required
-                  />
-                  <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-ok form-control-feedback"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="InputEmail">邮箱</label>
-                <div class="input-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="InputEmail"
-                    name="InputEmail"
-                    placeholder="请输入你的邮箱"
-                    required
-                  />
-                  <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-ok form-control-feedback"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="InputMessage">信息</label>
-                <div class="input-group">
-                  <textarea
-                    name="InputMessage"
-                    id="InputMessage"
-                    class="form-control"
-                    rows="5"
-                    required
-                  ></textarea>
-                  <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-ok form-control-feedback"></i>
-                  </span>
-                </div>
-              </div>
-
-              <input
-                type="submit"
-                name="submit"
-                id="submit"
-                value="提交"
-                class="btn wow tada btn-embossed btn-primary pull-right"
-              />
+          <div class="col-md-6">
+            <div class="form-group">
+              <el-form
+                :model="ruleForm"
+                :rules="rules"
+                ref="ruleForm"
+                label-width="100px"
+                class="demo-ruleForm"
+              >
+                <el-form-item label="邮箱" prop="email">
+                  <el-input v-model="ruleForm.email"></el-input>
+                </el-form-item>
+                <el-form-item label="用户名" prop="name">
+                  <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="内容" prop="desc">
+                  <el-input
+                    type="textarea"
+                    v-model="ruleForm.desc"
+                    :autosize="{ minRows: 3, maxRows: 5}"
+                  ></el-input>
+                </el-form-item>
+                <input
+                  type="submit"
+                  name="submit"
+                  id="submit"
+                  value="提交"
+                  @click.prevent="submitForm('ruleForm')"
+                  class="btn wow tada btn-embossed btn-info pull-right"
+                />
+              </el-form>
             </div>
-          </form>
+          </div>
 
           <hr class="featurette-divider hidden-lg" />
           <div class="col-md-5 col-md-push-1 address">
@@ -105,7 +77,66 @@
   </div>
 </template>
 <script>
-export default {};
+import { setSuggest } from "network/home";
+export default {
+  data() {
+    return {
+      ruleForm: {
+        name: "",
+        email: "",
+        desc: ""
+      },
+      rules: {
+        name: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+        ],
+        email: [
+          { required: true, message: "请输入邮箱地址", trigger: "blur" },
+          {
+            type: "email",
+            message: "请输入正确的邮箱地址",
+            trigger: ["blur", "change"]
+          }
+        ],
+        desc: [{ required: true, message: "请填写反馈信息", trigger: "blur" }]
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(async valid => {
+        if (valid) {
+          const { name, email, desc } = this.ruleForm;
+          const messageBox = this.$message({
+            message: "正在反馈中，稍等一会！",
+            duration: 0
+          });
+          const { code = 400 } = await setSuggest({
+            suggest_email: email,
+            suggest_user: name,
+            suggest_message: desc
+          });
+          messageBox.close();
+          if (code === 400) {
+            this.$message.error("反馈信息失败!!");
+            return;
+          }
+          this.$message.success("恭喜你，反馈信息成功!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
+  }
+};
 </script>
 <style scoped>
+.form-group {
+  margin-top: 30px !important;
+}
 </style>
