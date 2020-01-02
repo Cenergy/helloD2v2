@@ -136,7 +136,7 @@ export default {
       window.location = BLOG_URL;
     },
     enterMap() {
-      this.$router.push("/map");
+      window.location = "/vue-map/"
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
