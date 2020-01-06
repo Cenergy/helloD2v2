@@ -40,7 +40,6 @@ export default {
       showClose: true,
       type: this.news.type
     });
-    this.$message.success("元旦快乐！！");
   },
   data() {
     return {
