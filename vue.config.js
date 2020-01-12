@@ -11,6 +11,9 @@ module.exports = {
   assetsDir: "static",
   lintOnSave: true,
   productionSourceMap: false,
+  css: {
+    extract: false // Error: No module factory available for dependency type: CssDependency
+  },
   chainWebpack: config => {
     // Loader
     config.module
