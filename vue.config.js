@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const path = require("path");
 const CompressionPlugin = require("compression-webpack-plugin"); //引入gzip压缩插件
+var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -65,6 +67,7 @@ module.exports = {
           to: "../dist/"
         }
       ])
+      // new BundleAnalyzerPlugin()
     ],
     optimization: {
       runtimeChunk: "single",
