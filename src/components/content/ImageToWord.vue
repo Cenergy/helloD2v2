@@ -14,9 +14,7 @@
     >
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">
-        <p>
-          <em>点击上传</em>图片或将图片拖到此处
-        </p>
+        <p><em>点击上传</em>图片或将图片拖到此处</p>
         <p>
           或者截图复制后直接
           <em>control+v</em>
@@ -42,7 +40,10 @@
           <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <div class="grid-content">
               <h4 class="demonstration textCenter">识别的结果</h4>
-              <div v-html="recognition_result" class="bg-purple-light textLeft"></div>
+              <div
+                v-html="recognition_result"
+                class="bg-purple-light textLeft"
+              ></div>
             </div>
           </el-col>
         </el-row>
@@ -53,8 +54,11 @@
           v-clipboard:copy="recognition_result"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
-        >复制</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+          >复制</el-button
+        >
+        <el-button type="primary" @click="centerDialogVisible = false"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -64,7 +68,7 @@
 import { uploadImgURL, BLOG_URL, BASE_URL } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
 export default {
-  name: "ImageRecognition",
+  name: "ImageToWord",
   data() {
     return {
       centerDialogVisible: false,

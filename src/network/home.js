@@ -25,6 +25,12 @@ export function getImgConvertWord(id) {
     params: { id }
   });
 }
+export function getImgConvertExcel(id) {
+  return request({
+    url: "/ais/img2excel/",
+    params: { id }
+  });
+}
 export function deleteOriginImg(id) {
   return request({
     url: "/ais/img2words/",
