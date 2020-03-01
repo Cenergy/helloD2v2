@@ -5,27 +5,15 @@
         <div class="row">
           <div class="col-md-7">
             <h3 class="footer-title">我是有底线的</h3>
-            <!-- <p>
-              <br />Visita Andrea Galanti.it e vedrai tutte le news riguardanti nuovi Theme!
-              <br />Go to:
-              <a href="http://andreagalanti.it" target="_blank">andreagalanti.it</a>
-              More Templates
-              <a
-                href="http://www.cssmoban.com/"
-                target="_blank"
-                title="模板之家"
-              >模板之家</a>
-              - Collect from
-              <a
-                href="http://www.cssmoban.com/"
-                title="网页模板"
-                target="_blank"
-              >网页模板</a>
-            </p>-->
+            <p v-for="(value,index) in links" class="col-sm-6 col-xs-6 col-md-4" :key="index">
+              <a :href="value.url" :title="value.name" target="_blank">{{value.name}}</a>
+            </p>
 
             <!-- LICENSE -->
-            <span>©2019 爱即是诗版权所有</span>
-            <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
+            <div style="text-align:center;" class="col-sm-12 col-xs-12 col-md-12">
+              <span>©2019 爱即是诗版权所有</span>
+              <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
+            </div>
           </div>
           <!-- /col-xs-7 -->
 
@@ -45,7 +33,14 @@
   </div>
 </template>
 <script>
-export default {};
+import { FRIEND_LINKS } from "common/constants";
+export default {
+  data() {
+    return {
+      links: FRIEND_LINKS
+    };
+  }
+};
 </script>
 <style scoped>
 </style>

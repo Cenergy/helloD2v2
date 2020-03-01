@@ -106,7 +106,8 @@
   </div>
 </template>
 <script>
-import ImageRecognition from "components/content/ImageRecognition";
+import ImageToWord from "components/content/ImageToWord";
+import ImageToExcel from "components/content/ImageToExcel";
 import { uploadImgURL, BLOG_URL, MAP_URL, BASE_URL } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
 export default {
