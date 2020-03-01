@@ -119,7 +119,7 @@
 </template>
 <script>
 import ImageRecognition from "components/content/ImageRecognition";
-import { uploadImgURL, BLOG_URL, BASE_URL } from "common/constants";
+import { uploadImgURL, BLOG_URL, MAP_URL, BASE_URL } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
 export default {
   components: {
@@ -136,7 +136,7 @@ export default {
       window.location = BLOG_URL;
     },
     enterMap() {
-      window.location = "/vue-map/"
+      window.location = MAP_URL;
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
