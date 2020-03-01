@@ -81,11 +81,12 @@
     <el-dialog
       title="资源列表"
       :visible.sync="sourceDialogVisible"
-      :fullscreen="true"
+      width="100%"
       :lock-scroll="true"
       custom-class="sourceList"
       @close="closeSourcesPage"
       :show-close="false"
+      class="abow_dialog"
     >
       <div slot="title" class="sourceTitleHead">
         <div class="sourceTitle">
@@ -95,7 +96,11 @@
           </div>
         </div>
       </div>
-      <SourcesList :sourcesList="sourcesData" :sourcesBaseURL="sources_url"></SourcesList>
+      <SourcesList
+        :sourcesList="sourcesData"
+        :sourcesBaseURL="sources_url"
+      ></SourcesList>
+      <el-backtop></el-backtop>
     </el-dialog>
   </div>
 </template>
@@ -130,10 +135,34 @@ export default {
   }
 };
 </script>
-<style >
+<style>
 .el-dialog__header {
   padding: 10px !important;
   background: #f8f8f8;
+}
+
+.abow_dialog {
+  display: flex;
+  justify-content: center;
+  align-items: Center;
+  overflow: hidden;
+}
+.abow_dialog .el-dialog .el-dialog__body {
+  position: absolute;
+  left: 0;
+  top: 54px;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+  z-index: 1;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.abow_dialog .el-dialog {
+  margin: 0 auto !important;
+  height: 100%;
+  overflow: hidden;
 }
 </style>
 <style scoped>

@@ -27,7 +27,7 @@
                   <el-input
                     type="textarea"
                     v-model="ruleForm.desc"
-                    :autosize="{ minRows: 3, maxRows: 5}"
+                    :autosize="{ minRows: 3, maxRows: 5 }"
                   ></el-input>
                 </el-form-item>
                 <input
@@ -35,7 +35,7 @@
                   name="submit"
                   id="submit"
                   value="提交"
-                  @click.prevent="submitForm('ruleForm')"
+                  @click.prevent.once="submitForm('ruleForm')"
                   class="btn wow tada btn-embossed btn-info pull-right"
                 />
               </el-form>

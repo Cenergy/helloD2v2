@@ -22,7 +22,7 @@
           <div class="col-sm-4 wow fadeInDown text-center">
             <img class="rotate" src="~assets/img/icon/picture.svg" alt="Generic placeholder image" />
             <h3>图像识别</h3>
-            <ImageRecognition></ImageRecognition>
+            <ImageToWord></ImageToWord>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
           <!-- /.col-lg-4 -->
@@ -48,19 +48,7 @@
             <img class="rotate" src="~assets/img/icon/browser.svg" alt="Generic placeholder image" />
             <h3>图表转换</h3>点击上传含有表格的图片
             <p class="lead">
-              <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :file-list="fileList2"
-                list-type="picture"
-              >
-                <el-badge :value="50" class="item" type="primary">
-                  <el-button size="small" type="primary">点击上传</el-button>
-                </el-badge>
-                <div slot="tip" class="el-upload__tip">只能上传图片</div>
-              </el-upload>
+              <ImageToExcel></ImageToExcel>
             </p>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
@@ -123,7 +111,8 @@ import { uploadImgURL, BLOG_URL, MAP_URL, BASE_URL } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
 export default {
   components: {
-    ImageRecognition
+    ImageToWord,
+    ImageToExcel
   },
   data() {
     return {

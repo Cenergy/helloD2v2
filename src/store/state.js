@@ -3,5 +3,6 @@ export default {
   longitude: 114,
   username: "hello",
   address: {},
-  categorys: []
+  categorys: [],
+  count: 50
 };
