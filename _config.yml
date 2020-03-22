@@ -6,4 +6,5 @@ deploy:
   repo:
     github: https://github.com/Cenergy/cenergy.github.io.git
     coding: https://e.coding.net/aigis/aigisss.git
+    aigisss: root@aigisss:/home/git/aigisss
   branch: master

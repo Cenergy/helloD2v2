@@ -9,8 +9,8 @@ if (process.env.NODE_ENV === "production") {
 
 export const BASE_URL = baseURL;
 export const uploadImgURL = `${baseURL}/ais/upload/`;
-export const BLOG_URL = "https://blog.aigisss.com/";
-export const MAP_URL = "https://map.aigisss.com/";
+export const BLOG_URL = "/blog/";
+export const MAP_URL = "/gis/";
 
 export const FRIEND_LINKS = [
   {

@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <h3 class="footer-title">我是有底线的</h3>
+            <h3 class="footer-title">我是有底线的!!</h3>
             <p v-for="(value,index) in links" class="col-sm-6 col-xs-6 col-md-4" :key="index">
               <a :href="value.url" :title="value.name" target="_blank">{{value.name}}</a>
             </p>
