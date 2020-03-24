@@ -33,18 +33,18 @@ import homeInit from "common/libs/homeInit.js";
 export default {
   mounted() {
     homeInit();
-    this.$message({
-      dangerouslyUseHTMLString: true,
-      message: `<strong>${this.news.show}</strong>`,
-      duration: this.news.duration,
-      showClose: true,
-      type: this.news.type
-    });
+    // this.$message({
+    //   dangerouslyUseHTMLString: true,
+    //   message: `<strong>${this.news.show}</strong>`,
+    //   duration: this.news.duration,
+    //   showClose: true,
+    //   type: this.news.type
+    // });
   },
   data() {
     return {
       news: {
-        show: `重要公告：目前网站正在全面升级，欢迎浏览！！<a href="https://api.aigisss.com/">去旧版瞧瞧</a>`,
+        show: `重要公告：目前已全面升级，欢迎浏览！！`,
         type: "warning",
         duration: 10000
       },
