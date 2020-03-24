@@ -4,14 +4,14 @@ const CompressionPlugin = require("compression-webpack-plugin"); //引入gzip压
 var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
-  // 定义压缩文件类型
-const productionGzipExtensions = ['js', 'css']
+// 定义压缩文件类型
+const productionGzipExtensions = ["js", "css"];
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
-  assetsDir: "static",
+  assetsDir: "assets",
   lintOnSave: true,
   productionSourceMap: false,
   css: {
@@ -56,9 +56,9 @@ module.exports = {
         "windows.jQuery": "jquery"
       }),
       new CompressionPlugin({
-        filename: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        filename: "[path].gz[query]",
+        algorithm: "gzip",
+        test: new RegExp("\\.(" + productionGzipExtensions.join("|") + ")$"),
         threshold: 10240,
         minRatio: 0.8
       }),
