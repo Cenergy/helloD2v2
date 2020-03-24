@@ -96,10 +96,7 @@
           </div>
         </div>
       </div>
-      <SourcesList
-        :sourcesList="sourcesData"
-        :sourcesBaseURL="sources_url"
-      ></SourcesList>
+      <SourcesList :sourcesList="sourcesData"></SourcesList>
       <el-backtop></el-backtop>
     </el-dialog>
   </div>
@@ -112,8 +109,7 @@ export default {
   data() {
     return {
       sourceDialogVisible: false,
-      sourcesData: [],
-      sources_url: BASE_URL
+      sourcesData: []
     };
   },
   methods: {
