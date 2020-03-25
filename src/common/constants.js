@@ -1,14 +1,14 @@
 let baseURL;
 if (process.env.NODE_ENV === "production") {
-  baseURL = "https://www.aigisss.com/api/";
+  baseURL = "/apis/";
 } else {
   baseURL = "http://127.0.0.1:8000";
 }
-// baseURL = "https://api.aigisss.com";
+// baseURL = "https://www.aigisss.com/apis/";
 // // baseURL = "http://127.0.0.1:8000";
 
 export const BASE_URL = baseURL;
-export const uploadImgURL = `/api/ais/upload/`;
+export const uploadImgURL = `${baseURL}ais/upload/`;
 export const BLOG_URL = "/blog/";
 export const MAP_URL = "/gis/";
 
