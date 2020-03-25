@@ -1,8 +1,10 @@
 const webpack = require("webpack");
 const path = require("path");
 const CompressionPlugin = require("compression-webpack-plugin"); //引入gzip压缩插件
-var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+
+const devServer = require("./dev-server-config");
 
 // 定义压缩文件类型
 const productionGzipExtensions = ["js", "css"];
