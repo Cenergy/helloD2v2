@@ -19,6 +19,14 @@ export function getHomeData(type, page) {
   });
 }
 
+export function uploadImage(img) {
+  return request({
+    url: "/ais/imgupload/",
+    method: "post",
+    data: { stick_img: img }
+  });
+}
+
 export function getImgConvertWord(id) {
   return request({
     url: "/ais/img2words/",

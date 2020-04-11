@@ -140,7 +140,7 @@ export default {
 .abow_dialog {
   display: flex;
   justify-content: center;
-  align-items: Center;
+  align-items: center;
   overflow: hidden;
 }
 .abow_dialog .el-dialog .el-dialog__body {
@@ -151,7 +151,7 @@ export default {
   right: 0;
   padding: 0;
   z-index: 1;
-  overflow: hidden;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 

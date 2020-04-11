@@ -28,14 +28,13 @@
       width="80%"
       @close="closeD"
       :show-close="false"
-      custom-class="abow_dialog"
     >
       <span slot="title" class="dialog-header">hello</span>
       <div>
         <el-row :gutter="20">
           <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <h4 class="demonstration textCenter">识别的图片</h4>
-            <img :src="src" alt style="max-width:100%" />
+            <el-image :src="src" fit="cover"></el-image>
           </el-col>
           <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <div class="grid-content">
@@ -66,7 +65,7 @@
 
 <script>
 import { uploadImgURL, BLOG_URL, BASE_URL } from "common/constants";
-import { getImgConvertWord, deleteOriginImg } from "network/home";
+import { getImgConvertWord, uploadImage, deleteOriginImg } from "network/home";
 export default {
   name: "ImageToWord",
   data() {
@@ -136,6 +135,61 @@ export default {
         type: "error"
       });
     }
+  },
+  mounted() {
+    document.addEventListener("paste", event => {
+      var items = (event.clipboardData || window.clipboardData).items;
+      var file = null;
+      if (items && items.length) {
+        // 搜索剪切板items
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf("image") !== -1) {
+            file = items[i].getAsFile();
+            break;
+          }
+        }
+      } else {
+        this.$message({
+          dangerouslyUseHTMLString: true,
+          message: `<strong>当前浏览器不支持粘贴图片</strong>`,
+          duration: 3000,
+          showClose: true,
+          type: "warning"
+        });
+        return;
+      }
+      if (!file) {
+        this.$message({
+          dangerouslyUseHTMLString: true,
+          message: `<strong>粘贴内容非图片</strong>`,
+          duration: 3000,
+          showClose: true,
+          type: "warning"
+        });
+        return;
+      }
+      // 此时file就是我们的剪切板中的图片对象
+      // 如果需要预览，可以执行下面代码
+      let reader = new FileReader();
+      reader.onload = async event => {
+        const img = event.target.result;
+        const { code = -1, data } = await uploadImage(img);
+        if (code === 200) {
+          const messageBox = this.$message({
+            message: "正在解析中，请稍后！",
+            duration: 0
+          });
+          const imgUuid = data.id;
+          this.handleImgId = imgUuid;
+          const result = await getImgConvertWord(imgUuid);
+          messageBox.close();
+          this.centerDialogVisible = true;
+          this.src = `${BASE_URL}${result.data.img_path}`;
+          this.recognition_result = result.data.vector_words;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   }
 };
 </script>
