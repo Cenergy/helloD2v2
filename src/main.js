@@ -8,7 +8,13 @@ import ElementUI from "element-ui";
 import $ from "jquery";
 import "element-ui/lib/theme-chalk/index.css";
 
+import Vuesax from 'vuesax'
+
+import 'vuesax/dist/vuesax.css' //Vuesax styles
+import 'material-icons/iconfont/material-icons.css';
+
 Vue.use(ElementUI);
+Vue.use(Vuesax);
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);

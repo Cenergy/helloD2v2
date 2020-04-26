@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <el-upload
+    <!-- <el-upload
       class="upload-img-recognition"
       :accept="'image/*'"
       drag
@@ -20,7 +20,15 @@
           <em>control+v</em>
         </p>
       </div>
-    </el-upload>
+    </el-upload> -->
+
+     <vs-row vs-justify="center">
+  <vs-col type="flex" vs-justify="center" vs-align="center" >
+    <vs-card>
+       <vs-upload automatic single-upload limit="1" action="https://jsonplaceholder.typicode.com/posts/" @on-success="successUpload" />
+    </vs-card>
+  </vs-col>
+</vs-row>
 
     <el-dialog
       title="文字识别"
@@ -216,5 +224,20 @@ export default {
 }
 .textCenter {
   text-align: center;
+}
+
+</style>
+<style>
+  .con-input-upload{
+  width: 90%;
+  height:100px;
+}
+.con-input-upload .img-upload{
+  width: 100%;
+  height:100%;
+}
+.con-input-upload .img-upload img{
+  width: 100%;
+  height:100%;
 }
 </style>
