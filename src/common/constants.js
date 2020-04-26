@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "production") {
 export const BASE_URL = baseURL;
 export const uploadImgURL = `${baseURL}ais/upload/`;
 export const BLOG_URL = "/blog/";
-export const MAP_URL = "/gis/";
+export const MAP_URL = "/view/";
 
 export const FRIEND_LINKS = [
   {
