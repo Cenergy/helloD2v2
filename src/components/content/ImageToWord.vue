@@ -1,73 +1,22 @@
 <!--  -->
 <template>
   <div>
-    <!-- <el-upload
-      class="upload-img-recognition"
-      :accept="'image/*'"
-      drag
-      :action="uploadImgURL"
-      :multiple="false"
-      :file-list="fileList"
-      :on-error="handleError"
-      :on-success="imgHandleSuccess"
-      :on-change="changeUpload"
-    >
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">
-        <p><em>点击上传</em>图片或将图片拖到此处</p>
-        <p>
-          或者截图复制后直接
-          <em>control+v</em>
-        </p>
-      </div>
-    </el-upload> -->
-
-     <vs-row vs-justify="center">
-  <vs-col type="flex" vs-justify="center" vs-align="center" >
-    <vs-card>
-       <vs-upload automatic single-upload limit="1" action="https://jsonplaceholder.typicode.com/posts/" @on-success="successUpload" />
-    </vs-card>
-  </vs-col>
-</vs-row>
-
-    <el-dialog
-      title="文字识别"
-      :visible.sync="centerDialogVisible"
-      width="80%"
-      @close="closeD"
-      :show-close="false"
-    >
-      <span slot="title" class="dialog-header">hello</span>
-      <div>
-        <el-row :gutter="20">
-          <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <h4 class="demonstration textCenter">识别的图片</h4>
-            <el-image :src="src" fit="cover"></el-image>
-          </el-col>
-          <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <div class="grid-content">
-              <h4 class="demonstration textCenter">识别的结果</h4>
-              <div
-                v-html="recognition_result"
-                class="bg-purple-light textLeft"
-              ></div>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button
-          type="primary"
-          v-clipboard:copy="recognition_result"
-          v-clipboard:success="onCopy"
-          v-clipboard:error="onError"
-          >复制</el-button
-        >
-        <el-button type="primary" @click="centerDialogVisible = false"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog>
+   <a-upload-dragger
+    name="file"
+    :multiple="false"
+    :action="uploadImgURL"
+    @change="handleChange"
+    
+  >
+    <p class="ant-upload-drag-icon">
+      <a-icon type="inbox" />
+    </p>
+    <p class="ant-upload-text">Click or drag file to this area to upload</p>
+    <p class="ant-upload-hint">
+      Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+      band files
+    </p>
+  </a-upload-dragger>
   </div>
 </template>
 
@@ -142,7 +91,22 @@ export default {
         message: "复制失败！",
         type: "error"
       });
-    }
+    },
+    handleChange(info) {
+      console.log(`Rd: handleChange -> info`, info)
+      const status = info.file.status;
+      
+      if (status !== 'uploading') {
+        this.fileList = info.fileList.slice(-1);
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        info.fileList = info.fileList.slice(-1);
+        this.$message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   },
   mounted() {
     document.addEventListener("paste", event => {

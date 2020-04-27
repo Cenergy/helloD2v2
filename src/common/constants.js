@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   baseURL = "http://127.0.0.1:8000";
 }
-// baseURL = "https://www.aigisss.com/apis/";
+baseURL = "https://www.aigisss.com/apis/";
 // baseURL = "http://127.0.0.1:8000/";
 
 export const BASE_URL = baseURL;
