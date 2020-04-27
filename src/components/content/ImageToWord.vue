@@ -229,15 +229,37 @@ export default {
 </style>
 <style>
   .con-input-upload{
-  width: 90%;
+  width: 100%;
   height:100px;
+  margin: 0;
+  padding: 0px;
+}
+.con-img-upload{
+    margin-top: 0px;
+    padding-right: 0px;
+}
+.con-img-upload .img-upload{
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+}
+.con-img-upload .img-upload img{
+  width: 100%;
+  height: 150px;
 }
 .con-input-upload .img-upload{
   width: 100%;
   height:100%;
+  margin: 0;
+  padding: 0px;
 }
 .con-input-upload .img-upload img{
   width: 100%;
   height:100%;
+  margin: 0;
+  padding: 0px;
+}
+.vs-card--content {
+    padding: 5px;
 }
 </style>
