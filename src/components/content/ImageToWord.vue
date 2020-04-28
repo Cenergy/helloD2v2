@@ -6,7 +6,7 @@
     :multiple="false"
     :action="uploadImgURL"
     @change="handleChange"
-    
+    :fileList="fileList"
   >
     <p class="ant-upload-drag-icon">
       <a-icon type="inbox" />
@@ -17,6 +17,44 @@
       band files
     </p>
   </a-upload-dragger>
+
+  <div class="modal" >
+<a-modal
+      title="Vertically centered modal dialog"
+      centered
+      v-model="modal2Visible"
+      @cancel="cancel"
+      @ok="() => (modal2Visible = false)"
+    >
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+      <p>some contents...</p>
+    </a-modal>
+
+  </div>
+
+  
   </div>
 </template>
 
@@ -32,12 +70,16 @@ export default {
       fileList: [],
       src: "",
       recognition_result: "",
-      handleImgId: ""
+      handleImgId: "",
+       modal2Visible: false,
     };
   },
   methods: {
     enterBlog() {
       window.location = BLOG_URL;
+    },
+    cancel(){
+      this.modal2Visible = false
     },
     handleError() {
       this.$notify.error({
@@ -95,13 +137,23 @@ export default {
     handleChange(info) {
       console.log(`Rd: handleChange -> info`, info)
       const status = info.file.status;
+
+
+      let fileList = [...info.fileList];
+      fileList = fileList.slice(-1);
+      fileList = fileList.map(file => {
+        if (file.response) {
+          file.url = file.response.url;
+        }
+        return file;
+      });
+      this.fileList = fileList;
       
       if (status !== 'uploading') {
-        this.fileList = info.fileList.slice(-1);
         console.log(info.file, info.fileList);
       }
       if (status === 'done') {
-        info.fileList = info.fileList.slice(-1);
+        this.modal2Visible = true
         this.$message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         this.$message.error(`${info.file.name} file upload failed.`);
