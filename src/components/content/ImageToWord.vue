@@ -20,25 +20,30 @@
 
     <div class="modal">
       <a-modal
-        title="识别结果"
+        title="图像识别"
         centered
         v-model="modal2Visible"
         @cancel="cancel"
         @ok="() => (modal2Visible = false)"
-        width="100%"
-        class="modalContainer"
-        :bodyStyle="{ color: 'green' }"
+        width="95%"
       >
-        <div style="background-color: #ececec; padding: 20px;">
-          <a-row :gutter="16">
-            <a-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-              <a-card title="Card title" :bordered="false">
-                <p>card content</p>
+        <div class="modalCard">
+          <a-row :gutter="[16, 16]">
+            <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <a-card title="识别图片" hoverable>
+                <img
+                  :src="src"
+                  alt=""
+                  width="100%"
+                  height="100%"
+                  style="max-height:60vh;object-fit:contain"
+                />
               </a-card>
             </a-col>
-            <a-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-              <a-card title="Card title" :bordered="false">
-                <p>card content</p>
+
+            <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <a-card title="识别结果" hoverable>
+                <p v-html="recognition_result"></p>
               </a-card>
             </a-col>
           </a-row>
@@ -70,6 +75,9 @@ export default {
     },
     cancel() {
       this.modal2Visible = false;
+      this.src = "";
+      this.recognition_result = "";
+      deleteOriginImg(this.handleImgId);
     },
     handleError() {
       this.$notify.error({
@@ -124,8 +132,7 @@ export default {
         type: "error",
       });
     },
-    handleChange(info) {
-      console.log(`Rd: handleChange -> info`, info);
+    async handleChange(info) {
       const status = info.file.status;
 
       let fileList = [...info.fileList];
@@ -142,8 +149,18 @@ export default {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
+        const { data } = info.file.response;
+        const { id: imgUuid } = data;
+        this.handleImgId = imgUuid;
+        const messageBox = this.$message.success(
+          `${info.file.name}正在解析中...`,
+          0
+        );
+        const result = await getImgConvertWord(imgUuid);
+        messageBox();
         this.modal2Visible = true;
-        this.$message.success(`${info.file.name} file uploaded successfully.`);
+        this.src = `${BASE_URL}${result.data.img_path}`;
+        this.recognition_result = result.data.vector_words;
       } else if (status === "error") {
         this.$message.error(`${info.file.name} file upload failed.`);
       }

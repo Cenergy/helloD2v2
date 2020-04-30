@@ -34,7 +34,7 @@
               本功能针对那些账号与人脸绑定的用户，
               <br />再次访问本站可以快速登录
             </p>
-            <el-button type="primary" icon="el-icon-s-custom" size="medium">快速登录</el-button>
+            <a-button type="primary" icon="user">快速登录</a-button>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
           <!-- /.col-lg-4 -->
@@ -57,10 +57,7 @@
             <img class="rotate" src="~assets/img/icon/map.svg" alt="Generic placeholder image" />
             <h3>地图</h3>Map Show
             <p class="lead">
-              <el-button type="primary" @click="enterMap">
-                点 开
-                <i class="el-icon-map-location el-icon--right"></i>
-              </el-button>
+              <a-button type="primary" icon="global"  @click="enterMap">瞧一瞧</a-button>
             </p>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>

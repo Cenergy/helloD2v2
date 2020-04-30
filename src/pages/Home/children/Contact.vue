@@ -10,26 +10,26 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <el-form
+              <a-form-model
+                ref="ruleForm"
                 :model="ruleForm"
                 :rules="rules"
-                ref="ruleForm"
-                label-width="100px"
-                class="demo-ruleForm"
+                :label-col="labelCol"
+                :wrapper-col="wrapperCol"
               >
-                <el-form-item label="邮箱" prop="email">
-                  <el-input v-model="ruleForm.email"></el-input>
-                </el-form-item>
-                <el-form-item label="用户名" prop="name">
-                  <el-input v-model="ruleForm.name"></el-input>
-                </el-form-item>
-                <el-form-item label="内容" prop="desc">
-                  <el-input
+                <a-form-model-item label="邮箱" prop="email">
+                  <a-input v-model="ruleForm.email"></a-input>
+                </a-form-model-item>
+                <a-form-model-item label="用户名" prop="name">
+                  <a-input v-model="ruleForm.name"></a-input>
+                </a-form-model-item>
+                <a-form-model-item label="内容" prop="desc">
+                  <a-input
                     type="textarea"
                     v-model="ruleForm.desc"
-                    :autosize="{ minRows: 3, maxRows: 5 }"
-                  ></el-input>
-                </el-form-item>
+                    :autoSize="{ minRows: 3, maxRows: 5 }"
+                  ></a-input>
+                </a-form-model-item>
                 <input
                   type="submit"
                   name="submit"
@@ -38,7 +38,7 @@
                   @click.prevent.once="submitForm('ruleForm')"
                   class="btn wow tada btn-embossed btn-info pull-right"
                 />
-              </el-form>
+              </a-form-model>
             </div>
           </div>
 
@@ -81,43 +81,48 @@ import { setSuggest } from "network/home";
 export default {
   data() {
     return {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 20 },
       ruleForm: {
         name: "",
         email: "",
-        desc: ""
+        desc: "",
       },
       rules: {
         name: [
           { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          {
+            min: 3,
+            max: 15,
+            message: "长度在 3 到 15 个字符",
+            trigger: "blur",
+          },
         ],
         email: [
           { required: true, message: "请输入邮箱地址", trigger: "blur" },
           {
             type: "email",
             message: "请输入正确的邮箱地址",
-            trigger: ["blur", "change"]
-          }
+            trigger: ["blur", "change"],
+          },
         ],
-        desc: [{ required: true, message: "请填写反馈信息", trigger: "blur" }]
-      }
+        desc: [{ required: true, message: "请填写反馈信息", trigger: "blur" }],
+      },
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
           const { name, email, desc } = this.ruleForm;
-          const messageBox = this.$message({
-            message: "正在反馈中，稍等一会！",
-            duration: 0
-          });
+          console.log(`Rd: submitForm -> this.ruleForm`, this.ruleForm);
+          const messageBox = this.$message.info("正在反馈中，稍等一会！", 0);
           const { code = 400 } = await setSuggest({
             suggest_email: email,
             suggest_user: name,
-            suggest_message: desc
+            suggest_message: desc,
           });
-          messageBox.close();
+          messageBox();
           if (code === 400) {
             this.$message.error("反馈信息失败!!");
             return;
@@ -131,8 +136,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
