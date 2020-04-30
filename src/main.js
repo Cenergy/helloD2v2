@@ -4,11 +4,16 @@ import Vue from "vue";
 import App from "./App";
 import store from "./store";
 import router from "./router";
-import ElementUI from "element-ui";
-import $ from "jquery";
-import "element-ui/lib/theme-chalk/index.css";
 
-Vue.use(ElementUI);
+import $ from "jquery";
+
+
+import Antd from 'ant-design-vue';
+
+import 'ant-design-vue/dist/antd.css';
+
+
+Vue.use(Antd);
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);

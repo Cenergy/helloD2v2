@@ -46,6 +46,13 @@ export function deleteOriginImg(id) {
     params: { id }
   });
 }
+export function deleteOriginExcelImg(id) {
+  return request({
+    url: "/ais/img2excel/",
+    method: "delete",
+    params: { id }
+  });
+}
 export function getSources(type) {
   return request({
     url: "/api/v1/resources/",

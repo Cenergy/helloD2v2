@@ -5,14 +5,14 @@
       <div class="projects-header">
         <div class="row">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="输入资源名" v-model="key_word" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="输入资源名"
+              v-model="key_word"
+            />
             <span class="input-group-btn">
-              <el-button
-                type="primary"
-                @keydown.enter="searchSource"
-                @click="searchSource"
-                plain
-              >搜索一下</el-button>
+               <a-button block icon="search" @keydown.enter="searchSource" @click="searchSource" size="large">Search</a-button>
               <!-- <button class="btn btn-default" type="button" id="search">搜索一下</button> -->
             </span>
           </div>
@@ -22,31 +22,33 @@
       </div>
 
       <div class="row" id="sourcesList">
-        <div class="col-sm-6 col-md-4 col-lg-3" v-for="item in sourcesList" :key="item.id">
+        <div
+          class="col-sm-6 col-md-4 col-lg-3"
+          v-for="item in sourcesList"
+          :key="item.id"
+        >
           <div class="thumbnail">
-            <a :href="item.sourceurl" :title="item.sourcename" target="_blank">
-              <div style="background:green; width:100%;height:150px;">
-                <el-image
-                  :fit="'cover'"
-                  :src="sourcesBaseURL+item.source_img"
-                  lazy
-                  alt="AIGIS资源补给"
-                  style="width: 100%; height: 100%"
-                ></el-image>
-              </div>
-            </a>
-            <div class="caption">
-              <h4 style="color:blue">{{item.sourcename}}</h4>
-
-              <b>
-                <a target="_blank" class="layui-btn layui-btn-sm" :href="item.sourceurl">
-                  <i class="layui-icon layui-icon-download-circle"></i>下载地址
-                </a>
-              </b>
-              <br />
-              <br />
-              <p>{{item.sourcename}}的提取码是{{item.code}}</p>
-            </div>
+            <a-card hoverable>
+              <img
+                :alt="item.sourcename"
+                :src="sourcesBaseURL + item.source_img"
+                slot="cover"
+                 style="width:100%;height:150px;object-fit:cover"
+              />
+              <a-card-meta :title="item.sourcename">
+                <template slot="description">
+                  <a
+                    target="_blank"
+                    class="layui-btn layui-btn-sm"
+                    :href="item.sourceurl"
+                  >
+                    <i class="layui-icon layui-icon-download-circle"></i
+                    >提取地址
+                  </a>
+                  <p>提取码:{{ item.code }}</p>
+                </template>
+              </a-card-meta>
+            </a-card>
           </div>
         </div>
       </div>
@@ -71,7 +73,7 @@ export default {
   data() {
     //这里存放数据
     return {
-      key_word: ""
+      key_word: "",
     };
   },
   props: {
@@ -79,14 +81,14 @@ export default {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     sourcesBaseURL: {
       type: String,
       default() {
         return "";
-      }
-    }
+      },
+    },
   },
   //监听属性 类似于data概念
   computed: {},
@@ -98,10 +100,10 @@ export default {
       if (this.key_word === "") {
         this.$message({
           message: "不能空空如也！",
-          type: "error"
+          type: "error",
         });
       }
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
@@ -120,10 +122,10 @@ export default {
   }, //生命周期 - 销毁完成
   activated() {
     console.log("Go: destroyed -> destroyed", "activated");
-  } //如果页面有keep-alive缓存功能，这个函数会触发
+  }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style  scoped>
+<style scoped>
 @import url("~assets/css/bootstrap.min.css");
 /* @import url("~assets/css/sourcesList.css"); */
 

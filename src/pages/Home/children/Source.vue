@@ -78,27 +78,21 @@
       </div>
     </div>
 
-    <el-dialog
-      title="资源列表"
-      :visible.sync="sourceDialogVisible"
-      width="100%"
-      :lock-scroll="true"
-      custom-class="sourceList"
-      @close="closeSourcesPage"
-      :show-close="false"
-      class="abow_dialog"
-    >
-      <div slot="title" class="sourceTitleHead">
-        <div class="sourceTitle">
-          <div class="sourceTitleLeft">资源列表</div>
-          <div class="sourceTitleRight">
-            <i class="el-icon-close" @click="sourceDialogVisible = false"></i>
-          </div>
-        </div>
-      </div>
-      <SourcesList :sourcesList="sourcesData"></SourcesList>
-      <el-backtop></el-backtop>
-    </el-dialog>
+
+     <div class="modal">
+      <a-modal
+        title="资源集合"
+        centered
+        v-model="sourceDialogVisible"
+        @cancel="closeSourcesPage"
+        @ok="() => (sourceDialogVisible = false)"
+        width="95%"
+      >
+        <SourcesList :sourcesList="sourcesData"></SourcesList>
+      </a-modal>
+    </div>
+
+    
   </div>
 </template>
 <script>
@@ -122,8 +116,8 @@ export default {
       this.sourceDialogVisible = true;
     },
     closeSourcesPage() {
-      console.log("Go: closeSourcesPage -> closeSourcesPage");
       this.sourcesData = [];
+      this.sourceDialogVisible = false;
     }
   },
   components: {

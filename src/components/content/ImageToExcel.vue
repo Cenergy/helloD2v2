@@ -1,61 +1,63 @@
 <!--  -->
 <template>
   <div>
-    <el-upload
-      class="upload-excel"
+    <a-upload
+      name="file"
+      :multiple="true"
       :action="uploadImgURL"
-      :file-list="fileList"
-      :multiple="false"
-      :on-error="handleError"
-      :on-success="imgHandleSuccess"
-      list-type="picture"
-      :on-change="changeUpload"
+      :fileList="fileList"
+      @change="handleChange"
+      accept="image/*"
     >
-      <el-badge :value="excelCount" class="item" type="primary">
-        <el-button size="small" type="primary">点击上传</el-button>
-      </el-badge>
-      <div slot="tip" class="el-upload__tip">只能上传图片</div>
-    </el-upload>
+      <a-button> <a-icon type="upload" /> 上传图表</a-button>
+    </a-upload>
 
-    <el-dialog
-      title="文字识别"
-      :visible.sync="centerDialogVisible"
-      width="80%"
-      @close="closeD"
-      :show-close="false"
-      custom-class="abow_dialog"
-    >
-      <span slot="title" class="dialog-header">hello</span>
-      <div>
-        <el-row :gutter="20">
-          <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <h4 class="demonstration textCenter">识别的图片</h4>
-            <img :src="src" alt style="max-width:100%" />
-          </el-col>
-          <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <div class="grid-content">
-              <h4 class="demonstration textCenter">识别的结果</h4>
-              <div
-                v-html="recognition_result"
-                class="bg-purple-light textLeft"
-              ></div>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <a :href="excelURL" class="excelDownload">下载</a>
-        <el-button type="primary" @click="centerDialogVisible = false"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog>
+    <div class="modal">
+      <a-modal
+        title="图像识别"
+        centered
+        v-model="modal2Visible"
+        @cancel="cancel"
+        width="95%"
+      >
+        <template slot="footer">
+          <a-button  @click="excelDownload">下载</a-button>
+          <a-button
+            type="primary"
+             @click="cancel"
+          >
+            确定
+          </a-button>
+        </template>
+        <div class="modalCard">
+          <a-row :gutter="[16, 16]">
+            <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <a-card title="识别图片" hoverable>
+                <img
+                  :src="src"
+                  alt=""
+                  width="100%"
+                  height="100%"
+                  style="max-height:60vh;object-fit:contain"
+                />
+              </a-card>
+            </a-col>
+
+            <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <a-card title="识别结果" hoverable>
+                <p v-html="recognition_result"></p>
+              </a-card>
+            </a-col>
+          </a-row>
+        </div>
+      </a-modal>
+    </div>
   </div>
 </template>
 
 <script>
 import { uploadImgURL, BLOG_URL, BASE_URL } from "common/constants";
-import { getImgConvertExcel, deleteOriginImg } from "network/home";
+import { getImgConvertExcel, deleteOriginExcelImg } from "network/home";
 export default {
   name: "ImageToWord",
   data() {
@@ -67,46 +69,61 @@ export default {
       recognition_result: "",
       handleImgId: "",
       excelCount: this.$store.state.count,
-      excelURL: ""
+      excelURL: "",
+      modal2Visible: false,
     };
   },
   methods: {
     enterBlog() {
       window.location = BLOG_URL;
     },
-    handleError() {
-      this.$notify.error({
-        title: "错误",
-        message: "上传失败！！",
-        type: "success",
-        duration: 3000
-      });
-    },
-    async imgHandleSuccess(res) {
-      const { data } = res;
-      const { id: imgUuid } = data;
-      this.handleImgId = imgUuid;
-      const messageBox = this.$message({
-        message: "正在解析中，请稍后！",
-        duration: 0
-      });
-
-      const result = await getImgConvertExcel(imgUuid);
-      messageBox.close();
-      this.centerDialogVisible = true;
-      this.src = `${BASE_URL}${result.data.imgpath}`;
-      this.excelURL = `${BASE_URL}${result.data.excelpath}`;
-      this.recognition_result = result.data.excel_html;
-    },
-    closeD() {
+    cancel() {
+      this.modal2Visible = false;
       this.src = "";
       this.recognition_result = "";
-      deleteOriginImg(this.handleImgId);
-      console.error("close!!!");
+      deleteOriginExcelImg(this.handleImgId);
     },
-    changeUpload(files, fileList) {
-      console.log("Go: changeUpload -> files, fileList", files, fileList);
-      this.fileList = fileList.slice(-1);
+    excelDownload(){
+      window.location.href=this.excelURL
+    },
+    async handleChange(info) {
+      const status = info.file.status;
+
+      let fileList = [...info.fileList];
+      fileList = fileList.slice(-1);
+      fileList = fileList.map((file) => {
+        if (file.response) {
+          file.url = file.response.url;
+        }
+        return file;
+      });
+      this.fileList = fileList;
+
+      if (status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (status === "done") {
+        console.log(`Rd: handleChange -> status`, status);
+        const { data } = info.file.response;
+        const { id: imgUuid } = data;
+        this.handleImgId = imgUuid;
+        const messageBox = this.$message.success(
+          `${info.file.name}正在解析中...`,
+          0
+        );
+        const result = await getImgConvertExcel(imgUuid);
+        messageBox();
+        if (result.code === 200) {
+          this.modal2Visible = true;
+          this.src = `${BASE_URL}${result.data.imgpath}`;
+          this.excelURL = `${BASE_URL}${result.data.excelpath}`;
+          this.recognition_result = result.data.excel_html;
+          return;
+        }
+        this.$message.warning(`解析表格失败，建议图像识别`);
+      } else if (status === "error") {
+        this.$message.error(`${info.file.name} file upload failed.`);
+      }
     },
     onCopy(e) {
       console.log("Go: onCopy -> e", e);
@@ -118,17 +135,17 @@ export default {
         title: "成功",
         message: "复制成功！",
         type: "success",
-        duration: 3000
+        duration: 3000,
       });
     },
     onError(e) {
       // 复制失败
       this.$message({
         message: "复制失败！",
-        type: "error"
+        type: "error",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
