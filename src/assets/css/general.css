@@ -259,11 +259,11 @@ html {
 
 .intro-header {
   height: 100%; /* Full PAge */
-  padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-  padding-bottom: 50px;
+  /* padding-top: 50px; If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+  /* padding-bottom: 50px; */
   color: #f8f8f8;
-  background: url("https://i.loli.net/2019/12/25/GVEJWQnTeCFzdOh.png") no-repeat
-    center center;
+  /* background: url("https://i.loli.net/2019/12/25/GVEJWQnTeCFzdOh.png") no-repeat
+    center center; */
   background-size: cover;
   text-align: center;
 }
@@ -1081,14 +1081,14 @@ html {
 @media only screen and (max-width: 767px) {
   .intro-header {
     height: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    /* padding-top: 50px;
+    padding-bottom: 50px; */
     color: #f8f8f8;
-    background: url("https://i.loli.net/2019/12/25/GVEJWQnTeCFzdOh.png")
-      no-repeat 64% 0%;
+    /* background: url("https://i.loli.net/2019/12/25/GVEJWQnTeCFzdOh.png")
+      no-repeat 64% 0%; */
     background-size: auto;
     text-align: center;
-    /*background-color: #34495e;*/
+    background-color: #34495e;
   }
 
   h1,
