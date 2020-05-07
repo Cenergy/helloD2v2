@@ -79,6 +79,7 @@
 <script>
 import { setSuggest } from "network/home";
 export default {
+  name:"contact",
   data() {
     return {
       labelCol: { span: 4 },
