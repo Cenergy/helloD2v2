@@ -11,10 +11,9 @@
       <p class="ant-upload-drag-icon">
         <a-icon type="inbox" />
       </p>
-      <p class="ant-upload-text">Click or drag file to this area to upload</p>
+      <p class="ant-upload-text">点击上传图片或将图片拖到此处</p>
       <p class="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibit from uploading
-        company data or other band files
+        <b>或者截图复制后直接control+v</b>
       </p>
     </a-upload-dragger>
 
@@ -125,13 +124,7 @@ export default {
         duration: 3000,
       });
     },
-    onError(e) {
-      // 复制失败
-      this.$message({
-        message: "复制失败！",
-        type: "error",
-      });
-    },
+
     async handleChange(info) {
       const status = info.file.status;
 
@@ -162,7 +155,7 @@ export default {
         this.src = `${BASE_URL}${result.data.img_path}`;
         this.recognition_result = result.data.vector_words;
       } else if (status === "error") {
-        this.$message.error(`${info.file.name} file upload failed.`);
+        this.$message.error(`${info.file.name} 上传失败.`);
       }
     },
   },
@@ -179,22 +172,16 @@ export default {
           }
         }
       } else {
-        this.$message({
-          dangerouslyUseHTMLString: true,
-          message: `<strong>当前浏览器不支持粘贴图片</strong>`,
+        this.$message.warning({
+          content: `<strong>当前浏览器不支持粘贴图片</strong>`,
           duration: 3000,
-          showClose: true,
-          type: "warning",
         });
         return;
       }
       if (!file) {
-        this.$message({
-          dangerouslyUseHTMLString: true,
-          message: `<strong>粘贴内容非图片</strong>`,
+        this.$message.warning({
+          content: `<strong>粘贴内容非图片</strong>`,
           duration: 3000,
-          showClose: true,
-          type: "warning",
         });
         return;
       }
@@ -205,15 +192,15 @@ export default {
         const img = event.target.result;
         const { code = -1, data } = await uploadImage(img);
         if (code === 200) {
-          const messageBox = this.$message({
-            message: "正在解析中，请稍后！",
+          const messageBox = this.$message.loading({
+            content: "正在解析中，请稍后！",
             duration: 0,
           });
           const imgUuid = data.id;
           this.handleImgId = imgUuid;
           const result = await getImgConvertWord(imgUuid);
-          messageBox.close();
-          this.centerDialogVisible = true;
+          messageBox();
+          this.modal2Visible = true;
           this.src = `${BASE_URL}${result.data.img_path}`;
           this.recognition_result = result.data.vector_words;
         }
@@ -225,62 +212,5 @@ export default {
 </script>
 <style scoped>
 @import url("~assets/css/homeContent.css");
-.image_reg {
-  text-align: left;
-}
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
-.textLeft {
-  text-align: left;
-}
-.textCenter {
-  text-align: center;
-}
 </style>
-<style>
-.con-input-upload {
-  width: 100%;
-  height: 100px;
-  margin: 0;
-  padding: 0px;
-}
-.con-img-upload {
-  margin-top: 0px;
-  padding-right: 0px;
-}
-.con-img-upload .img-upload {
-  width: 100%;
-  height: 100%;
-  margin: 0 !important;
-}
-.con-img-upload .img-upload img {
-  width: 100%;
-  height: 150px;
-}
-.con-input-upload .img-upload {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0px;
-}
-.con-input-upload .img-upload img {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0px;
-}
-.vs-card--content {
-  padding: 5px;
-}
-</style>
+
