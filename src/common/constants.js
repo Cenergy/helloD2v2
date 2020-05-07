@@ -14,7 +14,7 @@ export const MAP_URL = "/view/";
 
 export const FRIEND_LINKS = [
   {
-    name: "小小的诗",
+    name: "小小的诗12312313",
     url: "https://ouyangresume.github.io/"
   },
   {
