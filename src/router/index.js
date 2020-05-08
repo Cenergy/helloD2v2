@@ -35,6 +35,14 @@ const router = new Router({
     {
       path: "/map",
       component: () => import("pages/map/Map")
+    },
+    {
+      path: "/404",
+      component: () => import("pages/Error404")
+    },
+    {
+      path: '*',
+      redirect: '/404'
     }
   ]
 });
