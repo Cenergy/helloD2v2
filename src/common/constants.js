@@ -41,4 +41,8 @@ export const FRIEND_LINKS = [
     name: "henshin的Blog",
     url: "http://zlh.giserhub.com/"
   }
+  {
+    name: "LICHEN'S BLOG",
+    url: "http://stayw1thme.xyz/"
+  }
 ];
