@@ -17,9 +17,17 @@ module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
   css: {
-    extract: false // Error: No module factory available for dependency type: CssDependency
+    extract: false, // Error: No module factory available for dependency type: CssDependency
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+        },
+      },
+    },
   },
-  chainWebpack: config => {
+
+  chainWebpack: (config) => {
     // Loader
     config.module
       .rule("svg")
@@ -36,7 +44,7 @@ module.exports = {
         optipng: { enabled: false },
         pngquant: { quality: [0.65, 0.9], speed: 4 },
         gifsicle: { interlaced: false },
-        webp: { quality: 75 }
+        webp: { quality: 75 },
       });
   },
 
@@ -48,21 +56,21 @@ module.exports = {
         assets: "@/assets",
         network: "@/network",
         views: "@/views",
-        pages: "@/pages"
-      }
+        pages: "@/pages",
+      },
     },
     plugins: [
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
-        "windows.jQuery": "jquery"
+        "windows.jQuery": "jquery",
       }),
       new CompressionPlugin({
         filename: "[path].gz[query]",
         algorithm: "gzip",
         test: new RegExp("\\.(" + productionGzipExtensions.join("|") + ")$"),
         threshold: 10240,
-        minRatio: 0.8
+        minRatio: 0.8,
       }),
       new UglifyJsPlugin({
         uglifyOptions: {
@@ -70,18 +78,18 @@ module.exports = {
           compress: {
             drop_console: true,
             drop_debugger: true, //移除debugger
-            pure_funcs: ["console.log"] //移除console
-          }
+            pure_funcs: ["console.log"], //移除console
+          },
         },
         sourceMap: false,
-        parallel: true
+        parallel: true,
       }),
       new CopyWebpackPlugin([
         {
           from: "CNAME",
-          to: "../dist/"
-        }
-      ])
+          to: "../dist/",
+        },
+      ]),
       // new BundleAnalyzerPlugin()
     ],
     optimization: {
@@ -101,10 +109,10 @@ module.exports = {
               )[1];
               // npm package names are URL-safe, but some servers don't like @ symbols
               return `npm.${packageName.replace("@", "")}`;
-            }
-          }
-        }
-      }
-    }
-  }
+            },
+          },
+        },
+      },
+    },
+  },
 };
