@@ -53,7 +53,8 @@ export default {
         { title: "博客", to: "#blog" },
         { title: "资源", to: "#credits" },
         { title: "反馈", to: "#contact" },
-        { title: "关于", to: "/about" }
+        // { title: "关于", to: "/about" },
+        { title: "登录", to: "https://www.aigisss.com/view/#/login" }
       ]
     };
   },
