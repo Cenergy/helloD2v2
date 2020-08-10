@@ -16,7 +16,11 @@
       <!-- /.container -->
       <div class="col-xs-12 text-center abcen wow fadeIn">
         <div class="button_down">
-          <a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="#whatis">
+          <a
+            class="imgcircle wow bounceInUp"
+            data-wow-duration="1.5s"
+            href="#whatis"
+          >
             <img class="img_scroll" src="~assets/img/icon/circle.png" alt />
           </a>
         </div>
@@ -52,6 +56,11 @@
             <li class="menuItem" :key="index" v-for="(item, index) in nav">
               <a @click.prevent="flyTo(item.to)">{{ item.title }}</a>
             </li>
+            <li class="menuItem">
+              <a href="javascript:void(0)">
+                <HeaderAvatar class="header-item"></HeaderAvatar>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -60,20 +69,24 @@
 </template>
 
 <script>
+import HeaderAvatar from "components/content/HeaderAvatar";
 export default {
   props: {
     nav: {
       type: Array,
       default() {
         return [{ title: "这是啥", to: "#whatis" }];
-      }
-    }
+      },
+    },
+  },
+  components: {
+    HeaderAvatar,
   },
   methods: {
     flyTo(path) {
       if (path.includes("#") && !path.includes(":")) {
         document.querySelector(path).scrollIntoView({
-          behavior: "smooth"
+          behavior: "smooth",
         });
       } else if (path.includes(":")) {
         window.location = path;
@@ -85,7 +98,7 @@ export default {
         window.location = "/" + path;
         return;
       }
-    }
+    },
   },
   mounted() {
     const bannerImg = this.$refs.bannerImg;
@@ -95,7 +108,7 @@ export default {
       $(bannerImg).attr("src", bannerImgPath);
     };
     image.src = bannerImgPath;
-  }
+  },
 };
 </script>
 

@@ -19,6 +19,9 @@ import {
   Row,
   Col,
   Form,
+  Dropdown,
+  Menu,
+  Avatar
 } from "ant-design-vue";
 
 Vue.component(Button.name, Button);
@@ -35,6 +38,12 @@ Vue.component(Form.Item.name, Form.Item);
 Vue.component(FormModel.Item.name, FormModel.Item);
 Vue.component(Row.name, Row);
 Vue.component(Col.name, Col);
+
+Vue.component(Dropdown.name, Dropdown);
+Vue.component(Avatar.name, Avatar);
+Vue.component(Menu.name, Menu);
+Vue.component(Menu.Item.name, Menu.Item);
+Vue.component(Menu.Divider.name, Menu.Divider);
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);
