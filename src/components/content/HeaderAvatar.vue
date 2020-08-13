@@ -1,7 +1,14 @@
 <template>
   <a-dropdown>
     <div class="header-avatar" style="cursor: pointer">
-      <a-avatar class="avatar" size="small" shape="circle" :src="'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png'"/>
+      <a-avatar
+        class="avatar"
+        size="small"
+        shape="circle"
+        :src="
+          'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png'
+        "
+      />
       <span class="name">123456</span>
     </div>
     <a-menu class="avatar-menu" slot="overlay">
@@ -23,19 +30,31 @@
 </template>
 
 <script>
-
 export default {
-  name: 'HeaderAvatar',
-  computed: {
-  },
+  name: "HeaderAvatar",
+  computed: {},
   methods: {
-    logout() {
-    }
-  }
-}
+    logout() {},
+  },
+};
 </script>
 
 <style lang="less">
-
-
+.header-avatar {
+  display: inline-flex;
+  .avatar,
+  .name {
+    align-self: center;
+  }
+  .avatar {
+    margin-right: 8px;
+  }
+  .name {
+    font-weight: 500;
+  }
+}
+.avatar-menu {
+  // width: 150px;
+  margin-top: 20px;
+}
 </style>

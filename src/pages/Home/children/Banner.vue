@@ -116,4 +116,8 @@ export default {
 .menuItem a {
   cursor: pointer;
 }
+.navbar-default .navbar-nav > li > a {
+    display: flex;
+    justify-content: center;
+}
 </style>

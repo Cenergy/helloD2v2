@@ -11,7 +11,7 @@ const productionGzipExtensions = ["js", "css"];
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   assetsDir: "assets",
   lintOnSave: true,
@@ -72,18 +72,6 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8,
       }),
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          warnings: false,
-          compress: {
-            drop_console: true,
-            drop_debugger: true, //移除debugger
-            pure_funcs: ["console.log"], //移除console
-          },
-        },
-        sourceMap: false,
-        parallel: true,
-      }),
       new CopyWebpackPlugin([
         {
           from: "CNAME",
@@ -113,6 +101,15 @@ module.exports = {
           },
         },
       },
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              pure_funcs: ['console.log']
+            }
+          }
+        })
+      ]
     },
   },
 };
