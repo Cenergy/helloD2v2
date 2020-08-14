@@ -9,7 +9,7 @@
           'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png'
         "
       />
-      <span class="name">123456</span>
+      <span class="name">{{ userInfo.displayName }}</span>
     </div>
     <a-menu class="avatar-menu" slot="overlay">
       <a-menu-item>
@@ -32,7 +32,29 @@
 <script>
 export default {
   name: "HeaderAvatar",
+  data() {
+    return {
+      username: null,
+      photoURL: "",
+    };
+  },
+  props: {
+    userInfo: {
+      type: Object,
+      default() {
+        return {
+          about: "Hello World.",
+          displayName: "",
+          photoURL: "https://www.aigisss.com/view/static/img/avatar-s-11.1a620230.jpg",
+          status: "online",
+          uid: 0,
+          userRole: "admin",
+        };
+      },
+    },
+  },
   computed: {},
+  mounted() {},
   methods: {
     logout() {},
   },

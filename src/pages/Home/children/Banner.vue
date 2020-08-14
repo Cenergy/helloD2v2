@@ -56,9 +56,15 @@
             <li class="menuItem" :key="index" v-for="(item, index) in nav">
               <a @click.prevent="flyTo(item.to)">{{ item.title }}</a>
             </li>
-            <li class="menuItem">
+            <li class="menuItem" v-if="showLogin">
+              <a @click.prevent="loginTo()">{{ loginParams.title }}</a>
+            </li>
+            <li class="menuItem" v-else>
               <a href="javascript:void(0)">
-                <HeaderAvatar class="header-item"></HeaderAvatar>
+                <HeaderAvatar
+                  class="header-item"
+                  :userInfo="userInfo"
+                ></HeaderAvatar>
               </a>
             </li>
           </ul>
@@ -71,11 +77,26 @@
 <script>
 import HeaderAvatar from "components/content/HeaderAvatar";
 export default {
+  data() {
+    return {
+      userInfo: null,
+      showLogin: true,
+    };
+  },
   props: {
     nav: {
       type: Array,
       default() {
         return [{ title: "这是啥", to: "#whatis" }];
+      },
+    },
+    loginParams: {
+      type: Object,
+      default() {
+        return {
+          title: "登录",
+          to: "https://www.aigisss.com/view/#/login",
+        };
       },
     },
   },
@@ -99,6 +120,10 @@ export default {
         return;
       }
     },
+    loginTo() {
+      const path = this.loginParams.to;
+      window.location = path;
+    },
   },
   mounted() {
     const bannerImg = this.$refs.bannerImg;
@@ -108,6 +133,10 @@ export default {
       $(bannerImg).attr("src", bannerImgPath);
     };
     image.src = bannerImgPath;
+
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    this.userInfo = userInfo;
+    if (Object.keys(userInfo).length) this.showLogin = false;
   },
 };
 </script>
@@ -117,7 +146,7 @@ export default {
   cursor: pointer;
 }
 .navbar-default .navbar-nav > li > a {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 </style>

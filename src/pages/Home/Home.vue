@@ -1,6 +1,6 @@
 <template>
   <div style="height:100%;width:100%;">
-    <Banner :nav="navList" />
+    <Banner :nav="navList" :loginParams="loginParams" />
     <Content />
     <Source />
     <Contact />
@@ -46,7 +46,7 @@ export default {
       news: {
         show: `重要公告：目前已全面升级，欢迎浏览！！`,
         type: "warning",
-        duration: 10000
+        duration: 10000,
       },
       navList: [
         { title: "这是啥", to: "#whatis" },
@@ -54,8 +54,11 @@ export default {
         { title: "资源", to: "#credits" },
         { title: "反馈", to: "#contact" },
         // { title: "关于", to: "/about" },
-        { title: "登录", to: "https://www.aigisss.com/view/#/login" }
-      ]
+      ],
+      loginParams: {
+        title: "登录",
+        to: "https://www.aigisss.com/view/#/login",
+      },
     };
   },
   methods: {},
@@ -64,8 +67,8 @@ export default {
     Content,
     Source,
     Contact,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
 
