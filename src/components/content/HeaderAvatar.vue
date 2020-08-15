@@ -45,7 +45,8 @@ export default {
         return {
           about: "Hello World.",
           displayName: "",
-          photoURL: "https://www.aigisss.com/view/static/img/avatar-s-11.1a620230.jpg",
+          photoURL:
+            "https://www.aigisss.com/view/static/img/avatar-s-11.1a620230.jpg",
           status: "online",
           uid: 0,
           userRole: "admin",
@@ -56,7 +57,16 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    logout() {},
+    logout() {
+      if (localStorage.getItem("accessToken")) {
+        localStorage.removeItem("accessToken");
+        this.$router.push("/pages/login").catch(() => {});
+      }
+      localStorage.removeItem("userInfo");
+
+      // This is just for demo Purpose. If user clicks on logout -> redirect
+      this.$router.push("/").catch(() => {});
+    },
   },
 };
 </script>
