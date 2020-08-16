@@ -64,6 +64,7 @@
                 <HeaderAvatar
                   class="header-item"
                   :userInfo="userInfo"
+                  @logout="logout"
                 ></HeaderAvatar>
               </a>
             </li>
@@ -122,7 +123,18 @@ export default {
     },
     loginTo() {
       const path = this.loginParams.to;
-      window.location = path;
+      const { origin } = window;
+      const path2 = `${path}?to=${origin}`;
+      window.location = path2;
+    },
+    logout(data) {
+      this.showLogin = true;
+      this.userInfo = null;
+      if (localStorage.getItem("accessToken")) {
+        localStorage.removeItem("accessToken");
+        this.$router.push("/").catch(() => {});
+      }
+      localStorage.removeItem("userInfo");
     },
   },
   mounted() {

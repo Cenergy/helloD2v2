@@ -58,14 +58,9 @@ export default {
   mounted() {},
   methods: {
     logout() {
-      if (localStorage.getItem("accessToken")) {
-        localStorage.removeItem("accessToken");
-        this.$router.push("/pages/login").catch(() => {});
-      }
-      localStorage.removeItem("userInfo");
-
       // This is just for demo Purpose. If user clicks on logout -> redirect
-      this.$router.push("/").catch(() => {});
+      // this.$router.push("/").catch(() => {});
+      this.$emit("logout", "logout");
     },
   },
 };
