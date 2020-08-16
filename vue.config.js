@@ -72,12 +72,12 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8,
       }),
-      new CopyWebpackPlugin([
-        {
-          from: "CNAME",
-          to: "../dist/",
-        },
-      ]),
+      // new CopyWebpackPlugin([
+      //   {
+      //     from: "CNAME",
+      //     to: "../dist/",
+      //   },
+      // ]),
       // new BundleAnalyzerPlugin()
     ],
     optimization: {
