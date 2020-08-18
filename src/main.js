@@ -47,6 +47,7 @@ Vue.component(Menu.Divider.name, Menu.Divider);
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);
+Vue.use(Modal)
 
 Vue.config.productionTip = false;
 Vue.prototype.$message = Message;
