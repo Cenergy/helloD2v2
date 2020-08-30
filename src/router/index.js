@@ -17,7 +17,7 @@ const router = new Router({
       component: () => import("pages/Home/Home"),
       meta: {
         keepAlive: true,
-        title: "首页"
+        title: "爱即是诗"
       }
     },
     {

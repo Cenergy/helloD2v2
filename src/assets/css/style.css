@@ -4547,7 +4547,7 @@ footer p {
   color: #fff;
   margin-left: 42px;
   /*min-height: 316px;*/
-  padding: 0 30px 20px;
+  padding: 0 30px 10px;
 }
 .footer-banner .footer-title {
   color: #ffffff;
@@ -4561,7 +4561,7 @@ footer p {
 }
 .footer-banner ul {
   list-style-type: none;
-  margin: 0 0 26px;
+  /* margin: 0 0 26px; */
   padding: 0;
 }
 .footer-banner ul li {

@@ -10,10 +10,10 @@
             </p>
 
             <!-- LICENSE -->
-            <div style="text-align:center;" class="col-sm-12 col-xs-12 col-md-12">
+            <!-- <div style="text-align:center;" class="col-sm-12 col-xs-12 col-md-12">
               <span>©2019 爱即是诗版权所有</span>
               <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
-            </div>
+            </div> -->
           </div>
           <!-- /col-xs-7 -->
 
@@ -23,10 +23,14 @@
               <ul>
                 <li>地理信息</li>
                 <li>空间智能</li>
-                <li>AI/爱GIS</li>
+                <li>AI/GIS/诗</li>
               </ul>
             </div>
           </div>
+        </div>
+        <div style="text-align:center; margin:1rem" class="col-sm-12 col-xs-12 col-md-12">
+          <span>©2019 爱即是诗版权所有 </span>
+          <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
         </div>
       </div>
     </footer>

@@ -66,20 +66,23 @@
     </div>
     <div id="downloadlink" class="banner">
       <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center wrap_title">
-            <h2>关注一下</h2>
-            <p class="lead" style="margin-top:0">我的公众号</p>
-            <p>
+        <div class="row text-center wrap_title">
+          <h2>求关注</h2>
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="lead">公众号</p>
               <img src="~assets/img/qrcode_for_weixin.jpg" alt style />
-            </p>
+            </div>
+            <div class="col-sm-6">
+              <p class="lead">小程序</p>
+              <img src="~assets/img/qrcode_for_weixin.jpg" alt style />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-
-     <div class="modal">
+    <div class="modal">
       <a-modal
         title="资源集合"
         centered
@@ -91,8 +94,6 @@
         <SourcesList :sourcesList="sourcesData"></SourcesList>
       </a-modal>
     </div>
-
-    
   </div>
 </template>
 <script>

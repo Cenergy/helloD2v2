@@ -49,7 +49,7 @@ export default {
         duration: 10000,
       },
       navList: [
-        { title: "这是啥", to: "#whatis" },
+        { title: "工具", to: "#whatis" },
         { title: "博客", to: "#blog" },
         { title: "资源", to: "#credits" },
         { title: "反馈", to: "#contact" },

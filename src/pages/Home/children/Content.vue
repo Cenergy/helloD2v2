@@ -3,8 +3,8 @@
     <div id="whatis" class="content-section-b" style="border-top: 0">
       <div class="container">
         <div class="col-md-6 col-md-offset-3 text-center wrap_title">
-          <h2>这是什么?</h2>
-          <p class="lead" style="margin-top:0">这是一个关于AI和GIS的地方</p>
+          <h2>工具</h2>
+          <p class="lead" style="margin-top:0">一些便捷的小工具</p>
         </div>
 
         <div class="row">

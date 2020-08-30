@@ -3,8 +3,8 @@
     <div class="intro-header">
       <div class="col-xs-12 text-center abcen1">
         <h1 class="h1_home wow fadeIn" data-wow-delay="0.4s">AIGISSS</h1>
-        <h4 class="h4_home wow fadeIn" data-wow-delay="0.5s">爱即是诗</h4>
-        <h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">AI & GIS</h3>
+        <!-- <h4 class="h4_home wow fadeIn" data-wow-delay="0.5s"></h4> -->
+        <h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">爱即是诗 , 一个关于 AI & GIS 的网站</h3>
 
         <!-- <ul class="list-inline intro-social-buttons">
             <li><a href="https://twitter.com/galantiandrea" class="btn  btn-lg mybutton_cyano wow fadeIn" data-wow-delay="0.8s"><span class="network-name">Twitter</span></a>
