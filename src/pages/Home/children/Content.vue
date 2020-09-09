@@ -10,10 +10,10 @@
         <div class="row">
           <div class="col-sm-4 wow fadeInDown text-center">
             <img class="rotate" src="~assets/img/icon/laptop.svg" alt="Generic placeholder image" />
-            <h3>机器学习</h3>
+            <h3>GLSL在线调试</h3>
             <p class="lead">
-              Epsum factorial non deposit quid pro quo hic escorol. Olypian
-              quarrels et gorilla congolium sic ad nauseum.
+              有一些GLSL例子,并且支持在线调试!!
+               <a-button type="primary" icon="global"  @click="enterGLSL">试一试</a-button>
             </p>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
@@ -105,7 +105,7 @@
 <script>
 import ImageToWord from "components/content/ImageToWord";
 import ImageToExcel from "components/content/ImageToExcel";
-import { uploadImgURL, BLOG_URL, MAP_URL, BASE_URL } from "common/constants";
+import { uploadImgURL, BLOG_URL, MAP_URL, BASE_URL,GLSL_URL } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
 export default {
   components: {
@@ -121,6 +121,9 @@ export default {
   methods: {
     enterBlog() {
       window.location = BLOG_URL;
+    },
+    enterGLSL() {
+      window.location = GLSL_URL;
     },
     enterMap() {
       window.location = MAP_URL;

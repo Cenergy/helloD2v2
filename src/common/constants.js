@@ -11,6 +11,7 @@ export const BASE_URL = baseURL;
 export const uploadImgURL = `${baseURL}/ais/upload/`;
 export const BLOG_URL = "/blog/";
 export const MAP_URL = "/view/";
+export const GLSL_URL = "/glsl/";
 
 export const FRIEND_LINKS = [
   {
