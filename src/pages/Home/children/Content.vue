@@ -13,8 +13,8 @@
             <h3>GLSL在线调试</h3>
             <p class="lead">
               有一些GLSL例子,并且支持在线调试!!
-               <a-button type="primary" icon="global"  @click="enterGLSL">试一试</a-button>
             </p>
+            <a-button type="primary" icon="global"  @click="enterGLSL">试一试</a-button>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
           </div>
           <!-- /.col-lg-4 -->

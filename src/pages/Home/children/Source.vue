@@ -75,7 +75,7 @@
             </div>
             <div class="col-sm-6">
               <p class="lead">小程序</p>
-              <img src="~assets/img/qrcode_for_weixin.jpg" alt style />
+              <img src="~assets/img/small_applets.jpg" alt style />
             </div>
           </div>
         </div>
