@@ -6,6 +6,7 @@ import store from "./store";
 import router from "./router";
 
 import $ from "jquery";
+import Public from './assets/css/public.css';
 
 import {
   Button,
@@ -52,6 +53,9 @@ Vue.use(Modal)
 Vue.config.productionTip = false;
 Vue.prototype.$message = Message;
 // 引入echarts
+
+// 使用公共样式
+Vue.use(Public);
 
 window.$ = $;
 

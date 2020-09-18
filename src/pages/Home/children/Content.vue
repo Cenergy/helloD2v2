@@ -10,9 +10,9 @@
         <div class="row">
           <div class="col-sm-4 wow fadeInDown text-center">
             <img class="rotate" src="~assets/img/icon/laptop.svg" alt="Generic placeholder image" />
-            <h3>GLSL在线调试</h3>
+            <h3>在线GLSL</h3>
             <p class="lead">
-              有一些GLSL例子,并且支持在线调试!!
+              有一些GLSL例子,并且支持在线编辑并看效果!!
             </p>
             <a-button type="primary" icon="global"  @click="enterGLSL">试一试</a-button>
             <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
