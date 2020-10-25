@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sources">
     <div id="credits" class="content-section-a">
       <div class="container">
         <div class="row">
@@ -65,9 +65,8 @@
       </div>
     </div>
     <div id="downloadlink" class="banner">
-      <div class="container">
-        <div class="row text-center wrap_title">
-          <h2>求关注</h2>
+      <div class="container text-center wrap_title">
+        <h2>求关注</h2>
           <div class="row">
             <div class="col-sm-6">
               <p class="lead">公众号</p>
@@ -78,7 +77,6 @@
               <img src="~assets/img/small_applets.jpg" alt style />
             </div>
           </div>
-        </div>
       </div>
     </div>
 
