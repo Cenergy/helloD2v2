@@ -1948,6 +1948,8 @@ fieldset[disabled] .input-group-btn .btn-default.active {
     margin-bottom: 3px;
   }
 }
+
+/* 移动端左移时出现白条 */
 /* .container > .navbar-header,
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
