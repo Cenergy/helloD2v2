@@ -5,15 +5,18 @@
         <div class="row">
           <div class="col-md-7">
             <h3 class="footer-title">我是有底线的!!</h3>
-            <p v-for="(value,index) in links" class="col-sm-6 col-xs-6 col-md-4" :key="index">
+            <!-- <p v-for="(value,index) in links" class="col-sm-6 col-xs-6 col-md-4" :key="index">
               <a :href="value.url" :title="value.name" target="_blank">{{value.name}}</a>
-            </p>
+            </p>-->
+            <h3 class="footer-title">
+              <a href="http://www.aigisss.com/blog/links/" title="友情链接" target="_blank">友情链接>>></a>
+            </h3>
 
             <!-- LICENSE -->
             <!-- <div style="text-align:center;" class="col-sm-12 col-xs-12 col-md-12">
               <span>©2019 爱即是诗版权所有</span>
               <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
-            </div> -->
+            </div>-->
           </div>
           <!-- /col-xs-7 -->
 
@@ -29,7 +32,7 @@
           </div>
         </div>
         <div style="text-align:center; margin:1rem" class="col-sm-12 col-xs-12 col-md-12">
-          <span>©2019 爱即是诗版权所有 </span>
+          <span>©2019 爱即是诗版权所有</span>
           <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
         </div>
       </div>
