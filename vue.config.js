@@ -16,6 +16,7 @@ module.exports = {
   assetsDir: "assets",
   lintOnSave: true,
   productionSourceMap: false,
+  devServer,
   css: {
     extract: false, // Error: No module factory available for dependency type: CssDependency
     loaderOptions: {

@@ -1,14 +1,31 @@
 module.exports = {
   port: 8080,
+  hot: true,
   proxy: {
     // 地图api，gis-mapbox库
     "/apis": {
-      target: "http://127.0.0.1:8000",
+      target: "https://api.aigisss.com",
       changeOrigin: true,
       ws: false,
+      secure: false, // https协议才设置
       pathRewrite: {
-        "^/apis": ""
+        "^/apis": "/",
+      },
+      headers: {
+        Referer: 'https://api.aigisss.com'
       }
-    }
-  }
+    },
+    "/media": {
+      target: "https://api.aigisss.com",
+      changeOrigin: true,
+      ws: false,
+      secure: false, // https协议才设置
+      pathRewrite: {
+        "^/media": "/media",
+      },
+      headers: {
+        Referer: 'https://api.aigisss.com'
+      }
+    },
+  },
 };

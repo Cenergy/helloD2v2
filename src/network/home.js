@@ -21,7 +21,7 @@ export function getHomeData(type, page) {
 
 export function uploadImage(img) {
   return request({
-    url: "/ais/imgupload/",
+    url: "/api/imgupload/",
     method: "post",
     data: { stick_img: img }
   });
@@ -29,33 +29,33 @@ export function uploadImage(img) {
 
 export function getImgConvertWord(id) {
   return request({
-    url: "/ais/img2words/",
+    url: "/api/img2words/",
     params: { id }
   });
 }
 export function getImgConvertExcel(id) {
   return request({
-    url: "/ais/img2excel/",
+    url: "/api/img2excel/",
     params: { id }
   });
 }
 export function deleteOriginImg(id) {
   return request({
-    url: "/ais/img2words/",
+    url: "/api/img2words/",
     method: "delete",
     params: { id }
   });
 }
 export function deleteOriginExcelImg(id) {
   return request({
-    url: "/ais/img2excel/",
+    url: "/api/img2excel/",
     method: "delete",
     params: { id }
   });
 }
 export function getSources(type) {
   return request({
-    url: "/api/v1/resources/",
+    url: "/resources/resources/",
     params: {
       question_type: type
     }
@@ -64,7 +64,7 @@ export function getSources(type) {
 export function setSuggest(options) {
   const { suggest_email, suggest_user, suggest_message } = options;
   return request({
-    url: "/api/v1/suggestions/",
+    url: "/api/suggestions/",
     method: "post",
     data: {
       suggest_email,
