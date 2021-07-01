@@ -106,7 +106,7 @@ export default {
       const result = await getImgConvertWord(imgUuid);
       messageBox.close();
       this.centerDialogVisible = true;
-      this.src = `${BASE_URL}${result.data.img_path}`;
+      this.src = `${result.data.img_path}`;
       this.recognition_result = result.data.vector_words;
     },
     closeD() {
@@ -160,7 +160,7 @@ export default {
         const result = await getImgConvertWord(imgUuid);
         messageBox();
         this.modal2Visible = true;
-        this.src = `${BASE_URL}${result.data.img_path}`;
+        this.src = `${result.data.img_path}`;
         this.recognition_result = result.data.vector_words;
       } else if (status === "error") {
         this.$message.error(`${info.file.name} 上传失败.`);
