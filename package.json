@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "hexo": {
-    "version": "4.2.1"
+    "version": "5.4.0"
   },
   "dependencies": {
     "ant-design-vue": "^1.6.4",
