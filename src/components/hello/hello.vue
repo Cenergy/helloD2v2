@@ -1,37 +1,43 @@
 <template>
-  <div>
-    <el-button @click="decrement">减小</el-button>
-    <el-button type="primary" @click="increment">增加</el-button>
-    <el-button type="text" @click="asyncMethod">先增加后减小</el-button>
-    <p>当前数字为：{{count}}</p>
-    <router-link to="/world">world</router-link>
-    <haha></haha>
+  <div class="about">
+    <h1>This is an about page</h1>
+    <h3>{{ msg }}</h3>
+    <button ref="btn" @click="clickHandler">button</button>
   </div>
 </template>
-
 <script>
-import { mapActions, mapGetters } from "vuex";
-import worlds from "../world/world.vue";
-import haha from "./haha.vue";
-
 export default {
+  props: {
+    msg: {
+      required: true,
+      type: String,
+    },
+  },
   data() {
+    let url =
+      "http://bj.bcebos.com/v1/ai-edgecloud/F0D2BA5B8C1445A4953E53C685872C32.xls?authorization=bce-auth-v1%2Fd9272b4e9a38476db4470c2714e1339a%2F2021-05-25T06%3A41%3A26Z%2F172800%2F%2Fd0436d22696d20fdef7163a5f5fa0716854d8362293107a4869e6ea1cefd50f9";
+
     return {
-      msg: "HelloWorld"
+      url,
+      newTab: null,
     };
   },
-  computed: {
-    ...mapGetters(["count"])
-  },
+  mounted() {},
   methods: {
-    ...mapActions(["increment", "decrement", "asyncMethod"])
+    clickHandler() {
+      this.newTab = window.open("about:blank");
+      let $ajax = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+      $ajax.then(() => {
+        this.newTab.location.href = this.url;
+        setTimeout(() => {
+          this.newTab = null;
+        }, 1);
+      });
+    },
   },
-  components: {
-    worlds,
-    haha
-  }
 };
 </script>
-
-<style>
-</style>

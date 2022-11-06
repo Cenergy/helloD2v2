@@ -21,13 +21,16 @@
         width="95%"
       >
         <template slot="footer">
-          <a-button  @click="excelDownload">下载</a-button>
-          <a-button
-            type="primary"
-             @click="cancel"
-          >
-            确定
-          </a-button>
+          <div>
+            <a-button
+              @click="excelDownload"
+              download
+              :href="proxyURL"
+              style="margin: 2px"
+              >下载</a-button
+            >
+            <a-button type="primary" @click="cancel"> 确定 </a-button>
+          </div>
         </template>
         <div class="modalCard">
           <a-row :gutter="[16, 16]">
@@ -38,7 +41,7 @@
                   alt=""
                   width="100%"
                   height="100%"
-                  style="max-height:60vh;object-fit:contain"
+                  style="max-height: 60vh; object-fit: contain"
                 />
               </a-card>
             </a-col>
@@ -71,6 +74,7 @@ export default {
       excelCount: this.$store.state.count,
       excelURL: "",
       modal2Visible: false,
+      proxyURL: "",
     };
   },
   methods: {
@@ -83,9 +87,14 @@ export default {
       this.recognition_result = "";
       deleteOriginExcelImg(this.handleImgId);
     },
-    excelDownload(){
-      window.location.href=this.excelURL
+    excelDownload() {
+      const proxyURL = this.excelURL.replace(
+        "http://bj.bcebos.com/v1",
+        "https://bj.bcebos.com/v1"
+      );
+      this.proxyURL = proxyURL;
     },
+
     async handleChange(info) {
       const status = info.file.status;
 
@@ -114,9 +123,10 @@ export default {
         const result = await getImgConvertExcel(imgUuid);
         messageBox();
         if (result.code === 200) {
+          console.log("rdapp - handleChange - result", result);
           this.modal2Visible = true;
-          this.src = `${BASE_URL}${result.data.imgpath}`;
-          this.excelURL = `${BASE_URL}${result.data.excelpath}`;
+          this.src = `${result.data.img_path}`;
+          this.excelURL = `${result.data.excel_url}`;
           this.recognition_result = result.data.excel_html;
           return;
         }
@@ -193,5 +203,27 @@ export default {
   background-color: #409eff;
   border-color: #409eff;
   margin: 0 10px;
+}
+</style>
+
+<style>
+.reg-img-excel-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.reg-img-excel-table th,
+.reg-img-excel-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.reg-img-excel-table thead th {
+  background-color: #4caf50;
+  color: white;
+}
+/* tr:hover {background-color:#f5f5f5;} */
+.reg-img-excel-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 </style>
