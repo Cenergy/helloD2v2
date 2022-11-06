@@ -12,11 +12,11 @@ module.exports = {
         "^/apis": "/",
       },
       // headers: {
-      //   Referer: 'https://api.aigisss.com'
+      //   Referer: 'https://api.gishai.top'
       // }
     },
     "/media": {
-      target: "https://api.aigisss.com/media",
+      target: "https://api.gishai.top/media",
       changeOrigin: true,
       ws: false,
       secure: false, // https协议才设置
@@ -24,11 +24,11 @@ module.exports = {
         "^/media": "/media",
       },
       headers: {
-        Referer: 'https://api.aigisss.com'
+        Referer: 'https://api.gishai.top'
       }
     },
     "/static": {
-      target: "https://api.aigisss.com/static",
+      target: "https://api.gishai.top/static",
       changeOrigin: true,
       ws: false,
       secure: false, // https协议才设置
@@ -36,7 +36,7 @@ module.exports = {
         "^/static": "/static",
       },
       headers: {
-        Referer: 'https://api.aigisss.com'
+        Referer: 'https://api.gishai.top'
       }
     },
   },
