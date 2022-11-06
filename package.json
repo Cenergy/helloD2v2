@@ -46,7 +46,7 @@
     "compression-webpack-plugin": "^5.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "image-webpack-loader": "^6.0.0",
+    "image-webpack-loader": "^8.1.0",
     "less": "^4.1.1",
     "less-loader": "^6.2.0",
     "terser-webpack-plugin": "^4.1.0",

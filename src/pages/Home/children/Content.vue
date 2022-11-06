@@ -152,7 +152,6 @@ import {
 } from "common/constants";
 import { getImgConvertWord, deleteOriginImg } from "network/home";
 
-import download from "downloadjs";
 export default {
   components: {
     ImageToWord,
