@@ -9,7 +9,7 @@
               <a :href="value.url" :title="value.name" target="_blank">{{value.name}}</a>
             </p>-->
             <h3 class="footer-title">
-              <a href="http://www.aigisss.com/blog/links/" title="友情链接" target="_blank">友情链接>>></a>
+              <a href="http://www.gishai.top/blog/links/" title="友情链接" target="_blank">友情链接>>></a>
             </h3>
 
             <!-- LICENSE -->

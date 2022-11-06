@@ -46,7 +46,7 @@ export default {
           about: "Hello World.",
           displayName: "",
           photoURL:
-            "https://www.aigisss.com/view/static/img/avatar-s-11.1a620230.jpg",
+            "https://www.gishai.top/view/static/img/avatar-s-11.1a620230.jpg",
           status: "online",
           uid: 0,
           userRole: "admin",

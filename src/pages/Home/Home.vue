@@ -57,7 +57,7 @@ export default {
       ],
       loginParams: {
         title: "登录",
-        to: "https://www.aigisss.com/view/#/login",
+        to: "https://www.gishai.top/view/#/login",
       },
     };
   },

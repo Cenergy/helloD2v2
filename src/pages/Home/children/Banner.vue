@@ -96,7 +96,7 @@ export default {
       default() {
         return {
           title: "登录",
-          to: "https://www.aigisss.com/view/#/login",
+          to: "https://www.gishai.top/view/#/login",
         };
       },
     },
