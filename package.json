@@ -38,9 +38,9 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^3.1.1",
-    "@vue/cli-service": "^3.12.1",
+    "@vue/cli-service": "^5.0.8",
     "babel-eslint": "^10.0.3",
     "babel-plugin-import": "^1.13.0",
     "compression-webpack-plugin": "^5.0.1",
@@ -52,7 +52,7 @@
     "terser-webpack-plugin": "^4.1.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.41.3",
-    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "^3.3.10"
   },
   "eslintConfig": {
