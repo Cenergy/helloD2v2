@@ -5,6 +5,6 @@ deploy:
   type: git
   repo:
     # github: https://github.com/Cenergy/cenergy.github.io.git
-    # coding: https://e.coding.net/aigis/aigisss.git
-    aigisss: root@aigisss:/home/git/aigisss
+    # coding: https://e.coding.net/aigis/GISHAI.git
+    GISHAI: root@GISHAI:/home/git/aigisss
   branch: master
