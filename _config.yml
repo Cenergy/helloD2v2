@@ -6,5 +6,5 @@ deploy:
   repo:
     # github: https://github.com/Cenergy/cenergy.github.io.git
     # coding: https://e.coding.net/aigis/GISHAI.git
-    GISHAI: root@GISHAI:/home/git/aigisss
+    GISHAI: root@122.51.49.230:/home/git/aigisss
   branch: master

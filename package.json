@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "deploy": "hexo deploy",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "addRemote": "git remote add gishai root@122.51.49.230:/home/git/aigisss",
+    "pushRemote": "git push --all gishai"
   },
   "hexo": {
     "version": "5.4.2"

@@ -15,7 +15,7 @@
             <!-- LICENSE -->
             <!-- <div style="text-align:center;" class="col-sm-12 col-xs-12 col-md-12">
               <span>©2019 及时嗨版权所有</span>
-              <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338号</a>
+              <a rel="license" href="https://beian.miit.gov.cn/">赣ICP备18013338号</a>
             </div>-->
           </div>
           <!-- /col-xs-7 -->
@@ -33,7 +33,7 @@
         </div>
         <div style="text-align:center; margin:1rem" class="col-sm-12 col-xs-12 col-md-12">
           <span>©2019-2024 及时嗨版权所有</span>
-          <a rel="license" href="http://www.miitbeian.gov.cn/">赣ICP备18013338-2号</a>
+          <a rel="license" href="https://beian.miit.gov.cn/">赣ICP备18013338-2号</a>
         </div>
       </div>
     </footer>
